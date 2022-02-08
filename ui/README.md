@@ -1,1 +1,1 @@
-# Ui delen av prosjektet
+# Ui part of project
