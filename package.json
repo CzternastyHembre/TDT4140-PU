@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "postinstall": "cd client && npm install && cd ..",
-        "build": "npm install && cd client && npm run build",
-        "test": "npm install && cd client && npm run test:unit && npm run test:e2e:headless",
-        "lint": "cd client && npm run lint"
+        "build": "npm install && (cd client && npm run build)",
+        "test": "npm install && (cd client && npm run test:unit && npm run test:e2e:headless)",
+        "lint": "npm install && (cd client && npm run lint)"
     },
     "repository": {
         "type": "git",
