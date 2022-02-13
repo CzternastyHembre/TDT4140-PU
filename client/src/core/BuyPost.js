@@ -5,16 +5,15 @@ export class BuyPost {
     dateAndTime;
 
     /**
-     *
+     * @constructs BuyPost
      * @param {User} user
-     * @param {str} eventName
-     * @param {str} eventType
-     * @param {str} dateAndTime
+     * @param {string} eventName
+     * @param {string} eventType
+     * @param {Date} dateAndTime
      */
     constructor(user, eventName, eventType, dateAndTime) {
         if (!(user || eventName || eventName || dateAndTime)) {
-            console.error("Not all fields were instanciated");
-            return;
+            throw "All fields must be instanciated";
         }
         this.user = user;
         this.eventName = eventName;
@@ -27,7 +26,7 @@ export class BuyPost {
     }
 
     /**
-     * @param {any} user
+     * @param {User} user
      */
     set user(user) {
         //if (!user instanceof User) return;
@@ -39,18 +38,29 @@ export class BuyPost {
     }
 
     /**
-     * @param {any} eventName
+     * @param {string} eventName
      */
     set eventName(eventName) {
         this.eventName = eventName;
     }
 
-    get dateAndTime() {
-        return this.ateAndTime;
+    get eventType() {
+        return this.eventType;
     }
 
     /**
-     * @param {any} dateAndTime
+     * @param {string} eventType
+     */
+    set eventType(eventType) {
+        this.eventType = eventType;
+    }
+
+    get dateAndTime() {
+        return this.dateAndTime;
+    }
+
+    /**
+     * @param {Date} dateAndTime
      */
     set dateAndTime(dateAndTime) {
         this.dateAndTime = dateAndTime;
