@@ -1,25 +1,24 @@
 <template>
-  <h1> Logg inn eller registrer deg! </h1>
-    Username:
-    <input type="text" name="Brukernavn" id="Username" placeholder="Write your username here"><br>
-    Password:
-    <input type="text" name="Passord" id="Password" placeholder="Enter your password here"><br><br>
-  <button>Login</button>
-  
-<br>
-<br>
- 
-    First name:
+<div class="SignUpForm">
+ <h1> Sign up to your new account </h1>
+ <form>
+  <label for="FirstName">First name:</label><br>
   <input type="text" name="First Name" id="FirstName" placeholder="Enter your first name here"><br>
-  Surname:
+  <label for="Surname"> Surname:</label><br>
   <input type="text" name="Surname" id="Surname" placeholder="Enter your surname here"><br>
-  Birthday:
-  <input type="date" name="Birthday" id="Birthday"><br><br>
-  <button>Sign Up</button><br>
+  <label for="Birthday">Birthday:</label><br>
+  <input type="date" name="Birthday" id="Birthday"><br>
+  <label for="Password1">Password:</label><br>
+  <input type="password" name="Password1" id="Password1"><br>
+  <label for="Password2">Confirm password:</label><br>
+  <input type="password" name="Password2" id="Password2">
+  <br><br>
+  <input type="submit" value="Register">
+</form>
  
-  
 
 
+</div>
 </template>
 
 <script>
