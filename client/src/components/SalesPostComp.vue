@@ -4,7 +4,7 @@
     <p>Event name: {{ post.eventName }}</p>
     <p>Event Type: {{ post.eventType }}</p>
     <p>Date: {{ new Date(post.dateAndTime).toISOString() }}</p>
-    <p>Price: {{ post.price }}kr</p>
+    <p v-if="post.price">Price: {{ post.price }}kr</p>
   </div>
 </template>
 

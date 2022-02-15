@@ -4,6 +4,7 @@
     <div class="navButtons">
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
+      <router-link to="/createpost">Create Post</router-link>
     </div>
     <div class="login">Login</div>
   </div>

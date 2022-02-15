@@ -16,7 +16,11 @@ export default createStore({
       return state.posts[index];
     },
   },
-  mutations: {},
+  mutations: {
+    addPost(state, post) {
+      state.posts.push(post);
+    },
+  },
   actions: {},
   modules: {},
 });
