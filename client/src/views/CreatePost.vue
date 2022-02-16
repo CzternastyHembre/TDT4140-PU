@@ -1,16 +1,33 @@
 <template>
   <div class="postForm">
     <form action="">
-      <input type="text" placeholder="Name of event" v-model="eventName" />
+      <input
+        type="text"
+        name="nameEvent"
+        placeholder="Name of event"
+        v-model="eventName"
+      />
       <br />
-      <input type="text" placeholder="Type of event" v-model="eventType" />
+      <input
+        type="text"
+        name="typeEvent"
+        placeholder="Type of event"
+        v-model="eventType"
+      />
       <br />
-      <input type="datetime-local" v-model="eventDate" /> <br />
+      <input type="datetime-local" name="dateEvent" v-model="eventDate" />
+      <br />
       <span>Create a sales post?</span>
-      <input type="checkbox" name="isBuypost" id="" v-model="isSalesPost" />
+      <input
+        type="checkbox"
+        name="buypostCheckbox"
+        id=""
+        v-model="isSalesPost"
+      />
       <br />
       <input
         type="number"
+        name="priceEvent"
         placeholder="price"
         :class="[isSalesPost ? 'shownInput' : 'hiddenInput']"
         v-model="eventPrice"

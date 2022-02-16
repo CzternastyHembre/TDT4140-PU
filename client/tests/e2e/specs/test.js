@@ -6,3 +6,46 @@ describe("My First Test", () => {
     cy.contains("h1", "Posts");
   });
 });
+
+describe("Post a buy post", () => {
+  const dateTest = "2023-02-16T15:00";
+  it("Posts a post", () => {
+    cy.visit("/");
+    cy.get("a[href='/createpost']").click();
+    cy.get("form").within(() => {
+      cy.get('input[name="nameEvent"]').type("TestPost");
+      cy.get('input[name="typeEvent"]').type("TestPostEvent");
+      cy.get('input[name="dateEvent"]').type(dateTest);
+      cy.get('button[type="submit"]').click();
+    });
+    cy.get("a[href='/']").click();
+    cy.get(".posts").within(() => {
+      cy.contains("TestPost");
+      cy.contains("TestPostEvent");
+      cy.contains(new Date(dateTest).toISOString());
+    });
+  });
+});
+
+describe("Post a sale post", () => {
+  const dateTest = "2023-02-16T15:00";
+  it("Posts a post", () => {
+    cy.visit("/");
+    cy.get("a[href='/createpost']").click();
+    cy.get("form").within(() => {
+      cy.get('input[name="nameEvent"]').type("TestPost");
+      cy.get('input[name="typeEvent"]').type("TestPostEvent");
+      cy.get('input[name="dateEvent"]').type(dateTest);
+      cy.get('input[name="buypostCheckbox"]').click();
+      cy.get('input[name="priceEvent"]').type(10323);
+      cy.get('button[type="submit"]').click();
+    });
+    cy.get("a[href='/']").click();
+    cy.get(".posts").within(() => {
+      cy.contains("TestPost");
+      cy.contains("TestPostEvent");
+      cy.contains(new Date(dateTest).toISOString());
+      cy.contains("10323kr");
+    });
+  });
+});
