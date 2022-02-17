@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import SalesPost from "../core/SalesPost";
+import User from "../core/User";
 
 export default createStore({
   state: {
@@ -10,6 +11,16 @@ export default createStore({
       new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e7, 40),
       new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e6, 40),
     ],
+    users: [
+      new User("stianjsu", "Stian123", "Stian", "Sulebak", "Kul person"),
+      new User("mattish", "Mattis123", "Mattis", "Hembre", "Minst kul person"),
+      new User("vetlestor", "Vetle123", "Vetle", "Storvik", "Passe kul person"),
+      new User("jshjelse", "Jakob123", "Jakob", "Hjelseth", "Kulere person"),
+      new User("hansgun", "Hans123", "Hans", "Gunleik", "Ok kul person"),
+      new User("ylvarf", "Ylva123", "Ylva", "Fossan", "Kulest person"),
+      new User("saraost", "Sara123", "Sara", "Østdahl", "Designer person"),
+    ],
+    activeUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -25,7 +36,10 @@ export default createStore({
         }
         return a.dateAndTime - b.dateAndTime;
       });
-      console.log(state.posts);
+    },
+    setActiveUser(state, userName) {
+      state.activeUser = userName;
+      console.log(`User ${userName} was logged in`);
     },
   },
   actions: {},

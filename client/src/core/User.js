@@ -1,4 +1,4 @@
-export class User {
+export default class User {
   userName;
   password;
   firstName;
@@ -20,7 +20,7 @@ export class User {
   numbers = "0123456789";
 
   validLength(logIn) {
-    if (logIn.length < 6) {
+    if (logIn.length < 1) {
       throw new Error("Username has to be longer than 6 characters.");
     }
     if (logIn.length > 12) {
@@ -32,17 +32,17 @@ export class User {
   validUserName(logIn) {
     if (this.validLength(logIn)) {
       for (let i = 0; i < 4; i++) {
-        if (logIn.charAt(i).value.match(this.regEx)) {
+        if (logIn.charAt(i).match(this.regEx)) {
           return true;
         } else {
-          alert("Four first characters need to be letters!");
+          console.log("Four first characters need to be letters!");
         }
       }
       for (let i = 0; i < logIn.length(); i++) {
-        if (!logIn.charAt(i).value.match(this.specEx)) {
+        if (!logIn.charAt(i).match(this.specEx)) {
           return true;
         } else {
-          alert("Username cannot include [ ] { } ( )  ^ $ . | ? * +");
+          console.log("Username cannot include [ ] { } ( )  ^ $ . | ? * +");
         }
       }
     }
@@ -53,36 +53,36 @@ export class User {
     let k = 0;
     let l = 0;
     if (this.validLength(logIn)) {
-      for (let i = 0; i < logIn.length(); i++) {
-        if (logIn.charAt(i).value.match(this.numbers)) {
+      for (let i = 0; i < logIn.length; i++) {
+        if (logIn.charAt(i).match(this.numbers)) {
           k += 1;
         } else {
-          if (logIn.charAt(i).value.match(this.regEx)) {
+          if (logIn.charAt(i).match(this.regEx)) {
             l += 1;
           }
         }
       }
     }
-    if (k + l != logIn.length()) {
-      alert("The password must include both numbers and letters.");
+    if (k + l != logIn.length) {
+      console.log("The password must include both numbers and letters.");
     }
     if (k < 1) {
-      alert("Must be at least one number.");
+      console.log("Must be at least one number.");
     }
     if (l < 1) {
-      alert("Must be at least one letter.");
+      console.log("Must be at least one letter.");
     }
     return true;
   }
 
   validLetters(word) {
-    for (let i = 0; i < word.length(); i++) {
-      if (!word.charAt(i).value.match(this.regEx)) {
-        alert("Can only include letters.");
+    for (let i = 0; i < word.length; i++) {
+      if (!word.charAt(i).match(this.regEx)) {
+        console.log("Can only include letters.");
       }
     }
-    if (!word.charAt(0).value.match(this.capsLock)) {
-      alert("First letter must be a capital letter.");
+    if (!word.charAt(0).match(this.capsLock)) {
+      console.log("First letter must be a capital letter.");
     }
     return true;
   }
