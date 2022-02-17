@@ -1,18 +1,15 @@
 {
-    "name": "billettmester",
-    "version": "1.0.0",
-    "description": "idhjadpiawjdpawodjawdawd",
-    "main": "index.js",
-    "scripts": {
-        "postinstall": "cd client && npm install && cd ..",
-        "build": "npm install && (cd client && npm run build)",
-        "test": "npm install && (cd client && npm run test:unit && npm run test:e2e:headless)",
-        "lint": "npm install && (cd client && npm run lint)"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://oauth2:glpat-Q_zxCusLP1s4wu6MfUR6@gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-1/gruppe_07/billettmester.git"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "billettmester",
+  "version": "1.0.0",
+  "description": "idhjadpiawjdpawodjawdawd",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://oauth2:glpat-Q_zxCusLP1s4wu6MfUR6@gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-1/gruppe_07/billettmester.git"
+  },
+  "author": "",
+  "license": "ISC"
 }
