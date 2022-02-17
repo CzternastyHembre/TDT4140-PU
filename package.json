@@ -7,12 +7,21 @@
         "postinstall": "cd client && npm install && cd ..",
         "build": "npm install && (cd client && npm run build)",
         "test": "npm install && (cd client && npm run test:unit && npm run test:e2e:headless)",
-        "lint": "npm install && (cd client && npm run lint)"
+        "lint": "npm install && (cd client && npm run lint)",
+        "lintStaged": "cd client && npx lint-staged"
+    },
+    "pre-commit": {
+        "run": [
+            "lintStaged"
+        ]
     },
     "repository": {
         "type": "git",
         "url": "https://oauth2:glpat-Q_zxCusLP1s4wu6MfUR6@gitlab.stud.idi.ntnu.no/tdt4140-2022/landsby-1/gruppe_07/billettmester.git"
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "pre-commit": "^1.2.2"
+    }
 }
