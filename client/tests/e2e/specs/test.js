@@ -1,16 +1,27 @@
 // https://docs.cypress.io/api/introduction/api.html
 
-describe("My First Test", () => {
+describe("Page load", () => {
   it("Visits the app root url", () => {
     cy.visit("/");
     cy.contains("h1", "Posts");
   });
 });
 
+const logInUser = () => {
+  cy.visit("/");
+  cy.get("a[href='/login']").click();
+  cy.get("form").within(() => {
+    cy.get('input[name="userName"]').type("stianjsu");
+    cy.get('input[name="Password"]').type("Stian123");
+    cy.get('input[type="submit"]').click();
+  });
+};
+
 describe("Post a buy post", () => {
   const dateTest = "2023-02-16T15:00";
   it("Posts a post", () => {
-    cy.visit("/");
+    logInUser();
+    cy.get("a[href='/']").click();
     cy.get("a[href='/createpost']").click();
     cy.get("form").within(() => {
       cy.get('input[name="nameEvent"]').type("TestPost");
@@ -30,7 +41,8 @@ describe("Post a buy post", () => {
 describe("Post a sale post", () => {
   const dateTest = "2023-02-16T15:00";
   it("Posts a post", () => {
-    cy.visit("/");
+    logInUser();
+    cy.get("a[href='/']").click();
     cy.get("a[href='/createpost']").click();
     cy.get("form").within(() => {
       cy.get('input[name="nameEvent"]').type("TestPost");

@@ -5,11 +5,11 @@
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
       <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
-      <router-link to="/LogIn" v-if="!activeUser">LogIn</router-link>
-      <router-link to="/SignUp" v-if="!activeUser">SignUp</router-link>
+      <router-link to="/login" v-if="!activeUser">Log In</router-link>
+      <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
     </div>
     <div class="logout">
-      <button @click="logOutUser" v-if="activeUser">LogOut</button>
+      <button @click="logOutUser" v-if="activeUser">Log Out</button>
     </div>
   </div>
 </template>
