@@ -19,11 +19,12 @@ export default {
 <style scoped>
 .footerBox {
   margin: auto;
-  width: 80%;
+  width: 100%;
   padding: auto;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 3fr 1fr;
+  background-color: inherit;
 }
 
 .footerBox div {

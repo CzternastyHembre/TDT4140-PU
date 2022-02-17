@@ -51,7 +51,7 @@ export default {
 
     const eventName = ref("");
     const eventType = ref("");
-    const eventDate = ref("");
+    const eventDate = ref(Date);
     const eventPrice = ref(0);
 
     const store = useStore();
@@ -66,7 +66,7 @@ export default {
           "UserName", //TODO current user name
           eventName.value,
           eventType.value,
-          eventDate.value,
+          new Date(eventDate.value).getTime(),
           eventPrice.value
         );
       } else {
@@ -74,8 +74,7 @@ export default {
           "UserName", //TODO current user name
           eventName.value,
           eventType.value,
-          eventDate.value,
-          eventPrice.value
+          new Date(eventDate.value).getTime()
         );
       }
       store.commit("addPost", newPost);
@@ -101,14 +100,18 @@ export default {
 form > * {
   margin-top: 1em;
 }
-form {
+
+.postForm {
+  margin: 10px auto;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
   padding: 2em;
-  border: 1px solid #000;
+
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 1%;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
-}
-.postForm {
-  margin: 10px 400px;
+  border-radius: 10px;
+
 }
 
 .hiddenInput {
@@ -117,5 +120,4 @@ form {
 .shownInput {
   visibility: block;
 }
-
 </style>

@@ -18,13 +18,22 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
+body {
+
+  min-height: 100vh;
+  background: linear-gradient(to top, rgb(209, 244, 255), 70%, rgb(255, 255, 255)), 30%;
+}
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  
 }
 
 #nav {
@@ -38,18 +47,21 @@ export default {
   height: 70px; /* define height for content */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background: #fff;
+  background: #f7f1e3;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
+
 .appContent {
   padding-top: 70px;
+  
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div class="post" :class="{expiredEvent: (Date.now()>post.dateAndTime)}">
     <p>Username: {{ post.user }}</p>
     <p>Event name: {{ post.eventName }}</p>
     <p>Event Type: {{ post.eventType }}</p>
@@ -32,5 +32,11 @@ export default {
   margin: 6px auto;
   border: solid black 1px;
   width: min(100%, 600px);
+  background-color: white;
+  border-radius: 10px;
+}
+
+.expiredEvent {
+  opacity: 0.6;
 }
 </style>
