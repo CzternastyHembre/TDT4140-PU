@@ -1,0 +1,122 @@
+<template>
+  <div class="postForm">
+    <form action="">
+      <input
+        type="text"
+        name="nameEvent"
+        placeholder="Name of event"
+        v-model="eventName"
+      />
+      <br />
+      <input
+        type="text"
+        name="typeEvent"
+        placeholder="Type of event"
+        v-model="eventType"
+      />
+      <br />
+      <input type="datetime-local" name="dateEvent" v-model="eventDate" />
+      <br />
+      <span>Create a sales post?</span>
+      <input
+        type="checkbox"
+        name="buypostCheckbox"
+        id=""
+        v-model="isSalesPost"
+      />
+      <br />
+      <input
+        type="number"
+        name="priceEvent"
+        placeholder="price"
+        :class="[isSalesPost ? 'shownInput' : 'hiddenInput']"
+        v-model="eventPrice"
+      />
+      <br />
+      <button type="submit" @click="createPost">Post</button>
+    </form>
+  </div>
+</template>
+
+<script>
+// v-bind:class="[isSalesPost ? 'hiddenInput' : 'shownInput']"
+import { ref } from "vue";
+import { useStore } from "vuex";
+import SalesPost from "../core/SalesPost";
+import BuyPost from "../core/BuyPost";
+export default {
+  name: "CreatePost",
+  setup() {
+    const isSalesPost = ref(false);
+
+    const eventName = ref("");
+    const eventType = ref("");
+    const eventDate = ref(Date);
+    const eventPrice = ref(0);
+
+    const store = useStore();
+
+    const createPost = (event) => {
+      if (event) {
+        event.preventDefault();
+      }
+      let newPost;
+      if (isSalesPost.value) {
+        newPost = new SalesPost(
+          "UserName", //TODO current user name
+          eventName.value,
+          eventType.value,
+          new Date(eventDate.value).getTime(),
+          eventPrice.value
+        );
+      } else {
+        newPost = new BuyPost(
+          "UserName", //TODO current user name
+          eventName.value,
+          eventType.value,
+          new Date(eventDate.value).getTime()
+        );
+      }
+      store.commit("addPost", newPost);
+      eventName.value = "";
+      eventType.value = "";
+      eventDate.value = "";
+      eventPrice.value = 0;
+    };
+
+    return {
+      isSalesPost,
+      createPost,
+      eventName,
+      eventType,
+      eventDate,
+      eventPrice,
+    };
+  },
+};
+</script>
+
+<style>
+form > * {
+  margin-top: 1em;
+}
+
+.postForm {
+  margin: 10px auto;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  padding: 2em;
+
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 1%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  border-radius: 10px;
+}
+
+.hiddenInput {
+  visibility: hidden;
+}
+.shownInput {
+  visibility: block;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-<div>
-<h1>Log in</h1>
+  <div>
+    <h1>Log in</h1>
     <form>
       <label for="Email address">Email adress:</label><br />
       <input
@@ -14,21 +14,16 @@
       <br /><br />
       <input type="submit" value="LogIn" />
     </form>
-  
-<br>
-<br>
 
-
-</div>
+    <br />
+    <br />
+  </div>
 </template>
 
 <script>
 export default {
-    name: "LogInComp"
-
-}
+  name: "LogInComp",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
