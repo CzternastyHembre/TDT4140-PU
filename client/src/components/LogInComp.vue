@@ -1,15 +1,23 @@
 <template>
 <div>
-  <h1> Log in </h1>
-    Username:
-    <input type="text" name="Brukernavn" id="Username" placeholder="Write your username here"><br>
-    Password:
-    <input type="text" name="Passord" id="Password" placeholder="Enter your password here"><br><br>
-  <button>Login</button>
+<h1>Log in</h1>
+    <form>
+      <label for="Email address">Email adress:</label><br />
+      <input
+        type="text"
+        name="Email address"
+        id="EmailAddress"
+        required
+      /><br />
+      <label for="Password">Password:</label><br />
+      <input type="password" name="Password" id="Password" required /><br />
+      <br /><br />
+      <input type="submit" value="LogIn" />
+    </form>
   
 <br>
 <br>
-<p> Create new user: </p>
+
 
 </div>
 </template>
