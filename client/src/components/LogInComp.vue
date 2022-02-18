@@ -12,7 +12,7 @@
       /><br />
       <label for="Password">Password:</label><br />
       <input
-        type="text"
+        type="password"
         name="Password"
         id="Password"
         v-model="inputPassword"

@@ -37,6 +37,15 @@ export default createStore({
         return a.dateAndTime - b.dateAndTime;
       });
     },
+    addUser(state, user) {
+      if (state.users.find((u) => u.userName == user.userName)) {
+        console.log("Username must be unique");
+        return;
+      }
+      console.log(user);
+      state.users.push(user);
+      this.commit("setActiveUser", user.userName);
+    },
     setActiveUser(state, userName) {
       state.activeUser = userName;
       console.log(`User ${userName} was logged in`);
