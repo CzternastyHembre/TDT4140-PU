@@ -75,6 +75,11 @@ export default createStore({
     getPostByIndex: (state) => (index) => {
       return state.posts[index];
     },
+    getActiveUser(state) {
+      return state.users.find((user) => {
+        return state.activeUser == user.userName;
+      });
+    },
   },
   mutations: {
     addPost(state, post) {
