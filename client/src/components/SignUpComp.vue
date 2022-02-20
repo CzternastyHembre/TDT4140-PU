@@ -69,11 +69,13 @@
 <script>
 import { useStore } from "vuex";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import User from "../core/User";
 export default {
   name: "SignUpComp",
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const inpUName = ref("");
     const inpFName = ref("");
@@ -88,25 +90,34 @@ export default {
       if (e) {
         e.preventDefault();
       }
-      if (!inpFName.value) errorMsg.value = "Missing first name";
-      else if (!inpUName.value) errorMsg.value = "Missing username";
-      else if (!inpEName.value) errorMsg.value = "Missing surname";
-      else if (!inpEmail.value) errorMsg.value = "Missing email";
-      else if (!inpBirthdate.value) errorMsg.value = "Missing birthdate";
-      else if (!inpPasw1.value) errorMsg.value = "Missing password";
-      else if (!inpPasw2.value) errorMsg.value = "Must confirm password";
-      else if (inpPasw1.value != inpPasw2.value)
-        errorMsg.value = "Passwords must match";
-      else {
-        let user = new User(
+
+      if (inpPasw1.value != inpPasw2.value) {
+        errorMsg.value = "The two passwords must match";
+        return;
+      }
+
+      let user;
+      try {
+        user = new User(
           inpUName.value,
           inpPasw1.value,
+          inpEmail.value,
           inpFName.value,
           inpEName.value,
           ""
         );
-        store.commit("addUser", user);
-        errorMsg.value = "";
+      } catch (err) {
+        errorMsg.value = err;
+      }
+
+      if (user) {
+        try {
+          store.commit("addUser", user);
+          errorMsg.value = "";
+          router.push("/");
+        } catch {
+          errorMsg.value = "Something went wrong when signing up";
+        }
       }
     };
 
