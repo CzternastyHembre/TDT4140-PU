@@ -1,4 +1,4 @@
-const hash = require("./Hashing");
+import hash from "./Hashing";
 export default class User {
   //TODO Profile picture
   /**
