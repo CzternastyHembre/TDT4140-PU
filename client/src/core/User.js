@@ -1,3 +1,4 @@
+const hash = require("./Hashing");
 export default class User {
   //TODO Profile picture
   /**
@@ -94,7 +95,7 @@ export default class User {
    */
   setPassword(_password) {
     this.validPassword(_password);
-    this.password = _password;
+    this.password = hash(_password);
   }
 
   /**
