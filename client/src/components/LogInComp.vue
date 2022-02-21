@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import hash from "../core/Hashing.js";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -50,7 +51,7 @@ export default {
       let user = store.state.users.find((user) => {
         return (
           user.userName == inputUsername.value &&
-          user.password == inputPassword.value
+          user.password == hash(inputPassword.value)
         );
       });
       if (user) {

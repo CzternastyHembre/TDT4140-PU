@@ -7,9 +7,9 @@
       <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
       <router-link to="/login" v-if="!activeUser">Log In</router-link>
       <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
-      <router-link to="/UserProfile" v-if="activeUser"
-        >User Profile</router-link
-      >
+      <router-link to="/UserProfile" v-if="activeUser">
+        User Profile
+      </router-link>
     </div>
     <div class="logout">
       <button @click="logOutUser" v-if="activeUser">Log Out</button>
