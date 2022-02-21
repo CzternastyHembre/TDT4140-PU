@@ -1,133 +1,130 @@
-export class User {
-  userName;
-  password;
-  firstName;
-  lastName;
-  description;
-  //Mangler profilbilde
-
-  constructor(userName, password, firstName, lastName, description) {
+export default class User {
+  //TODO Profile picture
+  /**
+   * @constructs User
+   * @param {string} userName
+   * @param {string} password
+   * @param {string} email
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} description
+   */
+  constructor(userName, password, email, firstName, lastName, description) {
     this.setUserName(userName);
     this.setPassword(password);
+    this.setEmail(email);
     this.setFirstName(firstName);
     this.setLastName(lastName);
     this.setDescription(description);
   }
 
-  regEx = /^[A-Za-z]+$/;
-  capsLock = /^[A-Z]+$/;
-  specEx = "[ ] { } ( )  ^ $ . | ? * +";
-  numbers = "0123456789";
-
-  validLength(logIn) {
-    if (logIn.length < 6) {
-      throw new Error("Username has to be longer than 6 characters.");
+  validUserName(username) {
+    const userNameRegex = /^[A-Za-z0-9]+$/;
+    if (!username.match(userNameRegex)) {
+      throw "Username cant contain any special characters, only letters and numbers";
     }
-    if (logIn.length > 12) {
-      throw new Error("Username has to be shorter than 12 characters.");
+
+    if (username.length < 5) {
+      throw "Username must be longer than 4 characters";
     }
-    return true;
   }
 
-  validUserName(logIn) {
-    if (this.validLength(logIn)) {
-      for (let i = 0; i < 4; i++) {
-        if (logIn.charAt(i).value.match(this.regEx)) {
-          return true;
-        } else {
-          alert("Four first characters need to be letters!");
-        }
-      }
-      for (let i = 0; i < logIn.length(); i++) {
-        if (!logIn.charAt(i).value.match(this.specEx)) {
-          return true;
-        } else {
-          alert("Username cannot include [ ] { } ( )  ^ $ . | ? * +");
-        }
-      }
+  /**
+   * Checks for valid email.
+   * @param {string} email
+   */
+  validEmail(email) {
+    const emailRegex2 = /^[A-Za-z.]+@[A-Za-z.]+\.[a-z]{2,3}$/;
+    if (!email.match(emailRegex2)) {
+      throw "Invalid email address";
     }
-    return true;
   }
 
-  validPassword(logIn) {
-    let k = 0;
-    let l = 0;
-    if (this.validLength(logIn)) {
-      for (let i = 0; i < logIn.length(); i++) {
-        if (logIn.charAt(i).value.match(this.numbers)) {
-          k += 1;
-        } else {
-          if (logIn.charAt(i).value.match(this.regEx)) {
-            l += 1;
-          }
-        }
-      }
+  /**
+   * Validating password with these criteria:
+   *  --Only numbers and letters.
+   *  --At least 1 number, 1 upper and 1 lower character.
+   *  --No special characters.
+   *  --At leat 8 characters long.
+   * @param {string} password
+   */
+  validPassword(password) {
+    const oneLowerCase = /(?=.*[a-z])/;
+    if (!password.match(oneLowerCase)) {
+      throw "The password must contain at least 1 lowercase alphabetical character";
     }
-    if (k + l != logIn.length()) {
-      alert("The password must include both numbers and letters.");
+
+    const oneUpperCase = /(?=.*[A-Z])/;
+    if (!password.match(oneUpperCase)) {
+      throw "The password must contain at least 1 uppercase alphabetical character";
     }
-    if (k < 1) {
-      alert("Must be at least one number.");
+
+    const oneNumeric = /(?=.*[0-9])/;
+    if (!password.match(oneNumeric)) {
+      throw new Error("The password must contain at least 1 numeric character");
     }
-    if (l < 1) {
-      alert("Must be at least one letter.");
+
+    const noSpecialChRegex = /[^A-Za-z0-9]+/;
+    if (password.match(noSpecialChRegex)) {
+      throw "The password must not contain any special characters";
     }
-    return true;
-  }
-
-  validLetters(word) {
-    for (let i = 0; i < word.length(); i++) {
-      if (!word.charAt(i).value.match(this.regEx)) {
-        alert("Can only include letters.");
-      }
+    const l = 7;
+    if (password.length < l) {
+      throw "The password must be " + l + " characters or longer";
     }
-    if (!word.charAt(0).value.match(this.capsLock)) {
-      alert("First letter must be a capital letter.");
+  }
+
+  validName(str) {
+    const firstUpperRestLower = /^([A-Z][a-z]+ )*[A-Z][a-z]+$/;
+    if (!str.match(firstUpperRestLower)) {
+      throw "Name can only include letters and start with upper case";
     }
-    return true;
   }
 
-  setUserName(userName) {
-    this.validUserName(userName);
-    this.userName = userName;
+  /**
+   * @param {string} _userName
+   */
+  setUserName(_userName) {
+    this.validUserName(_userName);
+    this.userName = _userName;
   }
 
-  setPassword(password) {
-    this.validPassword(password);
-    this.password = password;
+  /**
+   * @param {string} _password
+   */
+  setPassword(_password) {
+    this.validPassword(_password);
+    this.password = _password;
   }
 
-  setFirstName(firstName) {
-    this.validLetters(firstName);
-    this.firstName = firstName;
+  /**
+   * @param {string} _email
+   */
+  setEmail(_email) {
+    this.validEmail(_email);
+    this.email = _email;
   }
 
-  setLastName(lastName) {
-    this.validLetters(lastName);
-    this.lastName = lastName;
+  /**
+   * @param {string} _firstName
+   */
+  setFirstName(_firstName) {
+    this.validName(_firstName);
+    this.firstName = _firstName;
   }
 
-  setDescription(description) {
-    this.description = description;
+  /**
+   * @param {string} _lastName
+   */
+  setLastName(_lastName) {
+    this.validName(_lastName);
+    this.lastName = _lastName;
   }
 
-  getUserName() {
-    return this.userName;
-  }
-
-  getPassword() {
-    return this.password;
-  }
-
-  getFirstName() {
-    return this.firstName;
-  }
-
-  getLastName() {
-    return this.lastName;
-  }
-
-  getDescription() {
-    return this.description;
+  /**
+   * @param {string} _description
+   */
+  setDescription(_description) {
+    this.description = _description;
   }
 }
