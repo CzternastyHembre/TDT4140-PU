@@ -51,7 +51,7 @@ export default {
 
     const eventName = ref("");
     const eventType = ref("");
-    const eventDate = ref(Date);
+    const eventDate = ref("");
     const eventPrice = ref(0);
 
     const store = useStore();
@@ -63,7 +63,7 @@ export default {
       let newPost;
       if (isSalesPost.value) {
         newPost = new SalesPost(
-          "UserName", //TODO current user name
+          store.state.activeUser,
           eventName.value,
           eventType.value,
           new Date(eventDate.value).getTime(),
@@ -71,7 +71,7 @@ export default {
         );
       } else {
         newPost = new BuyPost(
-          "UserName", //TODO current user name
+          store.state.activeUser,
           eventName.value,
           eventType.value,
           new Date(eventDate.value).getTime()

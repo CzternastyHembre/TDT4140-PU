@@ -4,17 +4,40 @@
     <div class="navButtons">
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
-      <router-link to="/createpost">Create Post</router-link>
-      <router-link to="/LogIn">LogIn</router-link>
-      <router-link to="/SignUp">SignUp</router-link>
+      <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
+      <router-link to="/login" v-if="!activeUser">Log In</router-link>
+      <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
+      <router-link to="/UserProfile" v-if="activeUser"
+        >User Profile</router-link
+      >
     </div>
-    <div class="login">Login</div>
+    <div class="logout">
+      <button @click="logOutUser" v-if="activeUser">Log Out</button>
+    </div>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "HeaderNav",
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const activeUser = computed(() => {
+      return store.state.activeUser;
+    });
+
+    const logOutUser = () => {
+      store.commit("setActiveUser", null);
+      router.push("/");
+    };
+
+    return { activeUser, logOutUser };
+  },
 };
 </script>
 
