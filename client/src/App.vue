@@ -71,7 +71,7 @@ body {
   background-color: rgb(255, 255, 255);
   padding: 1em 2em;
   text-align: left;
-  font-size: 1.3em;
+  font-size: 1em;
 
   border: 1px solid grey;
   border-radius: 2%;
@@ -80,15 +80,15 @@ body {
 
 .basicForm form > div {
   margin-top: 1em;
+  display: flex;
+  flex-direction: column;
 }
+
 .basicForm input,
 .submitButton {
-  font-size: 1.3em;
-  padding: 0 1em;
+  font-size: 1em;
   display: inline-block;
-  size: 10px;
-}
-.basicForm input {
+  size: 1em;
   width: 80%;
 }
 </style>

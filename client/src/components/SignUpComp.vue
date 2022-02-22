@@ -70,7 +70,7 @@
         </div>
 
         <div>
-          <label for="Password2">Confirm password:</label><br />
+          <label for="Password2">Confirm password:</label>
           <input
             v-model="inpPasw2"
             type="password"
@@ -78,8 +78,9 @@
             id="Password2"
             required
           />
-          <p style="color: red">{{ errorMsg }}</p>
+          <p v-if="errorMsg != ''" style="color: red">{{ errorMsg }}</p>
         </div>
+
         <div>
           <button class="submitButton" @click="addUser" type="submit">
             Register

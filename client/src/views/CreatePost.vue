@@ -31,7 +31,7 @@
           />
         </div>
 
-        <div :class="[isSalesPost ? 'shownInput' : 'hiddenInput']">
+        <div :id="[isSalesPost ? 'shownInput' : 'hiddenInput']">
           <label for="priceEvent">Price for ticket</label>
           <input
             type="number"
@@ -122,7 +122,7 @@ export default {
   width: fit-content;
   margin: auto;
 
-  top: 0.05em;
+  top: 1px;
 }
 
 .buySellContainer > * {
@@ -141,15 +141,11 @@ export default {
   z-index: 1;
   background-color: white;
 }
-#inpDate {
-  padding: 0px;
-  width: calc(294px);
-}
 
-.hiddenInput {
+#hiddenInput {
   display: none;
 }
-.shownInput {
+#shownInput {
   display: block;
 }
 </style>
