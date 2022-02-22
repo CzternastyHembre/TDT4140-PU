@@ -1,40 +1,48 @@
 <template>
-  <div class="postForm">
-    <form action="">
-      <input
-        type="text"
-        name="nameEvent"
-        placeholder="Name of event"
-        v-model="eventName"
-      />
-      <br />
-      <input
-        type="text"
-        name="typeEvent"
-        placeholder="Type of event"
-        v-model="eventType"
-      />
-      <br />
-      <input type="datetime-local" name="dateEvent" v-model="eventDate" />
-      <br />
-      <span>Create a sales post?</span>
-      <input
-        type="checkbox"
-        name="buypostCheckbox"
-        id=""
-        v-model="isSalesPost"
-      />
-      <br />
-      <input
-        type="number"
-        name="priceEvent"
-        placeholder="price"
-        :class="[isSalesPost ? 'shownInput' : 'hiddenInput']"
-        v-model="eventPrice"
-      />
-      <br />
-      <button type="submit" @click="createPost">Post</button>
-    </form>
+  <div>
+    <h1>Create a post</h1>
+    <div class="buySellContainer">
+      <div @click="isSalesPost = true" :class="[isSalesPost ? 'active' : '']">
+        Sell post
+      </div>
+      <div @click="isSalesPost = false" :class="[!isSalesPost ? 'active' : '']">
+        Buy post
+      </div>
+    </div>
+    <div class="postForm basicForm">
+      <form action="">
+        <div>
+          <label for="nameEvent">Name of event:</label>
+          <input type="text" name="nameEvent" v-model="eventName" />
+        </div>
+
+        <div>
+          <label for="typeEvent">Type of event:</label>
+          <input type="text" name="typeEvent" v-model="eventType" />
+        </div>
+
+        <div>
+          <label for="dateEvent">Date of event:</label>
+          <input type="datetime-local" name="dateEvent" v-model="eventDate" />
+        </div>
+
+        <div :class="[isSalesPost ? 'shownInput' : 'hiddenInput']">
+          <label for="priceEvent">Price for ticket</label>
+          <input
+            type="number"
+            name="priceEvent"
+            placeholder="price"
+            v-model="eventPrice"
+          />
+        </div>
+
+        <div>
+          <button class="submitButton" type="submit" @click="createPost">
+            Post
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -47,7 +55,7 @@ import BuyPost from "../core/BuyPost";
 export default {
   name: "CreatePost",
   setup() {
-    const isSalesPost = ref(false);
+    const isSalesPost = ref(true);
 
     const eventName = ref("");
     const eventType = ref("");
@@ -97,10 +105,41 @@ export default {
 </script>
 
 <style>
+.postForm {
+  position: relative;
+}
+
+.buySellContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+
+  width: fit-content;
+  margin: auto;
+
+  top: 0.05em;
+}
+
+.buySellContainer > * {
+  margin: 0 1em;
+  height: fit-content;
+  padding: 0.2em 2em;
+  background-color: white;
+
+  border: 1px solid grey;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 0;
+
+  cursor: pointer;
+}
+.active {
+  z-index: 1;
+}
+
 .hiddenInput {
-  visibility: hidden;
+  display: none;
 }
 .shownInput {
-  visibility: block;
+  display: block;
 }
 </style>
