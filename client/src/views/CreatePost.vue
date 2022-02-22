@@ -2,10 +2,10 @@
   <div>
     <h1>Create a post</h1>
     <div class="buySellContainer">
-      <div @click="isSalesPost = true" :class="[isSalesPost ? 'active' : '']">
+      <div @click="isSalesPost = true" :id="[isSalesPost ? 'active' : '']">
         Sell post
       </div>
-      <div @click="isSalesPost = false" :class="[!isSalesPost ? 'active' : '']">
+      <div @click="isSalesPost = false" :id="[!isSalesPost ? 'active' : '']">
         Buy post
       </div>
     </div>
@@ -124,7 +124,7 @@ export default {
   margin: 0 1em;
   height: fit-content;
   padding: 0.2em 2em;
-  background-color: white;
+  background-color: #eee;
 
   border: 1px solid grey;
   border-radius: 5px 5px 0 0;
@@ -132,8 +132,9 @@ export default {
 
   cursor: pointer;
 }
-.active {
+#active {
   z-index: 1;
+  background-color: white;
 }
 
 .hiddenInput {
