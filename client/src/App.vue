@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 body {
-  min-height: 100vh;
+  min-height: 98vh;
   background: linear-gradient(
       to top,
       rgb(209, 244, 255),
@@ -63,5 +63,32 @@ body {
 
 .appContent {
   padding-top: 70px;
+}
+
+.basicForm {
+  margin: auto;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  padding: 1em 2em;
+  text-align: left;
+  font-size: 1.3em;
+
+  border: 1px solid grey;
+  border-radius: 2%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+}
+
+.basicForm form > div {
+  margin-top: 1em;
+}
+.basicForm input,
+.submitButton {
+  font-size: 1.3em;
+  padding: 0 1em;
+  display: inline-block;
+  size: 10px;
+}
+.basicForm input {
+  width: 80%;
 }
 </style>
