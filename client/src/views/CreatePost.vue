@@ -23,7 +23,12 @@
 
         <div>
           <label for="dateEvent">Date of event:</label>
-          <input type="datetime-local" name="dateEvent" v-model="eventDate" />
+          <input
+            id="inpDate"
+            type="datetime-local"
+            name="dateEvent"
+            v-model="eventDate"
+          />
         </div>
 
         <div :class="[isSalesPost ? 'shownInput' : 'hiddenInput']">
@@ -135,6 +140,10 @@ export default {
 #active {
   z-index: 1;
   background-color: white;
+}
+#inpDate {
+  padding: 0px;
+  width: calc(294px);
 }
 
 .hiddenInput {
