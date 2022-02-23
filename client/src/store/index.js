@@ -10,6 +10,16 @@ export default createStore({
       new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 10e8, 40),
       new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e7, 40),
       new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e6, 40),
+      new SalesPost("Stian", "Fest1", "superfest", Date.now() + 10e10, 20),
+      new SalesPost("Sara", "Fest2", "superfest", Date.now() + 10e9, 30),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 10e8, 40),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e7, 40),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e6, 40),
+      new SalesPost("Stian", "Fest1", "superfest", Date.now() + 10e10, 20),
+      new SalesPost("Sara", "Fest2", "superfest", Date.now() + 10e9, 30),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 10e8, 40),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e7, 40),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e6, 40),
     ],
     users: [
       new User(

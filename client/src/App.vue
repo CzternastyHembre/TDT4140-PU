@@ -46,10 +46,10 @@ body {
   top: 0; /* top left corner should start at topmost spot */
   width: 100%; /* take up the full browser width */
   z-index: 200; /* high z index so other content scrolls underneath */
-  height: 70px; /* define height for content */
+  height: 150px; /* define height for content */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background: #f7f1e3;
+  background: #a9edf7;
 
   a {
     font-weight: bold;
@@ -62,6 +62,6 @@ body {
 }
 
 .appContent {
-  padding-top: 70px;
+  padding-top: 200px;
 }
 </style>

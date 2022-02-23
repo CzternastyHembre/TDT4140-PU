@@ -29,11 +29,11 @@ export default {
 
 <style scoped>
 .post {
-  margin: 6px auto;
-  border: solid black 1px;
+  margin: 20px auto;
   width: min(100%, 600px);
   background-color: white;
   border-radius: 10px;
+  -moz-text-decoration-color: brown;
 }
 
 .expiredEvent {

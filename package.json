@@ -23,5 +23,8 @@
     "license": "ISC",
     "devDependencies": {
         "pre-commit": "^1.2.2"
+    },
+    "dependencies": {
+        "@jporto/vue-flex-layout": "^3.0.2"
     }
 }

@@ -1,18 +1,22 @@
 <template>
   <div class="footerBox">
-    <div></div>
-    <div class="navButtons">
+    <div class="navButtons1">
       <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
+      <br />
       <router-link to="/login" v-if="!activeUser">Log In</router-link>
       <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
+      <div class="logout">
+        <button @click="logOutUser" v-if="activeUser">Log Out</button>
+      </div>
+    </div>
+    <h1 class="header">BillettMester</h1>
+    <div class="navButtons2">
+      <br />
+      <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
       <router-link to="/UserProfile" v-if="activeUser"
         >User Profile</router-link
       >
-    </div>
-    <div class="logout">
-      <button @click="logOutUser" v-if="activeUser">Log Out</button>
+      <br />
     </div>
   </div>
 </template>
@@ -42,22 +46,36 @@ export default {
 </script>
 
 <style scoped>
-.footerBox {
+.navButtons1 {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 10fr 1fr 1fr;
+}
+
+.navButtons2 {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 1fr 1fr 5fr;
+}
+
+.footerbox {
   margin: auto;
   width: 100%;
   padding: auto;
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 3fr 1fr;
-  background-color: inherit;
+  height: 100%;
 }
 
 .footerBox div {
-  padding-top: 23px;
+}
+
+.header {
+  text-align: center;
+  color: red;
 }
 
 .navButtons a {
   padding-left: 20px;
   padding-right: 20px;
+  text-align: center;
 }
 </style>

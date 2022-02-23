@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <h1>Posts</h1>
-    <div class="posts">
+    <br />
+    <br />
+    <div class="grid">
       <sales-post-comp
         v-for="(post, index) in posts"
         :key="index"
@@ -36,5 +37,14 @@ export default {
 .home {
   margin: auto;
   width: 70%;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid > * {
+  flex: 0 1 10em;
 }
 </style>
