@@ -122,24 +122,25 @@ export default {
   width: fit-content;
   margin: auto;
 
-  top: 1px;
+  top: 5px;
 }
 
 .buySellContainer > * {
   margin: 0 1em;
   height: fit-content;
   padding: 0.2em 2em;
-  background-color: #eee;
+  background: #fff;
 
   border: 1px solid grey;
   border-radius: 5px 5px 0 0;
   border-bottom: 0;
 
   cursor: pointer;
+  box-shadow: inset #000 0 -10px 7px -7px;
 }
 #active {
   z-index: 1;
-  background-color: white;
+  box-shadow: none;
 }
 
 #hiddenInput {
