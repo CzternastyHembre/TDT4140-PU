@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
+    "express-async-handler": "^1.2.0",
     "lint-staged": "^12.3.4",
     "mongoose": "^6.2.3"
   },
