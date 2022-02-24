@@ -4,16 +4,21 @@
       <header-nav />
     </div>
     <div class="appContent">
-      <router-view />
+      <left-nav/>
+      <router-view/>
+      <br>
     </div>
   </div>
 </template>
 
 <script>
 import HeaderNav from "../src/components/HeaderNav.vue";
+import LeftNav from './components/LeftNav.vue';
+
 export default {
   components: {
     HeaderNav,
+    LeftNav,
   },
 };
 </script>
@@ -49,19 +54,22 @@ body {
   height: 150px; /* define height for content */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background: #a9edf7;
+  background: #eff9fe;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #cc3f3f;
 
     router-link-exact-active {
-      color: #42b983;
+      color: #eff9fe;
     }
   }
 }
 
 .appContent {
   padding-top: 200px;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 20% 60% 20%;
 }
 </style>

@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <br />
-    <br />
     <div class="grid">
       <sales-post-comp
         v-for="(post, index) in posts"
@@ -34,17 +32,19 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  margin: auto;
-  width: 70%;
-}
+  .home {
+    margin: auto;
+    width: 70%;
+  }
 
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-}
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.grid > * {
-  flex: 0 1 10em;
-}
+  .grid > * {
+    flex: 0 1 40em;
+    background-color: #eff9fe;
+  }
+
 </style>

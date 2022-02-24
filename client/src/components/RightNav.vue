@@ -1,6 +1,6 @@
 <template>
   <div class="footerBox">
-    <div class="navButtons">
+    <div class="navButtons1">
       <router-link to="/">Home</router-link>
       <br />
       <router-link to="/login" v-if="!activeUser">Log In</router-link>
@@ -9,7 +9,15 @@
         <button @click="logOutUser" v-if="activeUser">Log Out</button>
       </div>
     </div>
-    <h1 class="header"><br>BillettMester</h1>
+    <h1 class="header">BillettMester</h1>
+    <div class="navButtons2">
+      <br />
+      <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
+      <router-link to="/UserProfile" v-if="activeUser"
+        >User Profile</router-link
+      >
+      <br />
+    </div>
   </div>
 </template>
 
@@ -39,10 +47,16 @@ export default {
 </script>
 
 <style scoped>
-.navButtons {
+.navButtons1 {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 10% 70% 10% 10%;
+  grid-template-columns: 1fr 10fr 1fr 1fr 1fr;
+}
+
+.navButtons2 {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 1fr 1fr 5fr;
 }
 
 .footerbox {
