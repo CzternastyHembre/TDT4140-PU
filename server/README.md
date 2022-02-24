@@ -15,7 +15,7 @@ The server runs on port: **5000**
 - Get Posts => rertuns all posts
 - Get Posts/:id => returns the post corresponding id
 - Post Post => Adds a post to the RAPI
-- Put Post => Edit your posts
+- Put Post/:id => Edit your posts
 - Get Posts/:user => returns all posts form this user (when logged in)
 - Delete Post/:id => Deletes post if state allows
 
