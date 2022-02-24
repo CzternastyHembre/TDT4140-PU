@@ -12,11 +12,12 @@ The server runs on port: **5000**
 
 ## Methods for post as in buy/sale -post:
 
-- Get Posts => rertuns all posts
+- Get Posts => returns all posts
 - Get Posts/:id => returns the post corresponding id
-- Post Post => Adds a post to the RAPI
-- Put Post/:id => Edit your posts
+- Post Posts => Adds a post to the RAPI
+- Put Posts/:id => Edit your posts
 - Get Posts/:user => returns all posts form this user (when logged in)
+- Put posts/sold/:postId => marks a post as sold
 - Delete Post/:id => Deletes post if state allows
 
 ## Methods for user

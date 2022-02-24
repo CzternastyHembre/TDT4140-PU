@@ -11,7 +11,7 @@ const getPosts = asyncHandler(async (req, res) => {
 // @route GET /api/posts/:postId
 // @access private
 const getPostsById = asyncHandler(async (req, res) => {
-  if(!req.params.postId) {
+  if (!req.params.postId) {
     res.status(404);
     throw new Error("PostId not specified");
   }
@@ -22,7 +22,7 @@ const getPostsById = asyncHandler(async (req, res) => {
 // @route POST /api/posts
 // @access private
 const newPost = asyncHandler(async (req, res) => {
-  if(!req.body.post) {
+  if (!req.body.post) {
     req.status(403);
     throw new Error("No post in body");
   }
@@ -33,10 +33,10 @@ const newPost = asyncHandler(async (req, res) => {
 // @route PUT /api/posts/:postId
 // @access private
 const editPost = asyncHandler(async (req, res) => {
-  if(!req.params.postId) {
+  if (!req.params.postId) {
     req.status(404);
-    throw new Error("Post to edit not found")
-  } 
+    throw new Error("Post to edit not found");
+  }
   res.status(200).json({ message: "Hallo posts4" });
 });
 
@@ -64,11 +64,23 @@ const getPostsFromUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Hallo posts6" });
 });
 
+// @desc get posts
+// @route PUT /api/posts/sold/:postId
+// @access private
+const markPostAsSold = asyncHandler(async (req, res) => {
+  if (req.params.postId) {
+    res.status(404);
+    throw new Error("Could not find post");
+  }
+  res.status(200).json({ message: "Hallo posts7" });
+});
+
 module.exports = {
   getPosts,
   getPostsById,
   newPost,
   editPost,
   deletePost,
-  getPostsFromUser
+  getPostsFromUser,
+  markPostAsSold,
 };
