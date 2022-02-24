@@ -1,6 +1,6 @@
 # Server
 
-To start the application run:
+To start the application from the root, open a terminal and run:
 
 ```bash
 cd server
