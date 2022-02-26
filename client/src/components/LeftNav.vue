@@ -1,8 +1,10 @@
 <template>
     <div class="navButtons">
-        <router-link to="/createpost" v-if="activeUser">New Post</router-link>
-        <router-link to="/UserProfile" v-if="activeUser">Profile</router-link>
-        <h3>Messages</h3>
+      <div class="box" v-if="activeUser"><router-link to="/createpost">
+      <h3>New Post</h3></router-link></div>
+      <div class="box" v-if="activeUser"><router-link to="/UserProfile">
+      <h3>Profile</h3></router-link></div>
+      <div class="box" v-if="activeUser"><h3>Messages</h3></div>
     </div>
 </template>
 
@@ -33,10 +35,22 @@ export default {
 
 <style scoped>
 
-.navButtons {
+#navButtons {
     display: grid;
-    grid-template-rows: 50px 50px 50px;
-    background-color: #eff9fe;
+    grid-template-rows: 75px 75px 75px;
+    padding-bottom: 20px;
+    color: #cc3f3f;
+}
+
+.box {
+  margin: 20px auto;
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #c7dce7;
+  box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
+    0 2px 4px -1px rgba(39, 6, 129, 0.75);
+  color: #cc3f3f;
 }
 
 </style>

@@ -53,11 +53,12 @@ export default {
 }
 
 .footerBox div {
+  color: #cc3f3f;
 }
 
 .header {
   text-align: center;
-  color: #CC3F3F;
+  color: #cc3f3f;
 }
 
 .navButtons a {

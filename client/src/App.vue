@@ -52,16 +52,16 @@ body {
   width: 100%; /* take up the full browser width */
   z-index: 200; /* high z index so other content scrolls underneath */
   height: 150px; /* define height for content */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background: #eff9fe;
+  box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
+    0 2px 4px -1px rgba(39, 6, 129, 0.75);
+  background: #c7dce7;
 
   a {
     font-weight: bold;
     color: #cc3f3f;
 
     router-link-exact-active {
-      color: #eff9fe;
+      color: #c7dce7;
     }
   }
 }
@@ -71,5 +71,6 @@ body {
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 20% 60% 20%;
+  color:#cc3f3f;
 }
 </style>

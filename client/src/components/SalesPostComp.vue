@@ -31,9 +31,11 @@ export default {
 .post {
   margin: 20px auto;
   width: min(100%, 600px);
-  background-color: white;
+  background-color: #c7dce7;
   border-radius: 10px;
-  -moz-text-decoration-color: brown;
+  color: #cc3f3f;
+   box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
+    0 2px 4px -1px rgba(39, 6, 129, 0.75);
 }
 
 .expiredEvent {
