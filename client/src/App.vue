@@ -4,21 +4,23 @@
       <header-nav />
     </div>
     <div class="appContent">
-      <left-nav/>
-      <router-view/>
-      <br>
+      <left-nav />
+      <router-view />
+      <right-nav />
     </div>
   </div>
 </template>
 
 <script>
 import HeaderNav from "../src/components/HeaderNav.vue";
-import LeftNav from './components/LeftNav.vue';
+import LeftNav from "./components/LeftNav.vue";
+import RightNav from "./components/RightNav.vue";
 
 export default {
   components: {
     HeaderNav,
     LeftNav,
+    RightNav,
   },
 };
 </script>
@@ -71,6 +73,6 @@ body {
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 20% 60% 20%;
-  color:#cc3f3f;
+  color: #cc3f3f;
 }
 </style>

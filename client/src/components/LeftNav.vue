@@ -1,11 +1,13 @@
 <template>
-    <div class="navButtons">
-      <div class="box" v-if="activeUser"><router-link to="/createpost">
-      <h3>New Post</h3></router-link></div>
-      <div class="box" v-if="activeUser"><router-link to="/UserProfile">
-      <h3>Profile</h3></router-link></div>
-      <div class="box" v-if="activeUser"><h3>Messages</h3></div>
+  <div class="navButtons">
+    <div class="box" v-if="activeUser">
+      <router-link to="/createpost"> <h3>New Post</h3></router-link>
     </div>
+    <div class="box" v-if="activeUser">
+      <router-link to="/UserProfile"> <h3>Profile</h3></router-link>
+    </div>
+    <div class="box" v-if="activeUser"><h3>Messages</h3></div>
+  </div>
 </template>
 
 <script>
@@ -14,7 +16,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
-    name: "LeftNav",
+  name: "LeftNav",
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -34,12 +36,11 @@ export default {
 </script>
 
 <style scoped>
-
 #navButtons {
-    display: grid;
-    grid-template-rows: 75px 75px 75px;
-    padding-bottom: 20px;
-    color: #cc3f3f;
+  display: grid;
+  grid-template-rows: 75px 75px 75px;
+  padding-bottom: 20px;
+  color: #cc3f3f;
 }
 
 .box {
@@ -52,5 +53,4 @@ export default {
     0 2px 4px -1px rgba(39, 6, 129, 0.75);
   color: #cc3f3f;
 }
-
 </style>

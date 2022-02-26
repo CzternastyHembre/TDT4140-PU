@@ -32,19 +32,18 @@ export default {
 </script>
 
 <style scoped>
-  .home {
-    margin: auto;
-    width: 70%;
-  }
+.home {
+  margin: auto;
+  width: 70%;
+}
 
-  .grid {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .grid > * {
-    flex: 0 1 40em;
-    background-color: #eff9fe;
-  }
-
+.grid > * {
+  flex: 0 1 40em;
+  background-color: #eff9fe;
+}
 </style>
