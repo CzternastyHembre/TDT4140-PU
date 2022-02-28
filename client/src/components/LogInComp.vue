@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Log in</h1>
+    <h1>LOG IN</h1>
     <form>
       <label for="username">Username:</label><br />
       <input

@@ -9,7 +9,7 @@
         <button @click="logOutUser" v-if="activeUser">LOG OUT</button>
       </div>
     </div>
-    <h1 class="header"><br />BILLETTMESTER</h1>
+    <h1 class="header"><br />RETICKET</h1>
   </div>
 </template>
 

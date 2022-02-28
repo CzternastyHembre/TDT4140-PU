@@ -28,20 +28,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.navButtons {
-  display: grid;
-  grid-template-rows: 75px 75px 75px 75px 75px 75px;
-  padding-bottom: 20px;
-  color: #5a4035;
-}
-.box {
-  margin: auto;
-  width: min(70%, 600px);
-  background-color: #c7dce7;
-  color: #5a4035;
-  text-align: center;
-}
-</style>
-
-h
+<style scoped></style>

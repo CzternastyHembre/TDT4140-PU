@@ -41,9 +41,4 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-
-.grid > * {
-  flex: 0 1 40em;
-  background-color: #eff9fe;
-}
 </style>
