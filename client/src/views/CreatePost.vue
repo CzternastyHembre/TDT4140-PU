@@ -1,6 +1,7 @@
 <template>
   <div class="postForm">
     <form action="">
+      <h2>CREATE POST</h2>
       <input
         type="text"
         name="nameEvent"
@@ -104,7 +105,7 @@ form > * {
 .postForm {
   margin: 10px auto;
   width: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color: #c7dce7;
   padding: 2em;
 
   border: 1px solid rgb(0, 0, 0);

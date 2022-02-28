@@ -43,7 +43,7 @@ export default {
   padding-left: 10px;
   border: solid black 1px;
   width: min(100%, 600px);
-  background-color: white;
+  background-color: #c7dce7;
   border-radius: 3px;
   text-align: left;
 

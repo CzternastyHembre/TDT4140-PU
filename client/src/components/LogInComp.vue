@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="logInForm">
     <h1>LOG IN</h1>
     <form>
       <label for="username">Username:</label><br />
@@ -67,4 +67,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  
+  .logInForm {
+    margin: 10px auto;
+  width: 300px;
+  background-color: #c7dce7;
+  padding: 2em;
+
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 1%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  border-radius: 10px;
+  }
+
+</style>

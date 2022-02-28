@@ -137,10 +137,11 @@ export default {
 </script>
 
 <style lang="scss">
+
 .signUpForm {
   margin: 10px auto;
   width: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color: #c7dce7;
   padding: 2em;
 
   border: 1px solid rgb(0, 0, 0);
@@ -148,4 +149,5 @@ export default {
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
   border-radius: 10px;
 }
+
 </style>

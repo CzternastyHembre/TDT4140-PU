@@ -28,17 +28,12 @@ export default {
 <style lang="scss">
 body {
   min-height: 100vh;
-  background: linear-gradient(
-      to top,
-      rgb(209, 244, 255),
-      70%,
-      rgb(255, 255, 255)
-    ),
-    30%;
+  background-color: white;
 }
 
 #app {
   font-family: "Helvetica";
+  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -59,7 +54,7 @@ body {
   background: #c7dce7;
 
   a {
-    font-weight: Helvetica;
+    /*font-weight: Helvetica;*/
     color: #cc3f3f;
     text-decoration: none;
     color: inherit;

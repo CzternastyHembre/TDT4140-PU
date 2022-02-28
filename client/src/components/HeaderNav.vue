@@ -43,6 +43,7 @@ export default {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 10% 70% 10% 10%;
+  font-weight: bold;
 }
 
 .footerbox {
@@ -58,6 +59,7 @@ export default {
 
 .header {
   text-align: center;
+  font-weight: bold;
   color: #cc3f3f;
 }
 
