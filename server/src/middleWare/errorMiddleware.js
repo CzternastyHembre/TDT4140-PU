@@ -1,5 +1,6 @@
 const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
+  const statusCode =
+    res.statusCode && res.statusCode != 200 ? res.statusCode : 500;
   res.status(statusCode);
 
   if (next) {
@@ -8,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
 
   res.json({
     message: err.message,
-    stack: err.stack,
+    stack: process.env.NODE_ENV == "dev" ? err.stack : null,
   });
 };
 
