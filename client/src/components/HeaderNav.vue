@@ -1,15 +1,15 @@
 <template>
   <div class="footerBox">
     <div class="navButtons">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">HOME</router-link>
       <br />
-      <router-link to="/login" v-if="!activeUser">Log In</router-link>
-      <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
+      <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
+      <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
       <div class="logout">
-        <button @click="logOutUser" v-if="activeUser">Log Out</button>
+        <button @click="logOutUser" v-if="activeUser">LOG OUT</button>
       </div>
     </div>
-    <h1 class="header"><br />BillettMester</h1>
+    <h1 class="header"><br />BILLETTMESTER</h1>
   </div>
 </template>
 
