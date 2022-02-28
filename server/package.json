@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
     "lint-staged": "^12.3.4",
