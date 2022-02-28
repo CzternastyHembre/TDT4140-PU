@@ -88,11 +88,24 @@ body {
 }
 
 .box {
-  margin: 10px auto;
-  padding: 10px;
-  background-color: #c7dce7;
-  width: min(70%, 600px);
-  color: #5a4035;
-  text-align: center;
+  h3 {
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #c7dce7;
+    width: min(70%, 600px);
+    color: #5a4035;
+    text-align: center;
+    border-radius: 5px;
+  }
+  a {
+    text-decoration: none;
+  }
+  :hover {
+    outline: 1px solid black;
+  }
+}
+#nav .router-link-active,
+.router-link-active h3 {
+  text-decoration: underline;
 }
 </style>
