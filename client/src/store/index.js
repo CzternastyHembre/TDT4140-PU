@@ -23,10 +23,10 @@ export default createStore({
       new User(
         "mattish",
         "Mattis123",
-        "mattish@stud.ntnu.no",
+        "mattisczthem@gmail.com",
         "Mattis",
         "Hembre",
-        "Minst kul person"
+        "mest kul person"
       ),
       new User(
         "vetlestor",
@@ -82,6 +82,15 @@ export default createStore({
     },
   },
   mutations: {
+    updateUser(state, userInfo) {
+      const activeUser = state.users.find(
+        (u) => u.email === userInfo.email
+      ); /* TODO, find on ID when added */
+      if (!activeUser) {
+        throw "UUUU";
+      }
+      activeUser.updateUser(userInfo);
+    },
     addPost(state, post) {
       state.posts.push(post);
       state.posts.sort((a, b) => {

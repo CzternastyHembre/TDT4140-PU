@@ -128,4 +128,13 @@ export default class User {
   setDescription(_description) {
     this.description = _description;
   }
+  updateUser(userInfo) {
+    console.log(this);
+    this.userName = userInfo.userName;
+    this.email = userInfo.email;
+    this.firstName = userInfo.firstName;
+    this.lastName = userInfo.lastName;
+    this.description = userInfo.description;
+    console.log(this);
+  }
 }

@@ -1,16 +1,10 @@
 <template>
-  <div v-if="currUser">
-    <div class="post">
-      <h2>{{ currUser.firstName }} {{ currUser.lastName }} (Edit-symbol)</h2>
-
-      Bilde (Edit-symbol)<br /><br />
-      Age <br /><br />
-      {{ currUser.email }} (Edit-symbol): <br /><br />
-      Description (Edit-symbol):<br />
-      <div class="description">{{ currUser.description }}</div>
-      <br /><br />
-      Change password<br />Delete account<br />
-    </div>
+  <div>
+    <UserProfileEdit v-if="isEditMode" :currUser="currUser" />
+    <UserProfileView v-else :currUser="currUser" />
+    <button @click="isEditMode = !isEditMode">
+      {{ isEditMode ? "Done" : "Edit profile" }}
+    </button>
   </div>
 </template>
 
@@ -18,46 +12,75 @@
 // @ is an alias to /src
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { ref } from "vue";
+import UserProfileEdit from "../components/UserProfileEdit.vue";
+import UserProfileView from "../components/UserProfileView.vue";
 
 export default {
   name: "UserProfile",
+  components: {
+    UserProfileEdit,
+    UserProfileView,
+  },
+
   setup() {
     const store = useStore();
+    const isEditMode = ref(false);
+    const currUser = ref(store.getters.getActiveUser);
 
     const activeUserName = computed(() => {
       return store.state.activeUser;
     });
 
-    const currUser = computed(() => {
-      return store.getters.getActiveUser;
-    });
-
-    return { currUser, activeUserName };
+    return { currUser, activeUserName, isEditMode };
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.post {
+<style lang="scss">
+.profilePost {
   margin: 6px auto;
-  padding-left: 10px;
   border: solid black 1px;
-  width: min(100%, 600px);
+  width: min(80%, 500px);
   background-color: white;
   border-radius: 3px;
   text-align: left;
 
-  h2 {
-    text-align: center;
+  .profileHeader {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .profileDescriptionContainer {
+    margin: auto;
+    width: 70%;
+
+    textarea.profileDescription {
+      width: 95%;
+    }
   }
 }
-
-.description {
-  margin: 6px auto;
-  border: solid black 1px;
-  width: min(100%, 300px);
-  background-color: white;
-  border-radius: 3px;
-  text-align: left;
+.elementCC {
+  .elementContainer {
+    padding: 10px;
+  }
+  .elementContainer:nth-child(2n -1) {
+    background: rgb(221, 221, 221);
+  }
+  .elementContainer > * {
+    display: inline;
+    margin-right: 10px;
+  }
+  .elementContainer :first-child {
+    font-weight: bold;
+  }
+  .descriptionContainer {
+    :last-child {
+      display: block;
+      padding: 5px;
+    }
+  }
 }
 </style>
