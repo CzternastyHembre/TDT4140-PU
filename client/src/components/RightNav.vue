@@ -8,6 +8,7 @@
     <div class="box"><h3>MAX:</h3></div>
   </div>
 </template>
+
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -28,4 +29,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.navButtons {
+  font-style: italic;
+}
+</style>

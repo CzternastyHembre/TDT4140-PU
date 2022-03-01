@@ -35,4 +35,6 @@ export default {
 };
 </script>
 
+.navButtons { font-style: italic; }
+
 <style scoped></style>

@@ -44,6 +44,7 @@ export default {
   grid-template-rows: 1fr;
   grid-template-columns: 10% 70% 10% 10%;
   font-weight: bold;
+  font-style: italic;
 }
 
 .footerbox {
@@ -51,6 +52,8 @@ export default {
   width: 100%;
   padding: auto;
   height: 100%;
+  border-width: 2px;
+  border-color: black;
 }
 
 .footerBox div {

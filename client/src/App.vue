@@ -1,3 +1,4 @@
+4
 <template>
   <div class="appWrapper">
     <div id="nav">
@@ -33,7 +34,6 @@ body {
 
 #app {
   font-family: "Helvetica";
-  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -90,7 +90,8 @@ body {
     width: min(70%, 600px);
     color: #5a4035;
     text-align: center;
-    border-radius: 5px;
+    //border-radius: 5px;
+    font-style: italic;
   }
   a {
     text-decoration: none;
