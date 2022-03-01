@@ -44,8 +44,6 @@ export default {
   text-align: left;
   background-color: #c7dce7;
   color: #5a4035;
-  /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
-    0 2px 4px -1px rgba(39, 6, 129, 0.75); */
 }
 
 .expiredEvent {

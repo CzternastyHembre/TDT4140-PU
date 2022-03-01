@@ -30,7 +30,7 @@ export default {
 };
 </script>
 <style scoped>
-.navButtons {
-  font-style: italic;
-}
+
+.navButtons { font-style: italic; }
+
 </style>

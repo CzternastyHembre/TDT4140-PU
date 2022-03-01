@@ -1,15 +1,17 @@
 <template>
   <div class="footerBox">
+    <div class="navButtons"></div>
     <div class="navButtons">
       <router-link to="/">HOME</router-link>
       <br />
+      <div v-if="activeUser"/>
       <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
       <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
       <div class="logout">
-        <button @click="logOutUser" v-if="activeUser">LOG OUT</button>
+        <button @click="logOutUser" v-if="activeUser"><div class="font">LOG OUT</div></button>
       </div>
     </div>
-    <h1 class="header"><br />RETICKET</h1>
+    <h1 class="header">RETICKET</h1>
   </div>
 </template>
 
@@ -71,4 +73,10 @@ export default {
   padding-right: 20px;
   text-align: center;
 }
+
+.font {
+  font-weight: bold;
+  font-style: italic;
+}
+
 </style>

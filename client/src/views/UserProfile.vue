@@ -41,11 +41,10 @@ export default {
 .post {
   margin: 6px auto;
   padding-left: 10px;
-  border: solid black 1px;
   width: min(100%, 600px);
   background-color: #c7dce7;
-  border-radius: 3px;
   text-align: left;
+  color: #5a3540;
 
   h2 {
     text-align: center;
@@ -57,7 +56,6 @@ export default {
   border: solid black 1px;
   width: min(100%, 300px);
   background-color: white;
-  border-radius: 3px;
   text-align: left;
 }
 </style>
