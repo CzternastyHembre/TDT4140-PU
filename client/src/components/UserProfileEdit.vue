@@ -56,8 +56,10 @@
       </div>
     </div>
 
-    <div class="errorDiv" :v-model="errorMsg">
-      {{ errorMsg }}
+    <div class="errorDiv">
+      <p :style="{ visibility: +!errorMsg ? 'hidden' : 'visible' }">
+        {{ errorMsg || "no issue" }}
+      </p>
     </div>
   </div>
 </template>
@@ -72,14 +74,15 @@ export default {
   props: {
     currUser: User,
   },
-  setup() {
+  emits: ["userUpdated"],
+  setup(props, { emit }) {
     const store = useStore();
 
-    const newDescription = ref("");
-    const newEmail = ref("");
-    const newUserName = ref("");
-    const newFirstName = ref("");
-    const newLastName = ref("");
+    const newDescription = ref(props.currUser.description + "");
+    const newEmail = ref(props.currUser.email + "");
+    const newUserName = ref(props.currUser.userName + "");
+    const newFirstName = ref(props.currUser.firstName + "");
+    const newLastName = ref(props.currUser.lastName + "");
     const errorMsg = ref("");
 
     const submitUser = (event) => {
@@ -99,10 +102,12 @@ export default {
           description: newDescription.value,
         };
         store.commit("updateUser", userInfo);
-
-        errorMsg.value = "User succesfully updated";
+        errorMsg.value = "";
+        emit("userUpdated");
       } catch (error) {
         errorMsg.value = error;
+        setTimeout(() => (errorMsg.value = ""), 10000);
+        console.log(error);
       }
     };
 
@@ -120,6 +125,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .errorDiv {
+  text-align: center;
   color: red;
 }
 .saveBtnC {

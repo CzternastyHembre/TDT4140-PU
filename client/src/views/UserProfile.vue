@@ -1,7 +1,15 @@
 <template>
   <div>
-    <UserProfileEdit v-if="isEditMode" :currUser="currUser" />
-    <UserProfileView v-else :currUser="currUser" />
+    <UserProfileEdit
+      v-if="isEditMode"
+      :currUser="currUser"
+      @user-updated="userUpdatedEvent"
+    />
+    <UserProfileView
+      v-else
+      :currUser="currUser"
+      :userUpdatedMsg="userUpdatedMsg"
+    />
     <button @click="isEditMode = !isEditMode">
       {{ isEditMode ? "Done" : "Edit profile" }}
     </button>
@@ -27,12 +35,24 @@ export default {
     const store = useStore();
     const isEditMode = ref(false);
     const currUser = ref(store.getters.getActiveUser);
+    const userUpdatedMsg = ref("");
 
     const activeUserName = computed(() => {
       return store.state.activeUser;
     });
 
-    return { currUser, activeUserName, isEditMode };
+    const userUpdatedEvent = () => {
+      isEditMode.value = false;
+      userUpdatedMsg.value = "Your user info was updated";
+    };
+
+    return {
+      currUser,
+      activeUserName,
+      isEditMode,
+      userUpdatedMsg,
+      userUpdatedEvent,
+    };
   },
 };
 </script>

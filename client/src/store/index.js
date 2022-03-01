@@ -69,7 +69,7 @@ export default createStore({
         "Designer person"
       ),
     ],
-    activeUser: null,
+    activeUser: "stianjsu",
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -83,13 +83,15 @@ export default createStore({
   },
   mutations: {
     updateUser(state, userInfo) {
-      const activeUser = state.users.find(
+      const userToUpdate = state.users.find(
         (u) => u.email === userInfo.email
       ); /* TODO, find on ID when added */
-      if (!activeUser) {
-        throw "UUUU";
+      if (!userToUpdate) {
+        throw "Could not find user to update";
       }
-      activeUser.updateUser(userInfo);
+      const updateActiveUser = state.activeUser === userToUpdate.userName;
+      userToUpdate.updateUser(userInfo);
+      if (updateActiveUser) state.activeUser = userToUpdate.userName;
     },
     addPost(state, post) {
       state.posts.push(post);
