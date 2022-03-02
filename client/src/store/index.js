@@ -69,7 +69,7 @@ export default createStore({
         "Designer person"
       ),
     ],
-    activeUser: "stianjsu",
+    activeUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
