@@ -1,20 +1,13 @@
 <template>
   <div class="footerBox">
-    <div class="navButtons"></div>
-    <div class="navButtons">
+    <div class="navButtonsNav">
       <router-link to="/">HOME</router-link>
-      <br />
-      <div v-if="activeUser" />
       <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
       <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
-      <img :src="ReTicket1" />
-      <div class="logout">
-        <button @click="logOutUser" v-if="activeUser">
-          <div class="font">LOG OUT</div>
-        </button>
-      </div>
+
+      <div class="logout" v-if="activeUser" @click="logOutUser">LOG OUT</div>
     </div>
-    <h1 class="header">RETICKET</h1>
+    <img class="header" :src="ReTicket1" />
   </div>
 </template>
 
@@ -50,49 +43,43 @@ export default {
 };
 </script>
 
-<style scoped>
-.navButtons {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 10% 70% 10% 10%;
-  font-weight: bold;
-  font-style: italic;
-}
+<style lang="scss" scoped>
+.footerBox {
+  position: absolute; /* fixing the position takes it out of html flow - knows
+                   nothing about where to locate itself except by browser
+                   coordinates */
+  left: 0; /* top left corner should start at leftmost spot */
+  top: 0; /* top left corner should start at topmost spot */
+  width: 100%; /* take up the full browser width */
+  z-index: 200; /* high z index so other content scrolls underneath */
+  background-color: #c7dce7;
+  .navButtonsNav {
+    background-color: inherit;
+    margin: 16px 16px 0 16px;
+    font-weight: bold;
+    font-style: italic;
+    color: #cc3f3f;
 
-.footerbox {
-  margin: auto;
-  width: 100%;
-  padding: auto;
-  height: 100%;
-  border-width: 2px;
-  border-color: black;
-}
+    > * {
+      margin: 0 10px;
+      cursor: pointer;
+    }
 
-.footerBox div {
-  color: #cc3f3f;
-}
-
-.header {
-  text-align: center;
-  font-weight: bold;
-  color: #cc3f3f;
-}
-
-.navButtons a {
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: center;
-  padding-top: 10px;
-}
-
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.font {
-  font-weight: bold;
-  font-style: italic;
+    display: flex;
+    :first-child {
+      margin: 0 auto 0 0;
+      order: 0;
+    }
+    :last-child {
+      margin: 0 0 0 10px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  .header {
+    margin-bottom: 1em;
+  }
 }
 </style>

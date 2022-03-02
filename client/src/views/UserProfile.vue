@@ -87,7 +87,7 @@ export default {
     padding: 10px;
   }
   .elementContainer:nth-child(2n -1) {
-    background: rgb(221, 221, 221);
+    background: #acd3e6;
   }
   .elementContainer > * {
     display: inline;

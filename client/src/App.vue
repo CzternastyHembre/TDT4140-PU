@@ -1,8 +1,6 @@
 <template>
   <div class="appWrapper">
-    <div id="nav">
-      <header-nav />
-    </div>
+    <header-nav />
     <div class="appContent">
       <left-nav />
       <router-view />
@@ -40,36 +38,9 @@ body {
   color: #2c3e50;
 }
 
-#nav {
-  position: fixed; /* fixing the position takes it out of html flow - knows
-                   nothing about where to locate itself except by browser
-                   coordinates */
-  left: 0; /* top left corner should start at leftmost spot */
-  top: 0; /* top left corner should start at topmost spot */
-  width: 100%; /* take up the full browser width */
-  z-index: 200; /* high z index so other content scrolls underneath */
-  height: 150px; /* define height for content */
-  /*box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
-    0 2px 4px -1px rgba(39, 6, 129, 0.75); */
-  background: #c7dce7;
-
-  a {
-    /*font-weight: Helvetica;*/
-    color: #cc3f3f;
-    text-decoration: none;
-    color: inherit;
-
-    router-link-exact-active {
-      color: #c7dce7;
-    }
-  }
-
-  b {
-    color: #a54035;
-  }
-}
-
 .appContent {
+  width: 90%;
+  margin: auto;
   padding-top: 200px;
   display: grid;
   grid-template-rows: 100%;
@@ -78,11 +49,13 @@ body {
 }
 
 .navButtons {
+  //Not for the navigation buttons
   padding-bottom: 20px;
   color: #5a4035;
 }
 
 .box {
+  cursor: pointer;
   h3 {
     margin: 10px auto;
     padding: 20px;
@@ -99,9 +72,9 @@ body {
     outline: 1px solid black;
   }
 }
-#nav .router-link-active,
+.router-link-active,
 .router-link-active h3 {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .basicForm {
