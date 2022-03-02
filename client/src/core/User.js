@@ -1,3 +1,4 @@
+import hash from "./Hashing";
 export default class User {
   //TODO Profile picture
   /**
@@ -18,7 +19,7 @@ export default class User {
     this.setDescription(description);
   }
 
-  validUserName(username) {
+  static validUserName(username) {
     const userNameRegex = /^[A-Za-z0-9]+$/;
     if (!username.match(userNameRegex)) {
       throw "Username cant contain any special characters, only letters and numbers";
@@ -33,7 +34,7 @@ export default class User {
    * Checks for valid email.
    * @param {string} email
    */
-  validEmail(email) {
+  static validEmail(email) {
     const emailRegex2 = /^[A-Za-z.]+@[A-Za-z.]+\.[a-z]{2,3}$/;
     if (!email.match(emailRegex2)) {
       throw "Invalid email address";
@@ -48,7 +49,7 @@ export default class User {
    *  --At leat 8 characters long.
    * @param {string} password
    */
-  validPassword(password) {
+  static validPassword(password) {
     const oneLowerCase = /(?=.*[a-z])/;
     if (!password.match(oneLowerCase)) {
       throw "The password must contain at least 1 lowercase alphabetical character";
@@ -74,7 +75,7 @@ export default class User {
     }
   }
 
-  validName(str) {
+  static validName(str) {
     const firstUpperRestLower = /^([A-Z][a-z]+ )*[A-Z][a-z]+$/;
     if (!str.match(firstUpperRestLower)) {
       throw "Name can only include letters and start with upper case";
@@ -85,7 +86,7 @@ export default class User {
    * @param {string} _userName
    */
   setUserName(_userName) {
-    this.validUserName(_userName);
+    User.validUserName(_userName);
     this.userName = _userName;
   }
 
@@ -93,15 +94,15 @@ export default class User {
    * @param {string} _password
    */
   setPassword(_password) {
-    this.validPassword(_password);
-    this.password = _password;
+    User.validPassword(_password);
+    this.password = hash(_password);
   }
 
   /**
    * @param {string} _email
    */
   setEmail(_email) {
-    this.validEmail(_email);
+    User.validEmail(_email);
     this.email = _email;
   }
 
@@ -109,7 +110,7 @@ export default class User {
    * @param {string} _firstName
    */
   setFirstName(_firstName) {
-    this.validName(_firstName);
+    User.validName(_firstName);
     this.firstName = _firstName;
   }
 
@@ -117,7 +118,7 @@ export default class User {
    * @param {string} _lastName
    */
   setLastName(_lastName) {
-    this.validName(_lastName);
+    User.validName(_lastName);
     this.lastName = _lastName;
   }
 
@@ -126,5 +127,14 @@ export default class User {
    */
   setDescription(_description) {
     this.description = _description;
+  }
+  updateUser(userInfo) {
+    console.log(this);
+    this.userName = userInfo.userName;
+    this.email = userInfo.email;
+    this.firstName = userInfo.firstName;
+    this.lastName = userInfo.lastName;
+    this.description = userInfo.description;
+    console.log(this);
   }
 }

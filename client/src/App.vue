@@ -103,4 +103,45 @@ body {
 .router-link-active h3 {
   text-decoration: underline;
 }
+
+.basicForm {
+  margin: auto;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  padding: 1em 2em;
+  text-align: left;
+  font-size: 1em;
+
+  border: 1px solid grey;
+  border-radius: 2%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+}
+
+.basicForm form > div {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.basicForm input {
+  font-size: 1em;
+  display: inline-block;
+  size: 1em;
+  width: 80%;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  width: 35%;
+  font-size: 17px;
+  border-radius: 20px;
+  margin: auto;
+  border: 1px solid #6a706e;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.submitButton:hover {
+  box-shadow: 0 2px 6px black;
+}
 </style>
