@@ -1,15 +1,20 @@
 <template>
   <div class="footerBox">
+    <div class="navButtons"></div>
     <div class="navButtons">
       <router-link to="/">HOME</router-link>
       <br />
+      <div v-if="activeUser" />
       <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
       <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
       <img :src="ReTicket1" />
       <div class="logout">
-        <button @click="logOutUser" v-if="activeUser">LOG OUT</button>
+        <button @click="logOutUser" v-if="activeUser">
+          <div class="font">LOG OUT</div>
+        </button>
       </div>
     </div>
+    <h1 class="header">RETICKET</h1>
   </div>
 </template>
 
@@ -51,6 +56,7 @@ export default {
   grid-template-rows: 1fr;
   grid-template-columns: 10% 70% 10% 10%;
   font-weight: bold;
+  font-style: italic;
 }
 
 .footerbox {
@@ -58,6 +64,8 @@ export default {
   width: 100%;
   padding: auto;
   height: 100%;
+  border-width: 2px;
+  border-color: black;
 }
 
 .footerBox div {
@@ -81,5 +89,10 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.font {
+  font-weight: bold;
+  font-style: italic;
 }
 </style>
