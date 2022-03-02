@@ -5,11 +5,11 @@
       <br />
       <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
       <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
+      <img :src="ReTicket1" />
       <div class="logout">
         <button @click="logOutUser" v-if="activeUser">LOG OUT</button>
       </div>
     </div>
-    <h1 class="header"><br />RETICKET</h1>
   </div>
 </template>
 
@@ -17,6 +17,7 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import ReTicket1 from "@/assets/ReTicket1.png";
 
 export default {
   name: "HeaderNav",
@@ -34,6 +35,12 @@ export default {
     };
 
     return { activeUser, logOutUser };
+  },
+
+  data: function () {
+    return {
+      ReTicket1,
+    };
   },
 };
 </script>
@@ -67,5 +74,12 @@ export default {
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
+  padding-top: 10px;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
