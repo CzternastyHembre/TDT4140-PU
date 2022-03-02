@@ -11,7 +11,7 @@
       :userUpdatedMsg="userUpdatedMsg"
     />
     <button @click="isEditMode = !isEditMode">
-      {{ isEditMode ? "Done" : "Edit profile" }}
+      {{ isEditMode ? "Back" : "Edit profile" }}
     </button>
   </div>
 </template>
