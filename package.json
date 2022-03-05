@@ -4,11 +4,14 @@
     "description": "idhjadpiawjdpawodjawdawd",
     "main": "index.js",
     "scripts": {
-        "postinstall": "cd client && npm install && cd ..",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
         "build": "npm install && (cd client && npm run build)",
         "test": "npm install && (cd client && npm run test:unit && npm run test:e2e:headless)",
-        "lint": "npm install && (cd client && npm run lint)",
-        "lintStaged": "cd client && npx lint-staged"
+        "lint": "npm install && (cd client && npm run lint) && (cd server && npm run lint)",
+        "lintStaged": "cd client && npx lint-staged && cd ../server && npx lint-staged",
+        "ui_start": "cd client && npm run serve",
+        "server_start": "cd server && npm run server",
+        "full_app_start": "concurrently -n server,ui -c blue,green \"npm run server_start\" \"npm run ui_start\""
     },
     "pre-commit": {
         "run": [
@@ -25,6 +28,6 @@
         "pre-commit": "^1.2.2"
     },
     "dependencies": {
-        "@jporto/vue-flex-layout": "^3.0.2"
+        "concurrently": "^7.0.0"
     }
 }
