@@ -1,10 +1,10 @@
 <template>
   <div class="post" :class="{ expiredEvent: Date.now() > post.dateAndTime }">
-    <p>Username: {{ post.user }}</p>
-    <p>Event name: {{ post.eventName }}</p>
-    <p>Event Type: {{ post.eventType }}</p>
-    <p>Date: {{ new Date(post.dateAndTime).toISOString() }}</p>
-    <p v-if="post.price">Price: {{ post.price }}kr</p>
+    <p><b>EVENT NAME:</b> {{ post.eventName }}</p>
+    <p><b>EVENT TYPE:</b> {{ post.eventType }}</p>
+    <p><b>DATE:</b> {{ new Date(post.dateAndTime).toISOString() }}</p>
+    <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
+    <p><b>USERNAME:</b> {{ post.user }}</p>
   </div>
 </template>
 
@@ -29,11 +29,15 @@ export default {
 
 <style scoped>
 .post {
-  margin: 6px auto;
-  border: solid black 1px;
+  font-style: bold;
+  margin: 20px auto;
   width: min(100%, 600px);
-  background-color: white;
-  border-radius: 10px;
+  padding: 30px;
+  text-align: left;
+  background-color: #c7dce7;
+  color: #cc3f3f;
+  /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
+    0 2px 4px -1px rgba(39, 6, 129, 0.75); */
 }
 
 .expiredEvent {

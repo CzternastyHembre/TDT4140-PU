@@ -5,11 +5,11 @@ import User from "../core/User";
 export default createStore({
   state: {
     posts: [
-      new SalesPost("Stian", "Fest1", "superfest", Date.now() + 10e10, 20),
-      new SalesPost("Sara", "Fest2", "superfest", Date.now() + 10e9, 30),
-      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 10e8, 40),
-      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e7, 40),
-      new SalesPost("Ylva", "Fest3", "superfest", Date.now() - 10e6, 40),
+      new SalesPost("Ylva", "Fest1", "superfest", Date.now() + 1 * 10e8, 40),
+      new SalesPost("Ylva", "Fest2", "superfest", Date.now() + 2 * 10e8, 40),
+      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 3 * 10e9, 40),
+      new SalesPost("Sara", "Fest4", "superfest", Date.now() + 4 * 10e9, 30),
+      new SalesPost("Stian", "Fest5", "superfest", Date.now() + 10e10, 20),
     ],
     users: [
       new User(
@@ -23,10 +23,10 @@ export default createStore({
       new User(
         "mattish",
         "Mattis123",
-        "mattish@stud.ntnu.no",
+        "mattisczthem@gmail.com",
         "Mattis",
         "Hembre",
-        "Minst kul person"
+        "mest kul person"
       ),
       new User(
         "vetlestor",
@@ -82,6 +82,17 @@ export default createStore({
     },
   },
   mutations: {
+    updateUser(state, userInfo) {
+      const userToUpdate = state.users.find(
+        (u) => u.email === userInfo.email
+      ); /* TODO, find on ID when added */
+      if (!userToUpdate) {
+        throw "Could not find user to update";
+      }
+      const updateActiveUser = state.activeUser === userToUpdate.userName;
+      userToUpdate.updateUser(userInfo);
+      if (updateActiveUser) state.activeUser = userToUpdate.userName;
+    },
     addPost(state, post) {
       state.posts.push(post);
       state.posts.sort((a, b) => {

@@ -1,68 +1,93 @@
 <template>
-  <div class="signUpForm">
-    <h1>Sign up to your new account</h1>
-    <form>
-      <label for="Username">Username:</label><br />
-      <input
-        v-model="inpUName"
-        type="text"
-        name="userName"
-        id="UserName"
-        required
-      /><br />
-      <label for="FirstName">First name:</label><br />
-      <input
-        v-model="inpFName"
-        type="text"
-        name="First Name"
-        id="FirstName"
-        required
-      /><br />
-      <label for="Surname"> Surname:</label><br />
-      <input
-        v-model="inpEName"
-        type="text"
-        name="Surname"
-        id="Surname"
-        required
-      /><br />
-      <label for="email" name="email"> Email:</label><br />
-      <input
-        v-model="inpEmail"
-        type="email"
-        name="email"
-        id="email"
-        required
-      /><br />
-      <label for="Birthday">Birthday:</label><br />
-      <input
-        v-model="inpBirthdate"
-        type="date"
-        name="Birthday"
-        id="Birthday"
-        required
-      /><br />
-      <label for="Password1">Password:</label><br />
-      <input
-        v-model="inpPasw1"
-        type="password"
-        name="Password1"
-        id="Password1"
-        required
-      /><br />
-      <label for="Password2">Confirm password:</label><br />
-      <input
-        v-model="inpPasw2"
-        type="password"
-        name="Password2"
-        id="Password2"
-        required
-      />
-      <br /><br />
-      <input @click="addUser" type="submit" value="Register" />
-      <p style="color: red">{{ errorMsg }}</p>
-      <p></p>
-    </form>
+  <div>
+    <h1>Sign in to your new account</h1>
+    <div class="signUpForm basicForm">
+      <form>
+        <div>
+          <label for="Username">Username:</label>
+          <input
+            v-model="inpUName"
+            type="text"
+            name="userName"
+            id="UserName"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="FirstName">First name:</label>
+          <input
+            v-model="inpFName"
+            type="text"
+            name="First Name"
+            id="FirstName"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="Surname"> Surname:</label>
+          <input
+            v-model="inpEName"
+            type="text"
+            name="Surname"
+            id="Surname"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="email" name="email"> Email:</label>
+          <input
+            v-model="inpEmail"
+            type="email"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="Birthday">Birthday:</label>
+          <input
+            v-model="inpBirthdate"
+            type="date"
+            name="Birthday"
+            id="Birthday"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="Password1">Password:</label>
+          <input
+            v-model="inpPasw1"
+            type="password"
+            name="Password1"
+            id="Password1"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="Password2">Confirm password:</label>
+          <input
+            v-model="inpPasw2"
+            type="password"
+            name="Password2"
+            id="Password2"
+            required
+          />
+          <p v-if="errorMsg != ''" style="color: red">{{ errorMsg }}</p>
+        </div>
+
+        <div>
+          <button class="submitButton" @click="addUser" type="submit">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -140,7 +165,7 @@ export default {
 .signUpForm {
   margin: 10px auto;
   width: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color: #c7dce7;
   padding: 2em;
 
   border: 1px solid rgb(0, 0, 0);
