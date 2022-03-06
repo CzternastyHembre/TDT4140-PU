@@ -6,6 +6,7 @@ const colors = require("colors");
 const { errorHandler } = require("./middleWare/errorMiddleware");
 const { connectDB } = require("./dbconfig/db");
 const PORT = process.env.PORT || 5000;
+const cors = require("cors");
 
 /* eslint-enable no-unused-vars */
 
@@ -13,6 +14,11 @@ connectDB();
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

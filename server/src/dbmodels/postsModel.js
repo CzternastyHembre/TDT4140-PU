@@ -6,6 +6,10 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, "No userId set"],
     },
+    userName: {
+      type: String,
+      required: [true, "No username set"],
+    },
     eventName: {
       type: String,
       required: [true, "No eventName set"],
@@ -24,10 +28,14 @@ const postSchema = mongoose.Schema(
     },
     price: {
       type: Number,
-      required: [true, "No price set"],
+      required: false,
     },
     price2: {
       type: Number,
+      required: false,
+    },
+    description: {
+      type: String,
       required: false,
     },
     isSold: {

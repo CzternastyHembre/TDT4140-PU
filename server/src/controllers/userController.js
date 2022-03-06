@@ -49,7 +49,7 @@ const editUser = asyncHandler(async (req, res) => {
   const updatedUser = await UsersDB.findByIdAndUpdate(
     req.params.userId,
     req.body.user,
-    { new: false }
+    { new: true }
   );
 
   res.status(200).json({ message: "User updated!", updatedUser });
@@ -73,9 +73,29 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "User removed!", user });
 });
 
+const getUserByUnamePassw = asyncHandler(async (req, res) => {
+  const user = await UsersDB.findOne({
+    userName: req.body.userName,
+  });
+
+  console.log(user);
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+  if (user.password !== req.body.password) {
+    res.status(403);
+    throw new Error("Wrong password for user");
+  }
+
+  res.status(200).json(user);
+});
+
 module.exports = {
   getUser,
   addUser,
   editUser,
   deleteUser,
+  getUserByUnamePassw,
 };
