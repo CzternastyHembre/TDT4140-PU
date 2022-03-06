@@ -22,11 +22,13 @@ export default class User {
   static validUserName(username) {
     const userNameRegex = /^[A-Za-z0-9]+$/;
     if (!username.match(userNameRegex)) {
-      throw "Username cant contain any special characters, only letters and numbers";
+      throw new Error(
+        "Username cant contain any special characters, only letters and numbers"
+      );
     }
 
     if (username.length < 5) {
-      throw "Username must be longer than 4 characters";
+      throw new Error("Username must be longer than 4 characters");
     }
   }
 
@@ -37,7 +39,7 @@ export default class User {
   static validEmail(email) {
     const emailRegex2 = /^[A-Za-z.]+@[A-Za-z.]+\.[a-z]{2,3}$/;
     if (!email.match(emailRegex2)) {
-      throw "Invalid email address";
+      throw new Error("Invalid email address");
     }
   }
 
@@ -52,12 +54,16 @@ export default class User {
   static validPassword(password) {
     const oneLowerCase = /(?=.*[a-z])/;
     if (!password.match(oneLowerCase)) {
-      throw "The password must contain at least 1 lowercase alphabetical character";
+      throw new Error(
+        "The password must contain at least 1 lowercase alphabetical character"
+      );
     }
 
     const oneUpperCase = /(?=.*[A-Z])/;
     if (!password.match(oneUpperCase)) {
-      throw "The password must contain at least 1 uppercase alphabetical character";
+      throw new Error(
+        "The password must contain at least 1 uppercase alphabetical character"
+      );
     }
 
     const oneNumeric = /(?=.*[0-9])/;
@@ -67,18 +73,20 @@ export default class User {
 
     const noSpecialChRegex = /[^A-Za-z0-9]+/;
     if (password.match(noSpecialChRegex)) {
-      throw "The password must not contain any special characters";
+      throw new Error("The password must not contain any special characters");
     }
     const l = 7;
     if (password.length < l) {
-      throw "The password must be " + l + " characters or longer";
+      throw new Error("The password must be " + l + " characters or longer");
     }
   }
 
   static validName(str) {
     const firstUpperRestLower = /^([A-Z][a-z]+ )*[A-Z][a-z]+$/;
     if (!str.match(firstUpperRestLower)) {
-      throw "Name can only include letters and start with upper case";
+      throw new Error(
+        "Name can only include letters and start with upper case"
+      );
     }
   }
 

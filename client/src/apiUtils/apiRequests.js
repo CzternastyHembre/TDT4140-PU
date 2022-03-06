@@ -6,6 +6,11 @@ const getRequest = async (url) => {
       "Content-Type": "application/json",
     },
   });
+  if (!response.ok) {
+    let responseJson = await response.json();
+    console.log(responseJson);
+    throw new Error(responseJson.message);
+  }
 
   return response.json();
 };
@@ -21,6 +26,12 @@ const postRequest = async (url, data) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+  if (!response.ok) {
+    let responseJson = await response.json();
+    console.log(responseJson);
+    throw new Error(responseJson.message);
+  }
+
   return response.json();
 };
 
@@ -35,6 +46,11 @@ const putRequest = async (url, data) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+  if (!response.ok) {
+    let responseJson = await response.json();
+    console.log(responseJson);
+    throw new Error(responseJson.message);
+  }
   return response.json();
 };
 
@@ -49,6 +65,11 @@ const deleteRequest = async (url, data) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
+  if (!response.ok) {
+    let responseJson = await response.json();
+    console.log(responseJson);
+    throw new Error(responseJson.message);
+  }
   return response.json();
 };
 

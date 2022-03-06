@@ -26,7 +26,7 @@ export default class Post {
     this.setEventType(eventType);
     this.setEventDate(eventDate);
     this.setIsSalesPost(isSalesPost);
-    if (isSalesPost && !price) throw "Price must be specified";
+    if (isSalesPost && !price) throw new Error("Price must be specified");
     if (price) this.setPrice(price);
     if (price2) this.setPrice2(price2);
     this.isSold = false;
@@ -70,13 +70,13 @@ export default class Post {
 
   setPrice(price) {
     if (price <= 0) {
-      throw "Price cant be negative or zero";
+      throw new Error("Price cant be negative or zero");
     }
     this.price = price;
   }
   setPrice2(price2) {
     if (price2 <= 0) {
-      throw "Price cant be negative or zero";
+      throw new Error("Price cant be negative or zero");
     }
     this.price2 = price2;
   }
