@@ -70,7 +70,7 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    const createPost = (event) => {
+    const createPost = async (event) => {
       if (event) {
         event.preventDefault();
       }
@@ -86,13 +86,21 @@ export default {
           eventPrice.value
         );
         console.log(newPost);
-        store.dispatch("postPost", newPost);
+        await store.dispatch("postPost", newPost);
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `Post was created`,
+          bgColor: "lightgreen",
+        });
         router.push("/");
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
         return;
       }
-
       eventName.value = "";
       eventType.value = "";
       eventDate.value = "";

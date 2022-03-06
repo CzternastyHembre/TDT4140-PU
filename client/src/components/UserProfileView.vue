@@ -28,9 +28,6 @@
         <div>Description</div>
         <div class="profileDescription">{{ activeUser.description }}</div>
       </div>
-      <div class="userUpdatedPrompt" v-if="userUpdatedMsg">
-        {{ userUpdatedMsg }}
-      </div>
     </div>
 
     <div class=""></div>
@@ -42,15 +39,8 @@ export default {
   name: "UserProfileView",
   props: {
     activeUser: Object,
-    userUpdatedMsg: String,
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.userUpdatedPrompt {
-  color: darkgreen;
-  padding: 10px 0 10px 0;
-  text-align: center;
-}
-</style>
+<style lang="scss" scoped></style>

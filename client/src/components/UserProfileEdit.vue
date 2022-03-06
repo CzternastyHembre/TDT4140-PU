@@ -55,12 +55,6 @@
         <button @click="submitUser">Save</button>
       </div>
     </div>
-
-    <div class="errorDiv">
-      <p :style="{ visibility: +!errorMsg ? 'hidden' : 'visible' }">
-        {{ errorMsg || "no issue" }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -83,9 +77,8 @@ export default {
     const newUserName = ref(props.activeUser.userName + "");
     const newFirstName = ref(props.activeUser.firstName + "");
     const newLastName = ref(props.activeUser.lastName + "");
-    const errorMsg = ref("");
 
-    const submitUser = (event) => {
+    const submitUser = async (event) => {
       if (event) {
         event.preventDefault();
       }
@@ -101,13 +94,20 @@ export default {
           lastName: newLastName.value,
           description: newDescription.value,
         };
-        store.dispatch("editUser", userInfo);
-        errorMsg.value = "";
+        await store.dispatch("editUser", userInfo);
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `User ${newUserName.value} successfully edited`,
+          bgColor: "lightgreen",
+        });
         emit("userUpdated");
-      } catch (error) {
-        errorMsg.value = error;
-        setTimeout(() => (errorMsg.value = ""), 10000);
-        console.log(error);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+        console.log(err);
       }
     };
 
@@ -118,16 +118,11 @@ export default {
       newLastName,
       newDescription,
       submitUser,
-      errorMsg,
     };
   },
 };
 </script>
 <style lang="scss" scoped>
-.errorDiv {
-  text-align: center;
-  color: red;
-}
 .saveBtnC {
   button {
     margin: 10px;

@@ -31,7 +31,6 @@
           </button>
         </div>
       </form>
-      <p style="color: red">{{ errorMsg }}</p>
     </div>
   </div>
 </template>
@@ -48,7 +47,6 @@ export default {
     const router = useRouter();
     const inputUsername = ref("");
     const inputPassword = ref("");
-    const errorMsg = ref("");
 
     const logInUser = async (event) => {
       if (event) {
@@ -59,14 +57,22 @@ export default {
           userName: inputUsername.value,
           password: hash(inputPassword.value),
         });
-        errorMsg.value = "";
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `User ${inputUsername.value} logged in`,
+          bgColor: "lightgreen",
+        });
         router.push("/");
       } catch (err) {
-        errorMsg.value = err.message;
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
       }
     };
 
-    return { inputUsername, inputPassword, errorMsg, logInUser };
+    return { inputUsername, inputPassword, logInUser };
   },
 };
 </script>

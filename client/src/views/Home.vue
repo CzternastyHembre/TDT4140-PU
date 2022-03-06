@@ -20,12 +20,19 @@ export default {
   setup() {
     const store = useStore();
 
-    onBeforeMount(() => {
-      store.dispatch("getPosts");
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getPosts");
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
     });
 
     const posts = computed(() => {
-      //store.dispatch("getPosts");
       return store.state.posts;
     });
 
