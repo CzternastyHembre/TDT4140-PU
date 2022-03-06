@@ -137,7 +137,7 @@ export default {
 
       if (user) {
         try {
-          store.commit("addUser", user);
+          store.dispatch("signUpUser", user);
           errorMsg.value = "";
           router.push("/");
         } catch {

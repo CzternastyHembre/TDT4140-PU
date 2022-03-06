@@ -41,33 +41,28 @@ import hash from "../core/Hashing.js";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
 export default {
   name: "LogInComp",
   setup() {
     const store = useStore();
     const router = useRouter();
-
     const inputUsername = ref("");
     const inputPassword = ref("");
     const errorMsg = ref("");
 
-    const logInUser = (event) => {
+    const logInUser = async (event) => {
       if (event) {
         event.preventDefault();
       }
-      let user = store.state.users.find((user) => {
-        return (
-          user.userName == inputUsername.value &&
-          user.password == hash(inputPassword.value)
-        );
-      });
-      if (user) {
-        store.commit("setActiveUser", user.userName);
-        router.push("/");
+      try {
+        await store.dispatch("logInUser", {
+          userName: inputUsername.value,
+          password: hash(inputPassword.value),
+        });
         errorMsg.value = "";
-      } else {
-        errorMsg.value = "Could not find user";
+        router.push("/");
+      } catch (err) {
+        errorMsg.value = err.message;
       }
     };
 

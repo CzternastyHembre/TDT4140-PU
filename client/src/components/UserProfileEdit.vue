@@ -8,7 +8,7 @@
 
       <div class="elementContainer">
         <div>Email :</div>
-        <input type="text" v-model="newEmail" :placeholder="currUser.email" />
+        <input type="text" v-model="newEmail" :placeholder="activeUser.email" />
       </div>
 
       <div class="elementContainer">
@@ -16,7 +16,7 @@
         <input
           type="text"
           v-model="newUserName"
-          :placeholder="currUser.userName"
+          :placeholder="activeUser.userName"
         />
       </div>
 
@@ -25,7 +25,7 @@
         <input
           type="text"
           v-model="newFirstName"
-          :placeholder="currUser.firstName"
+          :placeholder="activeUser.firstName"
         />
       </div>
 
@@ -34,7 +34,7 @@
         <input
           type="text"
           v-model="newLastName"
-          :placeholder="currUser.lastName"
+          :placeholder="activeUser.lastName"
         />
       </div>
 
@@ -47,7 +47,7 @@
           cols="40"
           maxlength="200"
           v-model="newDescription"
-          :placeholder="currUser.description"
+          :placeholder="activeUser.description"
         >
         </textarea>
       </div>
@@ -72,17 +72,17 @@ import { useStore } from "vuex";
 export default {
   name: "UserProfileEdit",
   props: {
-    currUser: User,
+    activeUser: Object,
   },
   emits: ["userUpdated"],
   setup(props, { emit }) {
     const store = useStore();
 
-    const newDescription = ref(props.currUser.description + "");
-    const newEmail = ref(props.currUser.email + "");
-    const newUserName = ref(props.currUser.userName + "");
-    const newFirstName = ref(props.currUser.firstName + "");
-    const newLastName = ref(props.currUser.lastName + "");
+    const newDescription = ref(props.activeUser.description + "");
+    const newEmail = ref(props.activeUser.email + "");
+    const newUserName = ref(props.activeUser.userName + "");
+    const newFirstName = ref(props.activeUser.firstName + "");
+    const newLastName = ref(props.activeUser.lastName + "");
     const errorMsg = ref("");
 
     const submitUser = (event) => {
@@ -101,7 +101,7 @@ export default {
           lastName: newLastName.value,
           description: newDescription.value,
         };
-        store.commit("updateUser", userInfo);
+        store.dispatch("editUser", userInfo);
         errorMsg.value = "";
         emit("userUpdated");
       } catch (error) {
