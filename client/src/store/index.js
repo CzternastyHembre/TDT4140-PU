@@ -10,6 +10,12 @@ const API_URL = "http://localhost:5000/api";
 export default createStore({
   state: {
     posts: [],
+    toastProps: {
+      isActive: false,
+      text: "",
+      bgColor: "",
+      timeOutId: null,
+    },
     activeUser: null,
   },
   getters: {
@@ -20,58 +26,79 @@ export default createStore({
   mutations: {
     setActiveUser(state, user) {
       state.activeUser = user;
-      console.log(`User ${user.userName} was logged in`);
+      console.log(
+        !state.activeUser
+          ? `User was logged out`
+          : `User ${user.userName} was logged in`
+      );
     },
     updatePosts(state, payload) {
       console.log(payload);
       state.posts = payload;
     },
+    setToast(state, { isActive, text, bgColor, timeOutId }) {
+      state.toastProps = { isActive, text, bgColor, timeOutId };
+    },
+    clearToast(state) {
+      clearTimeout(state.toastProps.timeOutId);
+      state.toastProps = {
+        isActive: false,
+        text: "",
+        bgColor: "",
+        timeOutId: null,
+      };
+    },
   },
   actions: {
     async getPosts(context) {
-      const posts = await getRequest(API_URL + "/posts");
-
-      if (!posts) {
-        throw new Error("Could not get posts");
-      }
+      const posts = await getRequest(API_URL + "/posts").catch((err) => {
+        throw new Error(err.message);
+      });
 
       context.commit("updatePosts", posts);
     },
     async postPost(context, newPost) {
-      const post = await postRequest(API_URL + "/posts", { post: newPost });
-      if (!post) {
-        throw new Error("Could not post the post");
-      }
+      console.log(newPost);
+      await postRequest(API_URL + "/posts", { post: newPost }).catch((err) => {
+        throw new Error(err.message);
+      });
       context.dispatch("getPosts");
     },
     async logInUser(context, { userName, password }) {
       const loggedInUser = await postRequest(API_URL + "/users/login", {
         userName,
         password,
+      }).catch((err) => {
+        throw new Error(err.message);
       });
-      console.log(loggedInUser);
-      if (!loggedInUser) {
-        throw new Error("Could not log in user");
-      }
+
       context.commit("setActiveUser", loggedInUser);
     },
     async signUpUser(context, newUser) {
-      const user = await postRequest(API_URL + "/users", { user: newUser });
-      if (!user) {
-        throw new Error("Could not sign up user");
-      }
-      context.commit("setActiveUser", user);
+      const user = await postRequest(API_URL + "/users", {
+        user: newUser,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      console.log(user);
+
+      context.commit("setActiveUser", user.createdUser);
     },
     async editUser(context, editedUserFields) {
       const editedUser = await putRequest(
         API_URL + "/users/" + this.state.activeUser._id,
         { user: editedUserFields }
-      );
-      console.log("edited user: ", editedUser);
-      if (!editedUser) {
-        throw new Error("Could not edit user");
-      }
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+
       context.commit("setActiveUser", editedUser.updatedUser);
+    },
+    setToast(context, { isActive, text, bgColor }) {
+      context.commit("clearToast");
+      let timeOutId = setTimeout(() => context.commit("clearToast"), 7000);
+      context.commit("setToast", { isActive, text, bgColor, timeOutId });
     },
   },
   modules: {},
