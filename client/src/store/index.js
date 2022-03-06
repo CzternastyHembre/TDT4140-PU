@@ -1,121 +1,78 @@
 import { createStore } from "vuex";
-import SalesPost from "../core/SalesPost";
-import User from "../core/User";
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../apiUtils/apiRequests.js";
+
+const API_URL = "http://localhost:5000/api";
 
 export default createStore({
   state: {
-    posts: [
-      new SalesPost("Ylva", "Fest1", "superfest", Date.now() + 1 * 10e8, 40),
-      new SalesPost("Ylva", "Fest2", "superfest", Date.now() + 2 * 10e8, 40),
-      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 3 * 10e9, 40),
-      new SalesPost("Sara", "Fest4", "superfest", Date.now() + 4 * 10e9, 30),
-      new SalesPost("Stian", "Fest5", "superfest", Date.now() + 10e10, 20),
-    ],
-    users: [
-      new User(
-        "stianjsu",
-        "Stian123",
-        "stianjsu@stud.ntnu.no",
-        "Stian",
-        "Sulebak",
-        "Kul person"
-      ),
-      new User(
-        "mattish",
-        "Mattis123",
-        "mattisczthem@gmail.com",
-        "Mattis",
-        "Hembre",
-        "mest kul person"
-      ),
-      new User(
-        "vetlestor",
-        "Vetle123",
-        "vetlestor@stud.ntnu.no",
-        "Vetle",
-        "Storvik",
-        "Passe kul person"
-      ),
-      new User(
-        "jshjelse",
-        "Jakob123",
-        "jshjelse@stud.ntnu.no",
-        "Jakob",
-        "Hjelseth",
-        "Kulere person"
-      ),
-      new User(
-        "hansgun",
-        "Hans123",
-        "hansgun@stud.ntnu.no",
-        "Hans",
-        "Gunleik",
-        "Ok kul person"
-      ),
-      new User(
-        "ylvarf",
-        "Ylva123",
-        "ylvarf@stud.ntnu.no",
-        "Ylva",
-        "Fossan",
-        "Kulest person"
-      ),
-      new User(
-        "saraost",
-        "Sara123",
-        "saraost@stud.ntnu.no",
-        "Sara",
-        "Ostdahl",
-        "Designer person"
-      ),
-    ],
+    posts: [],
     activeUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
       return state.posts[index];
     },
-    getActiveUser(state) {
-      return state.users.find((user) => {
-        return state.activeUser == user.userName;
-      });
-    },
   },
   mutations: {
-    updateUser(state, userInfo) {
-      const userToUpdate = state.users.find(
-        (u) => u.email === userInfo.email
-      ); /* TODO, find on ID when added */
-      if (!userToUpdate) {
-        throw "Could not find user to update";
-      }
-      const updateActiveUser = state.activeUser === userToUpdate.userName;
-      userToUpdate.updateUser(userInfo);
-      if (updateActiveUser) state.activeUser = userToUpdate.userName;
+    setActiveUser(state, user) {
+      state.activeUser = user;
+      console.log(`User ${user.userName} was logged in`);
     },
-    addPost(state, post) {
-      state.posts.push(post);
-      state.posts.sort((a, b) => {
-        if (a.dateAndTime < Date.now()) {
-          return 1;
-        }
-        return a.dateAndTime - b.dateAndTime;
-      });
-    },
-    addUser(state, user) {
-      if (state.users.find((u) => u.userName == user.userName)) {
-        console.log("Username must be unique");
-        return;
-      }
-      console.log(user);
-      state.users.push(user);
-      this.commit("setActiveUser", user.userName);
-    },
-    setActiveUser(state, userName) {
-      state.activeUser = userName;
-      console.log(`User ${userName} was logged in`);
+    updatePosts(state, payload) {
+      console.log(payload);
+      state.posts = payload;
     },
   },
-  actions: {},
+  actions: {
+    async getPosts(context) {
+      const posts = await getRequest(API_URL + "/posts");
+
+      if (!posts) {
+        throw new Error("Could not get posts");
+      }
+
+      context.commit("updatePosts", posts);
+    },
+    async postPost(context, newPost) {
+      const post = await postRequest(API_URL + "/posts", { post: newPost });
+      if (!post) {
+        throw new Error("Could not post the post");
+      }
+      context.dispatch("getPosts");
+    },
+    async logInUser(context, { userName, password }) {
+      const loggedInUser = await postRequest(API_URL + "/users/login", {
+        userName,
+        password,
+      });
+      console.log(loggedInUser);
+      if (!loggedInUser) {
+        throw new Error("Could not log in user");
+      }
+      context.commit("setActiveUser", loggedInUser);
+    },
+    async signUpUser(context, newUser) {
+      const user = await postRequest(API_URL + "/users", { user: newUser });
+      if (!user) {
+        throw new Error("Could not sign up user");
+      }
+      context.commit("setActiveUser", user);
+    },
+    async editUser(context, editedUserFields) {
+      const editedUser = await putRequest(
+        API_URL + "/users/" + this.state.activeUser._id,
+        { user: editedUserFields }
+      );
+      console.log("edited user: ", editedUser);
+      if (!editedUser) {
+        throw new Error("Could not edit user");
+      }
+      context.commit("setActiveUser", editedUser.updatedUser);
+    },
+  },
   modules: {},
 });
