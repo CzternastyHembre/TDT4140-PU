@@ -13,13 +13,19 @@
 <script>
 import SalesPostComp from "../components/SalesPostComp.vue";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 
 export default {
   name: "Home",
   setup() {
     const store = useStore();
+
+    onBeforeMount(() => {
+      store.dispatch("getPosts");
+    });
+
     const posts = computed(() => {
+      //store.dispatch("getPosts");
       return store.state.posts;
     });
 
