@@ -2,14 +2,10 @@
   <div>
     <UserProfileEdit
       v-if="isEditMode"
-      :currUser="currUser"
+      :activeUser="activeUser"
       @user-updated="userUpdatedEvent"
     />
-    <UserProfileView
-      v-else
-      :currUser="currUser"
-      :userUpdatedMsg="userUpdatedMsg"
-    />
+    <UserProfileView v-else :activeUser="activeUser" />
     <button @click="isEditMode = !isEditMode">
       {{ isEditMode ? "Back" : "Edit profile" }}
     </button>
@@ -34,23 +30,18 @@ export default {
   setup() {
     const store = useStore();
     const isEditMode = ref(false);
-    const currUser = ref(store.getters.getActiveUser);
-    const userUpdatedMsg = ref("");
 
-    const activeUserName = computed(() => {
+    const activeUser = computed(() => {
       return store.state.activeUser;
     });
 
     const userUpdatedEvent = () => {
       isEditMode.value = false;
-      userUpdatedMsg.value = "Your user info was updated";
     };
 
     return {
-      currUser,
-      activeUserName,
+      activeUser,
       isEditMode,
-      userUpdatedMsg,
       userUpdatedEvent,
     };
   },

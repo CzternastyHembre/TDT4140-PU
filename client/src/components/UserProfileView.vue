@@ -1,7 +1,7 @@
 <template>
   <div class="profilePost">
     <div class="profileHeader">
-      <h2>{{ currUser.firstName }} {{ currUser.lastName }}</h2>
+      <h2>{{ activeUser.firstName }} {{ activeUser.lastName }}</h2>
       <img src="TODO" alt="Profile picture (todo)" />
     </div>
 
@@ -9,27 +9,24 @@
       <div class="elementContainer">
         <div>Email</div>
         <div>
-          {{ currUser.email }}
+          {{ activeUser.email }}
         </div>
       </div>
       <div class="elementContainer">
         <div>Username</div>
         <div>
-          {{ currUser.userName }}
+          {{ activeUser.userName }}
         </div>
       </div>
       <div class="elementContainer">
         <div>Full name</div>
         <div>
-          {{ currUser.firstName + " " + currUser.lastName }}
+          {{ activeUser.firstName + " " + activeUser.lastName }}
         </div>
       </div>
       <div class="elementContainer descriptionContainer">
         <div>Description</div>
-        <div class="profileDescription">{{ currUser.description }}</div>
-      </div>
-      <div class="userUpdatedPrompt" v-if="userUpdatedMsg">
-        {{ userUpdatedMsg }}
+        <div class="profileDescription">{{ activeUser.description }}</div>
       </div>
     </div>
 
@@ -38,21 +35,12 @@
 </template>
 
 <script>
-import User from "../core/User.js";
-
 export default {
   name: "UserProfileView",
   props: {
-    currUser: User,
-    userUpdatedMsg: String,
+    activeUser: Object,
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.userUpdatedPrompt {
-  color: darkgreen;
-  padding: 10px 0 10px 0;
-  text-align: center;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -2,9 +2,9 @@
   <div class="post" :class="{ expiredEvent: Date.now() > post.dateAndTime }">
     <p><b>EVENT NAME:</b> {{ post.eventName }}</p>
     <p><b>EVENT TYPE:</b> {{ post.eventType }}</p>
-    <p><b>DATE:</b> {{ new Date(post.dateAndTime).toISOString() }}</p>
+    <p><b>DATE:</b> {{ dateString(post.eventDate) }}</p>
     <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
-    <p><b>USERNAME:</b> {{ post.user }}</p>
+    <p><b>USERNAME:</b> {{ post.userName }}</p>
   </div>
 </template>
 
@@ -18,11 +18,20 @@ export default {
   setup(props) {
     const store = useStore();
 
+    const dateString = (eventDate) => {
+      let dateObj = new Date(eventDate);
+      let time = new Date(
+        dateObj.getTime() - dateObj.getTimezoneOffset() * 60 * 1000 // Fixes timezone offset
+      ).toUTCString();
+      let formattedTime = time.split(":").splice(0, 2).join(":"); // Removes gmt postfix
+      return formattedTime;
+    };
+
     const post = computed(() => {
       return store.getters.getPostByIndex(props.indexPost);
     });
 
-    return { post };
+    return { post, dateString };
   },
 };
 </script>

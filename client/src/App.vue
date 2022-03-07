@@ -6,6 +6,7 @@
       <router-view />
       <right-nav />
     </div>
+    <toast-comp />
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import HeaderNav from "../src/components/HeaderNav.vue";
 import LeftNav from "./components/LeftNav.vue";
 import RightNav from "./components/RightNav.vue";
+import ToastComp from "./components/ToastComp.vue";
 
 export default {
   components: {
     HeaderNav,
     LeftNav,
     RightNav,
+    ToastComp,
   },
 };
 </script>

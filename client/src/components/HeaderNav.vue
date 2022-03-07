@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .footerBox {
-  position: absolute; /* fixing the position takes it out of html flow - knows
+  position: fixed; /* fixing the position takes it out of html flow - knows
                    nothing about where to locate itself except by browser
                    coordinates */
   left: 0; /* top left corner should start at leftmost spot */

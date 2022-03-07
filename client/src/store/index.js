@@ -1,121 +1,105 @@
 import { createStore } from "vuex";
-import SalesPost from "../core/SalesPost";
-import User from "../core/User";
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../apiUtils/apiRequests.js";
+
+const API_URL = "http://localhost:5000/api";
 
 export default createStore({
   state: {
-    posts: [
-      new SalesPost("Ylva", "Fest1", "superfest", Date.now() + 1 * 10e8, 40),
-      new SalesPost("Ylva", "Fest2", "superfest", Date.now() + 2 * 10e8, 40),
-      new SalesPost("Ylva", "Fest3", "superfest", Date.now() + 3 * 10e9, 40),
-      new SalesPost("Sara", "Fest4", "superfest", Date.now() + 4 * 10e9, 30),
-      new SalesPost("Stian", "Fest5", "superfest", Date.now() + 10e10, 20),
-    ],
-    users: [
-      new User(
-        "stianjsu",
-        "Stian123",
-        "stianjsu@stud.ntnu.no",
-        "Stian",
-        "Sulebak",
-        "Kul person"
-      ),
-      new User(
-        "mattish",
-        "Mattis123",
-        "mattisczthem@gmail.com",
-        "Mattis",
-        "Hembre",
-        "mest kul person"
-      ),
-      new User(
-        "vetlestor",
-        "Vetle123",
-        "vetlestor@stud.ntnu.no",
-        "Vetle",
-        "Storvik",
-        "Passe kul person"
-      ),
-      new User(
-        "jshjelse",
-        "Jakob123",
-        "jshjelse@stud.ntnu.no",
-        "Jakob",
-        "Hjelseth",
-        "Kulere person"
-      ),
-      new User(
-        "hansgun",
-        "Hans123",
-        "hansgun@stud.ntnu.no",
-        "Hans",
-        "Gunleik",
-        "Ok kul person"
-      ),
-      new User(
-        "ylvarf",
-        "Ylva123",
-        "ylvarf@stud.ntnu.no",
-        "Ylva",
-        "Fossan",
-        "Kulest person"
-      ),
-      new User(
-        "saraost",
-        "Sara123",
-        "saraost@stud.ntnu.no",
-        "Sara",
-        "Ostdahl",
-        "Designer person"
-      ),
-    ],
+    posts: [],
+    toastProps: {
+      isActive: false,
+      text: "",
+      bgColor: "",
+      timeOutId: null,
+    },
     activeUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
       return state.posts[index];
     },
-    getActiveUser(state) {
-      return state.users.find((user) => {
-        return state.activeUser == user.userName;
-      });
-    },
   },
   mutations: {
-    updateUser(state, userInfo) {
-      const userToUpdate = state.users.find(
-        (u) => u.email === userInfo.email
-      ); /* TODO, find on ID when added */
-      if (!userToUpdate) {
-        throw "Could not find user to update";
-      }
-      const updateActiveUser = state.activeUser === userToUpdate.userName;
-      userToUpdate.updateUser(userInfo);
-      if (updateActiveUser) state.activeUser = userToUpdate.userName;
+    setActiveUser(state, user) {
+      state.activeUser = user;
+      console.log(
+        !state.activeUser
+          ? `User was logged out`
+          : `User ${user.userName} was logged in`
+      );
     },
-    addPost(state, post) {
-      state.posts.push(post);
-      state.posts.sort((a, b) => {
-        if (a.dateAndTime < Date.now()) {
-          return 1;
-        }
-        return a.dateAndTime - b.dateAndTime;
-      });
+    updatePosts(state, payload) {
+      console.log(payload);
+      state.posts = payload;
     },
-    addUser(state, user) {
-      if (state.users.find((u) => u.userName == user.userName)) {
-        console.log("Username must be unique");
-        return;
-      }
-      console.log(user);
-      state.users.push(user);
-      this.commit("setActiveUser", user.userName);
+    setToast(state, { isActive, text, bgColor, timeOutId }) {
+      state.toastProps = { isActive, text, bgColor, timeOutId };
     },
-    setActiveUser(state, userName) {
-      state.activeUser = userName;
-      console.log(`User ${userName} was logged in`);
+    clearToast(state) {
+      clearTimeout(state.toastProps.timeOutId);
+      state.toastProps = {
+        isActive: false,
+        text: "",
+        bgColor: "",
+        timeOutId: null,
+      };
     },
   },
-  actions: {},
+  actions: {
+    async getPosts(context) {
+      const posts = await getRequest(API_URL + "/posts").catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("updatePosts", posts);
+    },
+    async postPost(context, newPost) {
+      console.log(newPost);
+      await postRequest(API_URL + "/posts", { post: newPost }).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.dispatch("getPosts");
+    },
+    async logInUser(context, { userName, password }) {
+      const loggedInUser = await postRequest(API_URL + "/users/login", {
+        userName,
+        password,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("setActiveUser", loggedInUser);
+    },
+    async signUpUser(context, newUser) {
+      const user = await postRequest(API_URL + "/users", {
+        user: newUser,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      console.log(user);
+
+      context.commit("setActiveUser", user.createdUser);
+    },
+    async editUser(context, editedUserFields) {
+      const editedUser = await putRequest(
+        API_URL + "/users/" + this.state.activeUser._id,
+        { user: editedUserFields }
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("setActiveUser", editedUser.updatedUser);
+    },
+    setToast(context, { isActive, text, bgColor }) {
+      context.commit("clearToast");
+      let timeOutId = setTimeout(() => context.commit("clearToast"), 7000);
+      context.commit("setToast", { isActive, text, bgColor, timeOutId });
+    },
+  },
   modules: {},
 });

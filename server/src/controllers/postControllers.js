@@ -8,7 +8,6 @@ const { checkForValidObjectId } = require("../dbconfig/db");
 // @access private
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await PostsDB.find();
-
   res.status(200).json(posts);
 });
 
@@ -33,11 +32,13 @@ const getPostsById = asyncHandler(async (req, res) => {
 // @access private
 const newPost = asyncHandler(async (req, res) => {
   if (!req.body.post) {
-    req.status(400);
+    res.status(400);
     throw new Error("No post in body");
   }
 
   const post = await PostsDB.create(req.body.post);
+
+  console.log(post);
 
   res.status(200).json({ message: "Post created!", post });
 });
@@ -51,14 +52,14 @@ const editPost = asyncHandler(async (req, res) => {
   const post = await PostsDB.findById(req.params.postId);
 
   if (!post) {
-    req.status(404);
+    res.status(404);
     throw new Error("Post to edit not found");
   }
 
   const updatedPost = await PostsDB.findByIdAndUpdate(
     req.params.postId,
     req.body.post,
-    { new: false }
+    { new: true }
   );
 
   res.status(200).json({ message: "Post updated!", updatedPost });
@@ -107,14 +108,14 @@ const markPostAsSold = asyncHandler(async (req, res) => {
   const post = await PostsDB.findById(req.params.postId);
 
   if (!post) {
-    req.status(404);
+    res.status(404);
     throw new Error("Post to mark as sold not found");
   }
 
   const updatedPost = await PostsDB.findByIdAndUpdate(
     req.params.postId,
     { isSold: true },
-    { new: false }
+    { new: true }
   );
 
   res.status(200).json({ message: "Post marked as sold!", updatedPost });

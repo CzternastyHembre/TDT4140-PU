@@ -54,9 +54,9 @@
 <script>
 // v-bind:class="[isSalesPost ? 'hiddenInput' : 'shownInput']"
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import SalesPost from "../core/SalesPost";
-import BuyPost from "../core/BuyPost";
+import Post from "../core/postClass";
 export default {
   name: "CreatePost",
   setup() {
@@ -68,29 +68,39 @@ export default {
     const eventPrice = ref(0);
 
     const store = useStore();
+    const router = useRouter();
 
-    const createPost = (event) => {
+    const createPost = async (event) => {
       if (event) {
         event.preventDefault();
       }
       let newPost;
-      if (isSalesPost.value) {
-        newPost = new SalesPost(
-          store.state.activeUser,
+      try {
+        newPost = new Post(
+          store.state.activeUser._id,
+          store.state.activeUser.userName,
           eventName.value,
           eventType.value,
-          new Date(eventDate.value).getTime(),
+          eventDate.value,
+          isSalesPost.value,
           eventPrice.value
         );
-      } else {
-        newPost = new BuyPost(
-          store.state.activeUser,
-          eventName.value,
-          eventType.value,
-          new Date(eventDate.value).getTime()
-        );
+        console.log(newPost);
+        await store.dispatch("postPost", newPost);
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `Post was created`,
+          bgColor: "lightgreen",
+        });
+        router.push("/");
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+        return;
       }
-      store.commit("addPost", newPost);
       eventName.value = "";
       eventType.value = "";
       eventDate.value = "";

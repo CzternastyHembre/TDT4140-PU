@@ -78,7 +78,6 @@
             id="Password2"
             required
           />
-          <p v-if="errorMsg != ''" style="color: red">{{ errorMsg }}</p>
         </div>
 
         <div>
@@ -109,15 +108,18 @@ export default {
     const inpBirthdate = ref("");
     const inpPasw1 = ref("");
     const inpPasw2 = ref("");
-    const errorMsg = ref("");
 
-    const addUser = (e) => {
+    const addUser = async (e) => {
       if (e) {
         e.preventDefault();
       }
 
       if (inpPasw1.value != inpPasw2.value) {
-        errorMsg.value = "The two passwords must match";
+        store.dispatch("setToast", {
+          isActive: true,
+          text: "The two passwords must match",
+          bgColor: "lightcoral",
+        });
         return;
       }
 
@@ -132,16 +134,28 @@ export default {
           ""
         );
       } catch (err) {
-        errorMsg.value = err;
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
       }
 
       if (user) {
         try {
-          store.commit("addUser", user);
-          errorMsg.value = "";
+          await store.dispatch("signUpUser", user);
+          store.dispatch("setToast", {
+            isActive: true,
+            text: `User ${user.userName} was created`,
+            bgColor: "lightgreen",
+          });
           router.push("/");
-        } catch {
-          errorMsg.value = "Something went wrong when signing up";
+        } catch (err) {
+          store.dispatch("setToast", {
+            isActive: true,
+            text: err.message,
+            bgColor: "lightcoral",
+          });
         }
       }
     };
@@ -155,7 +169,6 @@ export default {
       inpPasw1,
       inpPasw2,
       addUser,
-      errorMsg,
     };
   },
 };

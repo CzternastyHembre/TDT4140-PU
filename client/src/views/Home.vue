@@ -13,12 +13,25 @@
 <script>
 import SalesPostComp from "../components/SalesPostComp.vue";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 
 export default {
   name: "Home",
   setup() {
     const store = useStore();
+
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getPosts");
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    });
+
     const posts = computed(() => {
       return store.state.posts;
     });

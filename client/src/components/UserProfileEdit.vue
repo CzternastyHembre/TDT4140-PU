@@ -8,7 +8,7 @@
 
       <div class="elementContainer">
         <div>Email :</div>
-        <input type="text" v-model="newEmail" :placeholder="currUser.email" />
+        <input type="text" v-model="newEmail" :placeholder="activeUser.email" />
       </div>
 
       <div class="elementContainer">
@@ -16,7 +16,7 @@
         <input
           type="text"
           v-model="newUserName"
-          :placeholder="currUser.userName"
+          :placeholder="activeUser.userName"
         />
       </div>
 
@@ -25,7 +25,7 @@
         <input
           type="text"
           v-model="newFirstName"
-          :placeholder="currUser.firstName"
+          :placeholder="activeUser.firstName"
         />
       </div>
 
@@ -34,7 +34,7 @@
         <input
           type="text"
           v-model="newLastName"
-          :placeholder="currUser.lastName"
+          :placeholder="activeUser.lastName"
         />
       </div>
 
@@ -47,19 +47,13 @@
           cols="40"
           maxlength="200"
           v-model="newDescription"
-          :placeholder="currUser.description"
+          :placeholder="activeUser.description"
         >
         </textarea>
       </div>
       <div class="elementContainer saveBtnC">
         <button @click="submitUser">Save</button>
       </div>
-    </div>
-
-    <div class="errorDiv">
-      <p :style="{ visibility: +!errorMsg ? 'hidden' : 'visible' }">
-        {{ errorMsg || "no issue" }}
-      </p>
     </div>
   </div>
 </template>
@@ -72,20 +66,19 @@ import { useStore } from "vuex";
 export default {
   name: "UserProfileEdit",
   props: {
-    currUser: User,
+    activeUser: Object,
   },
   emits: ["userUpdated"],
   setup(props, { emit }) {
     const store = useStore();
 
-    const newDescription = ref(props.currUser.description + "");
-    const newEmail = ref(props.currUser.email + "");
-    const newUserName = ref(props.currUser.userName + "");
-    const newFirstName = ref(props.currUser.firstName + "");
-    const newLastName = ref(props.currUser.lastName + "");
-    const errorMsg = ref("");
+    const newDescription = ref(props.activeUser.description + "");
+    const newEmail = ref(props.activeUser.email + "");
+    const newUserName = ref(props.activeUser.userName + "");
+    const newFirstName = ref(props.activeUser.firstName + "");
+    const newLastName = ref(props.activeUser.lastName + "");
 
-    const submitUser = (event) => {
+    const submitUser = async (event) => {
       if (event) {
         event.preventDefault();
       }
@@ -101,13 +94,20 @@ export default {
           lastName: newLastName.value,
           description: newDescription.value,
         };
-        store.commit("updateUser", userInfo);
-        errorMsg.value = "";
+        await store.dispatch("editUser", userInfo);
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `User ${newUserName.value} successfully edited`,
+          bgColor: "lightgreen",
+        });
         emit("userUpdated");
-      } catch (error) {
-        errorMsg.value = error;
-        setTimeout(() => (errorMsg.value = ""), 10000);
-        console.log(error);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+        console.log(err);
       }
     };
 
@@ -118,16 +118,11 @@ export default {
       newLastName,
       newDescription,
       submitUser,
-      errorMsg,
     };
   },
 };
 </script>
 <style lang="scss" scoped>
-.errorDiv {
-  text-align: center;
-  color: red;
-}
 .saveBtnC {
   button {
     margin: 10px;
