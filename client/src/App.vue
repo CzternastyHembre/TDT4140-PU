@@ -24,6 +24,9 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --bgc-primary: #c7dce7;
+}
 body {
   min-height: 100vh;
   background-color: white;
@@ -59,7 +62,7 @@ body {
   h3 {
     margin: 10px auto;
     padding: 20px;
-    background-color: #c7dce7;
+    background-color: var(--bgc-primary);
     width: min(70%, 600px);
     color: #5a4035;
     text-align: center;
@@ -84,6 +87,7 @@ body {
   padding: 1em 2em;
   text-align: left;
   font-size: 1em;
+  background-color: var(--bgc-primary);
 
   border: 1px solid grey;
   border-radius: 2%;

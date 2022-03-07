@@ -62,7 +62,7 @@ export default {
   margin: 6px auto;
   border: solid black 1px;
   width: min(100%, 600px);
-  background-color: #c7dce7;
+  background-color: var(--bgc-primary);
   border-radius: 3px;
   text-align: left;
 
