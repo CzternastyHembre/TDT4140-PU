@@ -78,8 +78,6 @@ const getUserByUnamePassw = asyncHandler(async (req, res) => {
     userName: req.body.userName,
   });
 
-  console.log(user);
-
   if (!user) {
     res.status(400);
     throw new Error("User not found");

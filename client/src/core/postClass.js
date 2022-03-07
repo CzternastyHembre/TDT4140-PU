@@ -61,6 +61,10 @@ export default class Post {
    * @param {Date} eventDate
    */
   setEventDate(eventDate) {
+    if (typeof eventDate === "string" || eventDate instanceof String) {
+      this.eventDate = new Date(eventDate);
+      return;
+    }
     this.eventDate = eventDate;
   }
 

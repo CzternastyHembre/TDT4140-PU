@@ -18,11 +18,13 @@ export default {
   setup(props) {
     const store = useStore();
 
-    const dateString = (post) => {
-      let dateObj = new Date(post.eventDate);
-      console.log(dateObj);
-      let time = dateObj.toUTCString();
-      return time;
+    const dateString = (eventDate) => {
+      let dateObj = new Date(eventDate);
+      let time = new Date(
+        dateObj.getTime() - dateObj.getTimezoneOffset() * 60 * 1000 // Fixes timezone offset
+      ).toUTCString();
+      let formattedTime = time.split(":").splice(0, 2).join(":"); // Removes gmt postfix
+      return formattedTime;
     };
 
     const post = computed(() => {

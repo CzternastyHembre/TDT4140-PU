@@ -31,13 +31,14 @@ const getPostsById = asyncHandler(async (req, res) => {
 // @route POST /api/posts
 // @access private
 const newPost = asyncHandler(async (req, res) => {
-  console.log(!req.body.post);
   if (!req.body.post) {
     res.status(400);
     throw new Error("No post in body");
   }
 
   const post = await PostsDB.create(req.body.post);
+
+  console.log(post);
 
   res.status(200).json({ message: "Post created!", post });
 });

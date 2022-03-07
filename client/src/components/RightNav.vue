@@ -1,5 +1,5 @@
 <template>
-  <div class="navButtons">
+  <div class="navButtons" v-if="isHomePage">
     <h3>FILTER:</h3>
     <div class="box"><h3>EVENT</h3></div>
     <div class="box"><h3>AREA</h3></div>
@@ -9,22 +9,18 @@
   </div>
 </template>
 <script>
-import { useStore } from "vuex";
-import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { computed } from "vue";
 export default {
   name: "RightNav",
   setup() {
-    const store = useStore();
     const router = useRouter();
-    const activeUser = computed(() => {
-      return store.state.activeUser;
+
+    const isHomePage = computed(() => {
+      return router.currentRoute.value.path === "/";
     });
-    const logOutUser = () => {
-      store.commit("setActiveUser", null);
-      router.push("/");
-    };
-    return { activeUser, logOutUser };
+
+    return { isHomePage };
   },
 };
 </script>
