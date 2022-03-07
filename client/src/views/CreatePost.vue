@@ -85,7 +85,6 @@ export default {
           isSalesPost.value,
           eventPrice.value
         );
-        console.log(newPost);
         await store.dispatch("postPost", newPost);
         store.dispatch("setToast", {
           isActive: true,

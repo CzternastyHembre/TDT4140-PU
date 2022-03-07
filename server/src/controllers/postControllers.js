@@ -38,8 +38,6 @@ const newPost = asyncHandler(async (req, res) => {
 
   const post = await PostsDB.create(req.body.post);
 
-  console.log(post);
-
   res.status(200).json({ message: "Post created!", post });
 });
 
