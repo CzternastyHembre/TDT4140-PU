@@ -58,7 +58,6 @@ export default createStore({
       context.commit("updatePosts", posts);
     },
     async postPost(context, newPost) {
-      console.log(newPost);
       await postRequest(API_URL + "/posts", { post: newPost }).catch((err) => {
         throw new Error(err.message);
       });
