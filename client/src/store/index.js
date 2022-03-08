@@ -5,7 +5,7 @@ import {
   putRequest,
 } from "../apiUtils/apiRequests.js";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "http://localhost:5085/api";
 
 export default createStore({
   state: {
