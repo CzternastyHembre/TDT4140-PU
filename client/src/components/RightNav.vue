@@ -1,5 +1,5 @@
 <template>
-  <div class="navButtons" v-if="isHomePage">
+  <div class="navButtons rightNav" v-if="isHomePage">
     <h3>FILTER:</h3>
     <div class="box"><h3>EVENT</h3></div>
     <div class="box"><h3>AREA</h3></div>

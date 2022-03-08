@@ -3,8 +3,8 @@
     <header-nav />
     <div class="appContent">
       <left-nav />
-      <router-view />
       <right-nav />
+      <router-view />
     </div>
     <toast-comp />
   </div>
@@ -29,10 +29,12 @@ export default {
 <style lang="scss">
 :root {
   --bgc-primary: #c7dce7;
+  --col-primary: #cc3f3f;
 }
 body {
   min-height: 100vh;
   background-color: white;
+  color: var(--col-primary);
 }
 
 #app {
@@ -41,17 +43,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 .appContent {
-  width: 90%;
-  margin: auto;
-  padding-top: 200px;
-  display: grid;
-  grid-template-rows: 100%;
-  grid-template-columns: 1fr 3fr 1fr;
-  color: #cc3f3f;
+  margin: 200px auto 0 auto;
+  .leftNav,
+  .rightNav {
+    position: fixed;
+    margin: 0 2em;
+  }
+  .rightNav {
+    right: 0;
+  }
 }
 
 .navButtons {

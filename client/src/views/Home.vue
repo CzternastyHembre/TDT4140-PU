@@ -43,15 +43,9 @@ export default {
   },
 };
 </script>
-
-<style scoped>
+<style lang="scss" scoped>
 .home {
+  width: 40%;
   margin: auto;
-  width: 70%;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
 }
 </style>
