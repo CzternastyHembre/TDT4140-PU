@@ -1,5 +1,5 @@
 <template>
-  <div class="navButtons">
+  <div class="navButtons leftNav">
     <div class="box" v-if="activeUser">
       <router-link to="/createpost"> <h3>NEW POST</h3></router-link>
     </div>
