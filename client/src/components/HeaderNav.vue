@@ -7,7 +7,9 @@
 
       <div class="logout" v-if="activeUser" @click="logOutUser">LOG OUT</div>
     </div>
-    <img class="header" :src="ReTicket1" />
+    <router-link to="/">
+      <img class="header" :src="ReTicket1" />
+    </router-link>
   </div>
 </template>
 
