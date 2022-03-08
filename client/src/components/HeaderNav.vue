@@ -1,19 +1,13 @@
 <template>
   <div class="footerBox">
-    <div></div>
-    <div class="navButtons">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/createpost" v-if="activeUser">Create Post</router-link>
-      <router-link to="/login" v-if="!activeUser">Log In</router-link>
-      <router-link to="/signup" v-if="!activeUser">Sign Up</router-link>
-      <router-link to="/UserProfile" v-if="activeUser">
-        User Profile
-      </router-link>
+    <div class="navButtonsNav">
+      <router-link to="/">HOME</router-link>
+      <router-link to="/login" v-if="!activeUser">LOG IN</router-link>
+      <router-link to="/signup" v-if="!activeUser">SIGN UP</router-link>
+
+      <div class="logout" v-if="activeUser" @click="logOutUser">LOG OUT</div>
     </div>
-    <div class="logout">
-      <button @click="logOutUser" v-if="activeUser">Log Out</button>
-    </div>
+    <img class="header" :src="ReTicket1" />
   </div>
 </template>
 
@@ -21,6 +15,8 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import ReTicket1 from "@/assets/ReTicket1.png";
+
 export default {
   name: "HeaderNav",
   setup() {
@@ -38,26 +34,52 @@ export default {
 
     return { activeUser, logOutUser };
   },
+
+  data: function () {
+    return {
+      ReTicket1,
+    };
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .footerBox {
-  margin: auto;
-  width: 100%;
-  padding: auto;
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 3fr 1fr;
-  background-color: inherit;
-}
+  position: fixed; /* fixing the position takes it out of html flow - knows
+                   nothing about where to locate itself except by browser
+                   coordinates */
+  left: 0; /* top left corner should start at leftmost spot */
+  top: 0; /* top left corner should start at topmost spot */
+  width: 100%; /* take up the full browser width */
+  z-index: 200; /* high z index so other content scrolls underneath */
+  background-color: #c7dce7;
+  .navButtonsNav {
+    background-color: inherit;
+    margin: 16px 16px 0 16px;
+    font-weight: bold;
+    font-style: italic;
+    color: #cc3f3f;
 
-.footerBox div {
-  padding-top: 23px;
-}
+    > * {
+      margin: 0 10px;
+      cursor: pointer;
+    }
 
-.navButtons a {
-  padding-left: 20px;
-  padding-right: 20px;
+    display: flex;
+    :first-child {
+      margin: 0 auto 0 0;
+      order: 0;
+    }
+    :last-child {
+      margin: 0 0 0 10px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  .header {
+    margin-bottom: 1em;
+  }
 }
 </style>

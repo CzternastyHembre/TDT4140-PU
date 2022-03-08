@@ -1,30 +1,37 @@
 <template>
   <div>
-    <h1>Log in</h1>
-    <form>
-      <label for="username">Username:</label><br />
-      <input
-        type="text"
-        name="userName"
-        id="userName"
-        v-model="inputUsername"
-        required
-      /><br />
-      <label for="Password">Password:</label><br />
-      <input
-        type="password"
-        name="Password"
-        id="Password"
-        v-model="inputPassword"
-        required
-      /><br />
-      <br /><br />
-      <input @click="logInUser" type="submit" value="LogIn" />
-    </form>
-    <p style="color: red">{{ errorMsg }}</p>
+    <h1>Log in to your account</h1>
+    <div class="loginForm basicForm">
+      <form>
+        <div>
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            name="userName"
+            id="userName"
+            v-model="inputUsername"
+            required
+          />
+        </div>
 
-    <br />
-    <br />
+        <div>
+          <label for="Password">Password:</label>
+          <input
+            type="password"
+            name="Password"
+            id="Password"
+            v-model="inputPassword"
+            required
+          />
+        </div>
+
+        <div>
+          <button class="submitButton" @click="logInUser" type="submit">
+            Log in
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -33,39 +40,53 @@ import hash from "../core/Hashing.js";
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
 export default {
   name: "LogInComp",
   setup() {
     const store = useStore();
     const router = useRouter();
-
     const inputUsername = ref("");
     const inputPassword = ref("");
-    const errorMsg = ref("");
 
-    const logInUser = (event) => {
+    const logInUser = async (event) => {
       if (event) {
         event.preventDefault();
       }
-      let user = store.state.users.find((user) => {
-        return (
-          user.userName == inputUsername.value &&
-          user.password == hash(inputPassword.value)
-        );
-      });
-      if (user) {
-        store.commit("setActiveUser", user.userName);
+      try {
+        await store.dispatch("logInUser", {
+          userName: inputUsername.value,
+          password: hash(inputPassword.value),
+        });
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `User ${inputUsername.value} logged in`,
+          bgColor: "lightgreen",
+        });
         router.push("/");
-        errorMsg.value = "";
-      } else {
-        errorMsg.value = "Could not find user";
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
       }
     };
 
-    return { inputUsername, inputPassword, errorMsg, logInUser };
+    return { inputUsername, inputPassword, logInUser };
   },
 };
 </script>
 
-<style></style>
+<style>
+.logInForm {
+  margin: 10px auto;
+  width: 300px;
+  background-color: #c7dce7;
+  padding: 2em;
+
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 1%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  border-radius: 10px;
+}
+</style>

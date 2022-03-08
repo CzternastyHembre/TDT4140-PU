@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <h1>Posts</h1>
-    <div class="posts">
+    <div class="grid">
       <sales-post-comp
         v-for="(post, index) in posts"
         :key="index"
@@ -14,12 +13,25 @@
 <script>
 import SalesPostComp from "../components/SalesPostComp.vue";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 
 export default {
   name: "Home",
   setup() {
     const store = useStore();
+
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getPosts");
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    });
+
     const posts = computed(() => {
       return store.state.posts;
     });
@@ -36,5 +48,10 @@ export default {
 .home {
   margin: auto;
   width: 70%;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

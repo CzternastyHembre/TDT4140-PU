@@ -19,14 +19,16 @@ export default class User {
     this.setDescription(description);
   }
 
-  validUserName(username) {
+  static validUserName(username) {
     const userNameRegex = /^[A-Za-z0-9]+$/;
     if (!username.match(userNameRegex)) {
-      throw "Username cant contain any special characters, only letters and numbers";
+      throw new Error(
+        "Username cant contain any special characters, only letters and numbers"
+      );
     }
 
     if (username.length < 5) {
-      throw "Username must be longer than 4 characters";
+      throw new Error("Username must be longer than 4 characters");
     }
   }
 
@@ -34,10 +36,10 @@ export default class User {
    * Checks for valid email.
    * @param {string} email
    */
-  validEmail(email) {
+  static validEmail(email) {
     const emailRegex2 = /^[A-Za-z.]+@[A-Za-z.]+\.[a-z]{2,3}$/;
     if (!email.match(emailRegex2)) {
-      throw "Invalid email address";
+      throw new Error("Invalid email address");
     }
   }
 
@@ -49,15 +51,19 @@ export default class User {
    *  --At leat 8 characters long.
    * @param {string} password
    */
-  validPassword(password) {
+  static validPassword(password) {
     const oneLowerCase = /(?=.*[a-z])/;
     if (!password.match(oneLowerCase)) {
-      throw "The password must contain at least 1 lowercase alphabetical character";
+      throw new Error(
+        "The password must contain at least 1 lowercase alphabetical character"
+      );
     }
 
     const oneUpperCase = /(?=.*[A-Z])/;
     if (!password.match(oneUpperCase)) {
-      throw "The password must contain at least 1 uppercase alphabetical character";
+      throw new Error(
+        "The password must contain at least 1 uppercase alphabetical character"
+      );
     }
 
     const oneNumeric = /(?=.*[0-9])/;
@@ -67,18 +73,20 @@ export default class User {
 
     const noSpecialChRegex = /[^A-Za-z0-9]+/;
     if (password.match(noSpecialChRegex)) {
-      throw "The password must not contain any special characters";
+      throw new Error("The password must not contain any special characters");
     }
     const l = 7;
     if (password.length < l) {
-      throw "The password must be " + l + " characters or longer";
+      throw new Error("The password must be " + l + " characters or longer");
     }
   }
 
-  validName(str) {
+  static validName(str) {
     const firstUpperRestLower = /^([A-Z][a-z]+ )*[A-Z][a-z]+$/;
     if (!str.match(firstUpperRestLower)) {
-      throw "Name can only include letters and start with upper case";
+      throw new Error(
+        "Name can only include letters and start with upper case"
+      );
     }
   }
 
@@ -86,7 +94,7 @@ export default class User {
    * @param {string} _userName
    */
   setUserName(_userName) {
-    this.validUserName(_userName);
+    User.validUserName(_userName);
     this.userName = _userName;
   }
 
@@ -94,7 +102,7 @@ export default class User {
    * @param {string} _password
    */
   setPassword(_password) {
-    this.validPassword(_password);
+    User.validPassword(_password);
     this.password = hash(_password);
   }
 
@@ -102,7 +110,7 @@ export default class User {
    * @param {string} _email
    */
   setEmail(_email) {
-    this.validEmail(_email);
+    User.validEmail(_email);
     this.email = _email;
   }
 
@@ -110,7 +118,7 @@ export default class User {
    * @param {string} _firstName
    */
   setFirstName(_firstName) {
-    this.validName(_firstName);
+    User.validName(_firstName);
     this.firstName = _firstName;
   }
 
@@ -118,7 +126,7 @@ export default class User {
    * @param {string} _lastName
    */
   setLastName(_lastName) {
-    this.validName(_lastName);
+    User.validName(_lastName);
     this.lastName = _lastName;
   }
 
@@ -127,5 +135,12 @@ export default class User {
    */
   setDescription(_description) {
     this.description = _description;
+  }
+  updateUser(userInfo) {
+    this.userName = userInfo.userName;
+    this.email = userInfo.email;
+    this.firstName = userInfo.firstName;
+    this.lastName = userInfo.lastName;
+    this.description = userInfo.description;
   }
 }

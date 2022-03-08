@@ -1,53 +1,66 @@
 <template>
-  <div class="postForm">
-    <form action="">
-      <input
-        type="text"
-        name="nameEvent"
-        placeholder="Name of event"
-        v-model="eventName"
-      />
-      <br />
-      <input
-        type="text"
-        name="typeEvent"
-        placeholder="Type of event"
-        v-model="eventType"
-      />
-      <br />
-      <input type="datetime-local" name="dateEvent" v-model="eventDate" />
-      <br />
-      <span>Create a sales post?</span>
-      <input
-        type="checkbox"
-        name="buypostCheckbox"
-        id=""
-        v-model="isSalesPost"
-      />
-      <br />
-      <input
-        type="number"
-        name="priceEvent"
-        placeholder="price"
-        :class="[isSalesPost ? 'shownInput' : 'hiddenInput']"
-        v-model="eventPrice"
-      />
-      <br />
-      <button type="submit" @click="createPost">Post</button>
-    </form>
+  <div>
+    <h1>Create a post</h1>
+    <div class="buySellContainer">
+      <div @click="isSalesPost = true" :id="[isSalesPost ? 'active' : '']">
+        Sell post
+      </div>
+      <div @click="isSalesPost = false" :id="[!isSalesPost ? 'active' : '']">
+        Buy post
+      </div>
+    </div>
+    <div class="postForm basicForm">
+      <form action="">
+        <div>
+          <label for="nameEvent">Name of event:</label>
+          <input type="text" name="nameEvent" v-model="eventName" />
+        </div>
+
+        <div>
+          <label for="typeEvent">Type of event:</label>
+          <input type="text" name="typeEvent" v-model="eventType" />
+        </div>
+
+        <div>
+          <label for="dateEvent">Date of event:</label>
+          <input
+            id="inpDate"
+            type="datetime-local"
+            name="dateEvent"
+            v-model="eventDate"
+          />
+        </div>
+
+        <div :id="[isSalesPost ? 'shownInput' : 'hiddenInput']">
+          <label for="priceEvent">Price for ticket</label>
+          <input
+            type="number"
+            name="priceEvent"
+            placeholder="price"
+            v-model="eventPrice"
+          />
+        </div>
+
+        <div>
+          <button class="submitButton" type="submit" @click="createPost">
+            Post
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 // v-bind:class="[isSalesPost ? 'hiddenInput' : 'shownInput']"
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import SalesPost from "../core/SalesPost";
-import BuyPost from "../core/BuyPost";
+import Post from "../core/postClass";
 export default {
   name: "CreatePost",
   setup() {
-    const isSalesPost = ref(false);
+    const isSalesPost = ref(true);
 
     const eventName = ref("");
     const eventType = ref("");
@@ -55,29 +68,38 @@ export default {
     const eventPrice = ref(0);
 
     const store = useStore();
+    const router = useRouter();
 
-    const createPost = (event) => {
+    const createPost = async (event) => {
       if (event) {
         event.preventDefault();
       }
       let newPost;
-      if (isSalesPost.value) {
-        newPost = new SalesPost(
-          store.state.activeUser,
+      try {
+        newPost = new Post(
+          store.state.activeUser._id,
+          store.state.activeUser.userName,
           eventName.value,
           eventType.value,
-          new Date(eventDate.value).getTime(),
+          eventDate.value,
+          isSalesPost.value,
           eventPrice.value
         );
-      } else {
-        newPost = new BuyPost(
-          store.state.activeUser,
-          eventName.value,
-          eventType.value,
-          new Date(eventDate.value).getTime()
-        );
+        await store.dispatch("postPost", newPost);
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `Post was created`,
+          bgColor: "lightgreen",
+        });
+        router.push("/");
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+        return;
       }
-      store.commit("addPost", newPost);
       eventName.value = "";
       eventType.value = "";
       eventDate.value = "";
@@ -97,26 +119,43 @@ export default {
 </script>
 
 <style>
-form > * {
-  margin-top: 1em;
-}
-
 .postForm {
-  margin: 10px auto;
-  width: 300px;
-  background-color: rgb(255, 255, 255);
-  padding: 2em;
-
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 1%;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
-  border-radius: 10px;
+  position: relative;
 }
 
-.hiddenInput {
-  visibility: hidden;
+.buySellContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+
+  width: fit-content;
+  margin: auto;
+
+  top: 5px;
 }
-.shownInput {
-  visibility: block;
+
+.buySellContainer > * {
+  margin: 0 1em;
+  height: fit-content;
+  padding: 0.2em 2em;
+  background: var(--bgc-primary);
+
+  border: 1px solid grey;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 0;
+
+  cursor: pointer;
+  box-shadow: inset #000 0 -10px 7px -7px;
+}
+#active {
+  z-index: 1;
+  box-shadow: none;
+}
+
+#hiddenInput {
+  display: none;
+}
+#shownInput {
+  display: block;
 }
 </style>
