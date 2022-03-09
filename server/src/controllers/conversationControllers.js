@@ -50,23 +50,23 @@ const getConversationMessagesById = asyncHandler(async (req, res) => {
 // @desc get conversation
 // @route GET /api/conversations/:conversationId/messages
 // @access private
-/*
 const newConversationMessageById = asyncHandler(async (req, res) => {
   checkForValidObjectId(req.params.conversationId, res);
 
   const conversation = await ConversationsDB.findById(
     req.params.conversationId
   );
-  console.log(conversation);
+
   conversation.messages.push(req.body);
+  await ConversationsDB.create(conversation);
 
   if (!conversation) {
     res.status(404);
     throw new Error("Could not find conversation");
   }
 
-  res.status(200).json(conversation.messages);
-});*/
+  res.status(200).json({ message: "Message created!", conversation });
+});
 
 // @desc get conversations
 // @route POST /api/conversations
@@ -108,5 +108,5 @@ module.exports = {
   newConversation,
   deleteConversation,
   getConversations,
-  //newConversationMessageById,
+  newConversationMessageById,
 };

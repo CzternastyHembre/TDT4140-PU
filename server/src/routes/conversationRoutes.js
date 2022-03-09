@@ -9,16 +9,23 @@ const {
   newConversation,
   deleteConversation,
   getConversations,
+  newConversationMessageById,
 } = require("../controllers/conversationControllers.js");
 
-// @route /api/posts
+// @route /api/conversations
 router.route("/").get(getConversations).post(newConversation);
+
+//@route /api/conversations/:id
 router
   .route("/:conversationId")
   .get(getConversationById)
-  .delete(deleteConversation);
+  .delete(deleteConversation)
+  .put(newConversationMessageById);
 
-router.route("/:conversationId/messages").get(getConversationMessagesById);
-//router.route("/:conversationId/").put(getConversationMessagesById);
+//@route api/conversation/:id/messages;
+router
+  .route("/:conversationId/messages")
+  .get(getConversationMessagesById)
+  .put(newConversationMessageById);
 
 module.exports = router;
