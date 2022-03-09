@@ -29,7 +29,9 @@ The server runs on port: **5000**
 
 ## Methods for conversations
 
+- Get Conversation => returns all conversations, only if state allows, temporary
 - Get Conversation/:id => Returns the conversation on corresponding id
 - Post Conversation => Adds a post to the RestAPI
 - Put Conversation/:id/message => Posts a message on corresponding conversationId
 - Delete Conversation/:id => Deletes conversation on id if state allows
+- Put Conversation/:id/ => Adds a message to the conversaiton
