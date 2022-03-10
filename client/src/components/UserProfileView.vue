@@ -2,7 +2,7 @@
   <div class="profilePost">
     <div class="profileHeader">
       <h2>{{ activeUser.firstName }} {{ activeUser.lastName }}</h2>
-      <img src="TODO" alt="Profile picture (todo)" />
+      <img src="image" />
     </div>
 
     <div class="elementCC">
@@ -39,6 +39,17 @@ export default {
   name: "UserProfileView",
   props: {
     activeUser: Object,
+  },
+
+  data() {
+    return {
+      selectedFile: null,
+    };
+  },
+  methods: {
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+    },
   },
 };
 </script>

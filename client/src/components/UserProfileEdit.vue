@@ -3,7 +3,8 @@
     <div class="elementCC">
       <div class="elementContainer">
         <div>Profile image :</div>
-        <button>TODO</button>
+        <input type="file" @change="onFileSelected" />
+        <button @click="onUpload">Upload</button>
       </div>
 
       <div class="elementContainer">
@@ -119,6 +120,15 @@ export default {
       newDescription,
       submitUser,
     };
+  },
+  methods: {
+    onFileSelected(event) {
+      console.log(event);
+    },
+    onUpload() {
+      const image = new FormData();
+      image.append("image", this.selectedFile, this.selectedFile.name);
+    },
   },
 };
 </script>
