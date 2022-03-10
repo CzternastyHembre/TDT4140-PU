@@ -29,6 +29,20 @@ const getConversationById = asyncHandler(async (req, res) => {
   res.status(200).json(conversation);
 });
 
+// @desc get conversationById
+// @route GET /api/conversations/users/:userId
+// @access private
+const getConversationByUserId = asyncHandler(async (req, res) => {
+  const conversations = (await ConversationsDB.find()).filter((conv) =>
+    conv.participants.includes(req.params.userId)
+  );
+  if (!conversations) {
+    res.status(404);
+    throw new Error("Could not find any conversations");
+  }
+  res.status(200).json(conversations);
+});
+
 // @desc get conversation
 // @route GET /api/conversations/:conversationId/messages
 // @access private
@@ -58,7 +72,10 @@ const newConversationMessageById = asyncHandler(async (req, res) => {
   );
 
   conversation.messages.push(req.body);
-  await ConversationsDB.create(conversation);
+  await ConversationsDB.findByIdAndUpdate(
+    req.params.conversationId,
+    conversation
+  );
 
   if (!conversation) {
     res.status(404);
@@ -109,4 +126,5 @@ module.exports = {
   deleteConversation,
   getConversations,
   newConversationMessageById,
+  getConversationByUserId,
 };
