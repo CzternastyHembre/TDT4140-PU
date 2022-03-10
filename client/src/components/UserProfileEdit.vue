@@ -4,7 +4,7 @@
       <div class="elementContainer">
         <div>Profile image :</div>
         <input type="file" @change="onFileSelected" />
-        <button @click="onUpload">Upload</button>
+        <button @click="uploadFile">Upload</button>
       </div>
 
       <div class="elementContainer">
@@ -112,6 +112,16 @@ export default {
       }
     };
 
+    const eventFile = ref(new FormData());
+
+    const onFileSelected = (event) => {
+      eventFile.value.append("hei", event.target.files[0]);
+    };
+
+    const uploadFile = () => {
+      console.log(eventFile.value.get("hei"));
+    };
+
     return {
       newEmail,
       newUserName,
@@ -119,16 +129,9 @@ export default {
       newLastName,
       newDescription,
       submitUser,
+      onFileSelected,
+      uploadFile,
     };
-  },
-  methods: {
-    onFileSelected(event) {
-      console.log(event);
-    },
-    onUpload() {
-      const image = new FormData();
-      image.append("image", this.selectedFile, this.selectedFile.name);
-    },
   },
 };
 </script>
