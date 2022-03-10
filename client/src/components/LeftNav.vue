@@ -1,12 +1,14 @@
 <template>
-  <div class="navButtons leftNav">
+  <div class="navButtons leftNav" v-if="isMessagePage">
     <div class="box" v-if="activeUser">
       <router-link to="/createpost"> <h3>NEW POST</h3></router-link>
     </div>
     <div class="box" v-if="activeUser">
       <router-link to="/UserProfile"> <h3>PROFILE</h3></router-link>
     </div>
-    <div class="box" v-if="activeUser"><h3>MESSAGES</h3></div>
+    <div class="box" v-if="activeUser">
+      <router-link to="/Messages"><h3>MESSAGES</h3></router-link>
+    </div>
   </div>
 </template>
 
@@ -21,6 +23,10 @@ export default {
     const store = useStore();
     const router = useRouter();
 
+    const isMessagePage = computed(() => {
+      return router.currentRoute.value.path === "/";
+    });
+
     const activeUser = computed(() => {
       return store.state.activeUser;
     });
@@ -30,7 +36,7 @@ export default {
       router.push("/");
     };
 
-    return { activeUser, logOutUser };
+    return { activeUser, logOutUser, isMessagePage };
   },
 };
 </script>
