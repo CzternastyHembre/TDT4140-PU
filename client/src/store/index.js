@@ -39,8 +39,11 @@ export default createStore({
     updateUserPosts(state, payload) {
       state.userPosts = payload;
     },
-    triggerUserPostsUpdate(state) {
-      state.userPosts.push(state.userPosts.pop());
+    changeUserPost(state, newPost) {
+      const index = state.userPosts.findIndex(
+        (oldPost) => oldPost._id === newPost._id
+      );
+      state.userPosts.splice(index, 1, newPost);
     },
     setToast(state, { isActive, text, bgColor, timeOutId }) {
       state.toastProps = { isActive, text, bgColor, timeOutId };
@@ -110,14 +113,13 @@ export default createStore({
       context.commit("updateUserPosts", posts);
     },
     async markPostAsSold(context, { postId, isSold }) {
-      await putRequest(API_URL + "/posts/sold/" + postId, {
+      const res = await putRequest(API_URL + "/posts/sold/" + postId, {
         isSold,
       }).catch((err) => {
         throw new Error(err.message);
       });
 
-      await context.dispatch("getPostsFromUser", this.state.activeUser._id);
-      context.commit("triggerUserPostsUpdate");
+      context.commit("changeUserPost", res.updatedPost);
     },
     setToast(context, { isActive, text, bgColor }) {
       context.commit("clearToast");
