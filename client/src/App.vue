@@ -6,6 +6,10 @@
       <right-nav />
       <router-view />
     </div>
+    <div class="messagePage" v-if="isMessage">
+      <old-chats />
+      <chat-box />
+    </div>
     <toast-comp />
   </div>
 </template>
@@ -15,6 +19,11 @@ import HeaderNav from "../src/components/HeaderNav.vue";
 import LeftNav from "./components/LeftNav.vue";
 import RightNav from "./components/RightNav.vue";
 import ToastComp from "./components/ToastComp.vue";
+import ChatBox from "./components/ChatBox.vue";
+import OldChats from "./components/OldChats.vue";
+
+import { useRouter } from "vue-router";
+import { computed } from "vue";
 
 export default {
   components: {
@@ -22,6 +31,22 @@ export default {
     LeftNav,
     RightNav,
     ToastComp,
+    ChatBox,
+    OldChats,
+  },
+
+  setup() {
+    const router = useRouter();
+
+    const isMessage = computed(() => {
+      return router.currentRoute.value.path === "/";
+    });
+
+    const isNotMessage = !computed(() => {
+      return router.currentRoute.value.path === "/";
+    });
+
+    return { isMessage, isNotMessage };
   },
 };
 </script>
@@ -126,5 +151,10 @@ body {
 
 .submitButton:hover {
   box-shadow: 0 2px 6px black;
+}
+
+.messagePage {
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 </style>
