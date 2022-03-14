@@ -5,6 +5,7 @@
         v-for="(post, index) in posts"
         :key="index"
         :indexPost="index"
+        :onUserProfile="false"
       />
     </div>
   </div>

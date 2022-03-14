@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profileWrapper">
     <UserProfileEdit
       v-if="isEditMode"
       :activeUser="activeUser"
@@ -9,30 +9,57 @@
     <button @click="isEditMode = !isEditMode">
       {{ isEditMode ? "Back" : "Edit profile" }}
     </button>
+    <div class="userPosts" v-if="!isEditMode">
+      <sales-post-comp
+        v-for="(post, index) in userPosts"
+        :key="index"
+        :indexPost="index"
+        :onUserProfile="true"
+        :isSoldProp="post.isSold"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 import { ref } from "vue";
 import UserProfileEdit from "../components/UserProfileEdit.vue";
 import UserProfileView from "../components/UserProfileView.vue";
+import SalesPostComp from "../components/SalesPostComp.vue";
 
 export default {
   name: "UserProfile",
   components: {
     UserProfileEdit,
     UserProfileView,
+    SalesPostComp,
   },
 
   setup() {
     const store = useStore();
     const isEditMode = ref(false);
 
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getPostsFromUser", activeUser.value._id);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    });
+
     const activeUser = computed(() => {
       return store.state.activeUser;
+    });
+
+    const userPosts = computed(() => {
+      return store.state.userPosts;
     });
 
     const userUpdatedEvent = () => {
@@ -43,16 +70,23 @@ export default {
       activeUser,
       isEditMode,
       userUpdatedEvent,
+      userPosts,
     };
   },
 };
 </script>
 
 <style lang="scss">
-.profilePost {
+.profileWrapper {
   margin: 6px auto;
-  border: solid black 1px;
   width: min(100%, 600px);
+  button {
+    margin-bottom: 20px;
+  }
+}
+
+.profilePost {
+  border: solid black 1px;
   background-color: var(--bgc-primary);
   border-radius: 3px;
   text-align: left;
