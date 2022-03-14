@@ -24,7 +24,11 @@ export default {
 
 <style lang="scss" scoped>
 .grid {
-  display: grid;
-  grid-template-columns: 30% 70%;
+  display: flex;
+  margin: auto auto auto 20%;
+  /*background-color: beige;*/
+  > * {
+    margin: 0 10% 0 0;
+  }
 }
 </style>

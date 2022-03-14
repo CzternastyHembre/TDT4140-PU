@@ -1,18 +1,17 @@
 <template>
   <div>
-    <div class="header"><h2>CHATS</h2></div>
     <div class="OldChatsBox">
+      <div class="header"><h2>CHATS</h2></div>
       <div class="search">
         <i class="gg-search"></i>
         <form action="">
           <div>
-            <label for="searchInChats"><b>Search in chats:</b></label>
-            <input type="text" name="search" v-model="eventName" />
+            <input type="text" name="search" placeholder="Search in chats" />
           </div>
         </form>
       </div>
       <div class="person">
-        <div>Bilde</div>
+        <div>Bilde (Bare å glemme)</div>
         Person
       </div>
     </div>

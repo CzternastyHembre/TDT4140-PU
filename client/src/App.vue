@@ -6,10 +6,6 @@
       <right-nav />
       <router-view />
     </div>
-    <div class="messagePage" v-if="isMessage">
-      <old-chats />
-      <chat-box />
-    </div>
     <toast-comp />
   </div>
 </template>
@@ -19,8 +15,6 @@ import HeaderNav from "../src/components/HeaderNav.vue";
 import LeftNav from "./components/LeftNav.vue";
 import RightNav from "./components/RightNav.vue";
 import ToastComp from "./components/ToastComp.vue";
-import ChatBox from "./components/ChatBox.vue";
-import OldChats from "./components/OldChats.vue";
 
 import { useRouter } from "vue-router";
 import { computed } from "vue";
@@ -31,22 +25,16 @@ export default {
     LeftNav,
     RightNav,
     ToastComp,
-    ChatBox,
-    OldChats,
   },
 
   setup() {
     const router = useRouter();
 
     const isMessage = computed(() => {
-      return router.currentRoute.value.path === "/";
+      return router.currentRoute.value.path === "/Messages";
     });
 
-    const isNotMessage = !computed(() => {
-      return router.currentRoute.value.path === "/";
-    });
-
-    return { isMessage, isNotMessage };
+    return { isMessage };
   },
 };
 </script>

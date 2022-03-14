@@ -1,11 +1,15 @@
 <template>
   <div class="chatbox">
     <div class="chat">
-      <h1>Hei på deg!</h1>
+      <MessageSingle
+        v-for="(message, index) in messages"
+        :key="index"
+        :currentMessage="message"
+      />
     </div>
     <div class="write">
       <div class="input">
-        <input type="text" name="search" v-model="eventName" />
+        <input type="text" name="search" />
         <div class="box"><i class="gg-arrow-up"></i></div>
       </div>
       <div class="box"><i class="gg-add"></i></div>
@@ -14,7 +18,95 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import MessageSingle from "@/components/MessageSingle.vue";
+import { ref } from "vue";
+
+export default {
+  name: "ChatBox",
+  components: {
+    MessageSingle,
+  },
+  setup() {
+    const messages = ref([
+      {
+        content: "Hei Jakob!",
+        senderName: "Sara",
+      },
+      {
+        content: "Hei Sara!",
+        senderName: "Jakob",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+      {
+        content: "OK!",
+        senderName: "Sara",
+      },
+    ]);
+
+    return { messages };
+  },
+};
+</script>
 
 <style scoped>
 .chatbox {
@@ -22,14 +114,14 @@
   display: grid;
   grid-template-rows: 90% 10%;
 
-  height: 100%;
-  width: 100%;
+  height: 400px;
+  width: 400px;
   background-color: #efddbb;
 }
 
 .chat {
-  text-align: center;
-  padding: 5px;
+  padding-top: 10px;
+  overflow-y: scroll;
 }
 
 .write {
