@@ -6,7 +6,9 @@
     <div class="box" v-if="activeUser">
       <router-link to="/UserProfile"> <h3>PROFILE</h3></router-link>
     </div>
-    <div class="box" v-if="activeUser"><h3>MESSAGES</h3></div>
+    <div class="box" v-if="activeUser">
+      <router-link to="/Messages"><h3>MESSAGES</h3></router-link>
+    </div>
   </div>
 </template>
 
