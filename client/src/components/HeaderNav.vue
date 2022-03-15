@@ -54,13 +54,13 @@ export default {
   top: 0; /* top left corner should start at topmost spot */
   width: 100%; /* take up the full browser width */
   z-index: 200; /* high z index so other content scrolls underneath */
-  background-color: #c7dce7;
+  background-color: #efddbb;
   .navButtonsNav {
     background-color: inherit;
     margin: 16px 16px 0 16px;
     font-weight: bold;
     font-style: italic;
-    color: #cc3f3f;
+    color: #5a4035;
 
     > * {
       margin: 0 10px;
