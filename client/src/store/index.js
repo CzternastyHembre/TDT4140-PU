@@ -10,6 +10,7 @@ const API_URL = "http://localhost:5085/api";
 export default createStore({
   state: {
     posts: [],
+    userPosts: [],
     toastProps: {
       isActive: false,
       text: "",
@@ -33,8 +34,16 @@ export default createStore({
       );
     },
     updatePosts(state, payload) {
-      console.log(payload);
       state.posts = payload;
+    },
+    updateUserPosts(state, payload) {
+      state.userPosts = payload;
+    },
+    changeUserPost(state, newPost) {
+      const index = state.userPosts.findIndex(
+        (oldPost) => oldPost._id === newPost._id
+      );
+      state.userPosts.splice(index, 1, newPost);
     },
     setToast(state, { isActive, text, bgColor, timeOutId }) {
       state.toastProps = { isActive, text, bgColor, timeOutId };
@@ -93,6 +102,24 @@ export default createStore({
       });
 
       context.commit("setActiveUser", editedUser.updatedUser);
+    },
+    async getPostsFromUser(context, userId) {
+      const posts = await getRequest(
+        API_URL + "/posts/userPosts/" + userId
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("updateUserPosts", posts);
+    },
+    async markPostAsSold(context, { postId, isSold }) {
+      const res = await putRequest(API_URL + "/posts/sold/" + postId, {
+        isSold,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("changeUserPost", res.updatedPost);
     },
     setToast(context, { isActive, text, bgColor }) {
       context.commit("clearToast");

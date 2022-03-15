@@ -112,7 +112,7 @@ const markPostAsSold = asyncHandler(async (req, res) => {
 
   const updatedPost = await PostsDB.findByIdAndUpdate(
     req.params.postId,
-    { isSold: true },
+    { isSold: req.body.isSold },
     { new: true }
   );
 
