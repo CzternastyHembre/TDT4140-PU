@@ -1,23 +1,23 @@
 <template>
   <div class="grid">
     <div>
-      <old-chats />
+      <message-users-container />
     </div>
     <div>
-      <chat-box />
+      <message-single-container />
     </div>
   </div>
 </template>
 
 <script>
-import ChatBox from "../components/ChatBox.vue";
-import OldChats from "../components/OldChats.vue";
+import MessageUsersContainer from "../components/MessageUsersContainer.vue";
+import MessageSingleContainer from "../components/MessageSingleContainer.vue";
 
 export default {
   name: "MessagePage",
   components: {
-    ChatBox,
-    OldChats,
+    MessageSingleContainer,
+    MessageUsersContainer,
   },
 };
 </script>
