@@ -11,14 +11,77 @@
         </form>
       </div>
       <div class="person">
-        <div>Bilde (Bare å glemme)</div>
-        Person
+        <MessageUsers
+          v-for="(user, index) in users"
+          :key="index"
+          :currentUser="user"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import MessageUsers from "@/components/MessageUsers.vue";
+import { ref } from "vue";
+
+export default {
+  name: "RecentMessages",
+  components: {
+    MessageUsers,
+  },
+  setup() {
+    const users = ref([
+      {
+        Username: "Sara",
+        LastMessage: "Takk for handelen",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+      {
+        Username: "Jakob",
+        LastMessage: "Bare hyggelig",
+      },
+    ]);
+
+    return { users };
+  },
+};
+</script>
 
 <style scoped>
 .header {
@@ -31,10 +94,12 @@
 .OldChatsBox {
   color: #5a4035;
   background-color: #efddbb;
-  width: 250px;
-  height: 300px;
-  padding: 20px;
-  margin: 10px auto;
+  border-radius: 10px;
+  width: 300px;
+  height: 400px;
+  padding: 5px;
+  margin: 0px auto;
+  overflow-y: scroll;
 }
 
 .search {
@@ -44,11 +109,7 @@
 }
 
 .person {
-  display: grid;
-  grid-template-columns: 20% 80%;
-
-  /*margin: 0 auto 2em 0;*/
-  padding: 5px;
+  padding: 10px;
 }
 
 .gg-search {
@@ -60,8 +121,6 @@
   height: 16px;
   border: 2px solid;
   border-radius: 100%;
-  margin-left: -4px;
-  margin-top: -4px;
 }
 .gg-search::after {
   content: "";
@@ -75,5 +134,14 @@
   transform: rotate(-45deg);
   top: 10px;
   left: 12px;
+}
+input[type="text"],
+select {
+  width: 100%;
+  padding: 5px 5px;
+  display: inline-block;
+  border: 1px solid #b98e7c;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 </style>

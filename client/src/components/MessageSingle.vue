@@ -39,6 +39,7 @@ export default {
   color: black;
   position: relative;
   margin: 0.8em 0;
+  border-radius: 10px;
   .content {
     border-radius: 10px;
     padding: 5px;
