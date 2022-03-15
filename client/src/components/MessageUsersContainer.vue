@@ -14,11 +14,62 @@
         <div>Bilde (Bare å glemme)</div>
         Person
       </div>
+      <div v-for="(conv, index) in userConversations" :key="index">
+        {{ conv.name }}
+      </div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import { useStore } from "vuex";
+import { computed, onBeforeMount } from "vue";
+
+export default {
+  name: "MessageUsersContainer",
+  setup() {
+    const store = useStore();
+
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getConversationsFromUser", activeUser.value._id);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    });
+
+    const activeUser = computed(() => {
+      return store.state.activeUser;
+    });
+
+    const userConversations = computed(() => {
+      const RawConversation = store.state.userConversations;
+      const Conversations = [];
+      RawConversation.forEach((conv) => {
+        let userId =
+          conv.participants[0] == activeUser.value._id
+            ? conv.participants[1]
+            : conv.participants[1];
+        //TODO get the user on ID
+        Conversations.push({
+          name: userId,
+        });
+      });
+      return Conversations;
+    });
+
+    console.log(userConversations);
+    return {
+      activeUser,
+      userConversations,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .header {

@@ -11,6 +11,7 @@ export default createStore({
   state: {
     posts: [],
     userPosts: [],
+    userConversations: [],
     toastProps: {
       isActive: false,
       text: "",
@@ -18,6 +19,7 @@ export default createStore({
       timeOutId: null,
     },
     activeUser: null,
+    focusedUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -32,7 +34,10 @@ export default createStore({
           ? `User was logged out`
           : `User ${user.userName} was logged in`
       );
-    },
+    } /*
+    setFocusedUser(state, user) {
+      state.focusedUser = user;
+    },*/,
     updatePosts(state, payload) {
       state.posts = payload;
     },
@@ -56,6 +61,9 @@ export default createStore({
         bgColor: "",
         timeOutId: null,
       };
+    },
+    updateUserConversations(state, payload) {
+      state.userConversations = payload;
     },
   },
   actions: {
@@ -92,7 +100,30 @@ export default createStore({
       console.log(user);
 
       context.commit("setActiveUser", user.createdUser);
+    } /*
+    async getFocusedUser(context, userId) {
+      console.log("HLAO");
+      const user = await postRequest(API_URL + "/users/" + userId).catch(
+        (err) => {
+          throw new Error(err.message);
+        }
+      );
+      console.log(user.value);
+
+      context.commit("setFocusedUser", user);
     },
+    async getUser(context, userId) {
+      const user = await getRequest(API_URL + "/users/" + userId).catch(
+        (err) => {
+          throw new Error(err.message);
+        }
+      );
+      console.log("haloo");
+      console.log(user);
+      return user;
+
+      //      context.commit("setFocusedUser", user.createdUser);
+    },*/,
     async editUser(context, editedUserFields) {
       const editedUser = await putRequest(
         API_URL + "/users/" + this.state.activeUser._id,
@@ -125,6 +156,15 @@ export default createStore({
       context.commit("clearToast");
       let timeOutId = setTimeout(() => context.commit("clearToast"), 7000);
       context.commit("setToast", { isActive, text, bgColor, timeOutId });
+    },
+    //Conversations
+    async getConversationsFromUser(context, userId) {
+      const userConversations = await getRequest(
+        API_URL + "/conversations/users/" + userId
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.commit("updateUserConversations", userConversations);
     },
   },
   modules: {},
