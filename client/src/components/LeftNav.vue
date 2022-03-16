@@ -1,15 +1,21 @@
 <template>
   <div class="navButtons leftNav">
     <div class="box" v-if="activeUser">
-      <i class="gg-add"></i>
-      <router-link to="/createpost"> <h3>NEW POST</h3></router-link>
+      <router-link to="/createpost"
+        ><i class="gg-add"></i>
+        <h3>NEW POST</h3></router-link
+      >
     </div>
     <div class="box" v-if="activeUser">
-      <i class="gg-profile"></i>
-      <router-link to="/UserProfile"> <h3>PROFILE</h3></router-link>
+      <router-link to="/UserProfile"
+        ><i class="gg-profile"></i>
+        <h3>PROFILE</h3></router-link
+      >
     </div>
-    <i class="gg-mail"></i>
-    <div class="box" v-if="activeUser"><h3>MESSAGES</h3></div>
+    <div class="box" v-if="activeUser">
+      <i class="gg-mail"></i>
+      <h3>MESSAGES</h3>
+    </div>
   </div>
 </template>
 
