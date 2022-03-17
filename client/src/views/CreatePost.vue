@@ -120,6 +120,7 @@ export default {
 
 <style>
 .postForm {
+  border: 1px solid #5a4035;
   position: relative;
 }
 
@@ -138,14 +139,14 @@ export default {
   margin: 0 1em;
   height: fit-content;
   padding: 0.2em 2em;
-  background: rgb(239, 221, 187, 0.35);
+  background: rgb(249 243 232);
 
-  border: 1px #5a4035;
+  border: 1px solid #5a4035;
   border-radius: 5px 5px 0 0;
   border-bottom: 0;
 
   cursor: pointer;
-  box-shadow: inset #000 0 -2px 1px -1px;
+  box-shadow: inset #000 0 -5px 1px -1px;
 }
 #active {
   z-index: 1;

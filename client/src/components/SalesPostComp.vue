@@ -95,8 +95,9 @@ export default {
   margin: 0 auto 2em 0;
   padding: 30px;
   text-align: left;
+  border: 1px solid #5a4035;
   border-radius: 5px;
-  background-color: rgb(239, 221, 187, 0.35);
+  background-color: rgb(249 243 232);
   /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
     0 2px 4px -1px rgba(39, 6, 129, 0.75); */
 }
