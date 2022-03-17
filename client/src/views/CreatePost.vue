@@ -146,7 +146,7 @@ export default {
   border-bottom: 0;
 
   cursor: pointer;
-  box-shadow: inset #000 0 -5px 1px -1px;
+  box-shadow: inset #000 0 0 1px -1px;
 }
 #active {
   z-index: 1;
