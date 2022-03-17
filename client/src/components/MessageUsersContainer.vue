@@ -93,7 +93,7 @@ export default {
 
 .OldChatsBox {
   color: #5a4035;
-  background-color: #efddbb;
+  background-color: #f9f3e8;
   border-radius: 10px;
   width: 300px;
   height: 400px;
@@ -140,7 +140,7 @@ select {
   width: 100%;
   padding: 5px 5px;
   display: inline-block;
-  border: 1px solid #b98e7c;
+  border: 1px solid #5a4035;
   border-radius: 10px;
   box-sizing: border-box;
 }

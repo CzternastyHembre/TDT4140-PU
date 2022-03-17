@@ -113,7 +113,7 @@ export default {
   height: 400px;
   padding: 5px;
   width: 750px;
-  background-color: #efddbb;
+  background-color: #f9f3e8;
 }
 
 .chat {
@@ -196,7 +196,7 @@ select {
   width: 100%;
   padding: 5px 5px;
   display: inline-block;
-  border: 1px solid #b98e7c;
+  border: 1px solid #5a4035;
   border-radius: 10px;
   box-sizing: border-box;
 }
