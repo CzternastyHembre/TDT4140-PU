@@ -81,6 +81,7 @@ export default {
   margin: 6px auto;
   width: min(100%, 600px);
   button {
+    margin-top: 10px;
     margin-bottom: 20px;
   }
 }
@@ -111,7 +112,7 @@ export default {
   .elementContainer {
     padding: 10px;
   }
-  .elementContainer:nth-child(2n -1) {
+  .elementContainer:nth-child(0) {
     background: var(--bgc-primary);
   }
   .elementContainer > * {
