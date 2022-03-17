@@ -1,14 +1,21 @@
 const mongoose = require("mongoose");
 
 const conversationSchema = mongoose.Schema({
-  participants: {
-    type: Array,
+  p1: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    required: [true, "No participants set"],
+  },
+  p2: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
     required: [true, "No participants set"],
   },
   messages: [
     {
       senderId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
         required: [true, "No senderId set"],
       },
       content: {

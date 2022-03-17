@@ -20,7 +20,8 @@
 
 <script>
 import MessageSingle from "@/components/MessageSingle.vue";
-import { ref } from "vue";
+import store from "../store";
+import { computed } from "@vue/runtime-core";
 
 export default {
   name: "ChatBox",
@@ -28,81 +29,10 @@ export default {
     MessageSingle,
   },
   setup() {
-    const messages = ref([
-      {
-        content: "Hei Jakob!",
-        senderName: "Sara",
-      },
-      {
-        content: "Hei Sara!",
-        senderName: "Jakob",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-    ]);
-
+    const messages = computed(() => {
+      console.log(store.state.activeConversation.messages);
+      return store.state.activeConversation.messages;
+    });
     return { messages };
   },
 };

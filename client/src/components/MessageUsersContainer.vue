@@ -10,12 +10,21 @@
           </div>
         </form>
       </div>
-      <div class="person">
-        <div>Bilde (Bare å glemme)</div>
-        Person
-      </div>
-      <div v-for="(conv, index) in userConversations" :key="index">
-        {{ conv.name }}
+      <div
+        class="person"
+        v-for="(conv, index) in userConversations"
+        :key="index"
+        @click="openConversation(conv)"
+        :class="activeConversationId == conv._id ? 'active' : ''"
+      >
+        <div>
+          {{
+            conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
+          }}
+        </div>
+        <div class="lastMSG">
+          {{ conv.messages[conv.messages.length - 1].content }}
+        </div>
       </div>
     </div>
   </div>
@@ -47,31 +56,43 @@ export default {
     });
 
     const userConversations = computed(() => {
-      const RawConversation = store.state.userConversations;
-      const Conversations = [];
-      RawConversation.forEach((conv) => {
-        let userId =
-          conv.participants[0] == activeUser.value._id
-            ? conv.participants[1]
-            : conv.participants[1];
-        //TODO get the user on ID
-        Conversations.push({
-          name: userId,
-        });
-      });
-      return Conversations;
+      return store.state.userConversations;
     });
 
-    console.log(userConversations);
+    /*    const userConversations = computed(() => {
+      const convos = [];
+      userConversationsRaw.value.forEach((conv) => {
+        convos.push({
+          userName:
+            conv.p1.userName == activeUser.value.userName
+              ? conv.p2.userName
+              : conv.p1.userName,
+          lastMessage: conv.messages[conv.messages.length - 1].content,
+        });
+      });
+
+      return convos;
+    });*/
+    const openConversation = (conv) => {
+      store.commit("setActiveConversation", conv);
+      console.log(store.state.activeConversation);
+    };
+    const activeConversationId = computed(() => {
+      console.log(store.state.activeConversation._id);
+      return store.state.activeConversation._id;
+    });
+
     return {
       activeUser,
       userConversations,
+      openConversation,
+      activeConversationId,
     };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   text-align: left;
   font: bold;
@@ -100,6 +121,18 @@ export default {
 
   /*margin: 0 auto 2em 0;*/
   padding: 5px;
+  .lastMSG {
+    opacity: 0.8;
+    overflow: hidden;
+  }
+  :hover {
+    cursor: pointer;
+  }
+  opacity: 0.5;
+}
+.person.active {
+  opacity: 1;
+  border: 1px solid black;
 }
 
 .gg-search {

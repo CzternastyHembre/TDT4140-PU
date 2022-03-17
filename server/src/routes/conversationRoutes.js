@@ -11,6 +11,7 @@ const {
   getConversations,
   newConversationMessageById,
   getConversationByUserId,
+  getAllConversationByUserId,
 } = require("../controllers/conversationControllers.js");
 
 // @route /api/conversations
@@ -30,5 +31,7 @@ router
   .put(newConversationMessageById);
 
 router.route("/users/:userId").get(getConversationByUserId);
+
+router.route("/users/all/:userId").get(getAllConversationByUserId);
 
 module.exports = router;

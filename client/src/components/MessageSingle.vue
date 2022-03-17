@@ -1,10 +1,10 @@
 <template>
   <div
     class="message"
-    :class="currentMessage.senderName == 'Jakob' ? 'right' : ''"
+    :class="currentMessage.senderId._id == activeUser._id ? 'right' : ''"
   >
     <div class="profileName">
-      {{ currentMessage.senderName }}
+      {{ currentMessage.senderId.userName }}
     </div>
     <div class="content">
       {{ currentMessage.content }}

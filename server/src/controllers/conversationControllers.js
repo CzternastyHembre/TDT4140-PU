@@ -29,7 +29,7 @@ const getConversationById = asyncHandler(async (req, res) => {
   res.status(200).json(conversation);
 });
 
-// @desc get conversationById
+// @desc get conversationByUserId
 // @route GET /api/conversations/users/:userId
 // @access private
 const getConversationByUserId = asyncHandler(async (req, res) => {
@@ -119,6 +119,30 @@ const deleteConversation = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Conversattion deleted!", conversation });
 });
 
+// @desc get conversationByUserId
+// @route GET /api/conversations/users/:userId
+// @access private
+const getAllConversationByUserId = asyncHandler(async (req, res) => {
+  const conversations = await ConversationsDB.find()
+    .or([
+      {
+        p1: req.params.userId,
+      },
+      {
+        p2: req.params.userId,
+      },
+    ])
+    .populate("p1")
+    .populate("p2")
+    .populate("messages.senderId");
+  console.log(conversations);
+  if (!conversations) {
+    res.status(404);
+    throw new Error("Could not find any conversations");
+  }
+  res.status(200).json(conversations);
+});
+
 module.exports = {
   getConversationById,
   getConversationMessagesById,
@@ -127,4 +151,5 @@ module.exports = {
   getConversations,
   newConversationMessageById,
   getConversationByUserId,
+  getAllConversationByUserId,
 };
