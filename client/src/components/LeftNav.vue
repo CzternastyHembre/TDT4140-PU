@@ -1,15 +1,13 @@
 <template>
   <div class="navButtons leftNav">
     <div class="box" v-if="activeUser">
-      <router-link to="/createpost"
-        ><i class="gg-add"></i>
-        <h3>NEW POST</h3></router-link
+      <router-link to="/createpost">
+        <h3><i class="gg-add"></i>NEW POST</h3></router-link
       >
     </div>
     <div class="box" v-if="activeUser">
-      <router-link to="/UserProfile"
-        ><i class="gg-profile"></i>
-        <h3>PROFILE</h3></router-link
+      <router-link to="/UserProfile">
+        <h3><i class="gg-profile"></i>PROFILE</h3></router-link
       >
     </div>
     <div class="box" v-if="activeUser">
