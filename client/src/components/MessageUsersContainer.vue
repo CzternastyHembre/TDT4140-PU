@@ -93,8 +93,8 @@ export default {
 
 .OldChatsBox {
   color: #5a4035;
-  background-color: #f9f3e8;
-  border-radius: 10px;
+  background-color: white;
+  border-radius: 40px;
   width: 300px;
   height: 400px;
   padding: 5px;

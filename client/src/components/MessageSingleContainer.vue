@@ -109,11 +109,11 @@ export default {
   color: #5a4035;
   display: grid;
   grid-template-rows: 90% 10%;
-  border-radius: 10px;
+  border-radius: 40px;
   height: 400px;
   padding: 5px;
   width: 750px;
-  background-color: #f9f3e8;
+  background-color: white;
 }
 
 .chat {
@@ -196,8 +196,9 @@ select {
   width: 100%;
   padding: 5px 5px;
   display: inline-block;
-  border: 1px solid #5a4035;
-  border-radius: 10px;
+  border: 0px solid #5a4035;
+  border-radius: 40px;
   box-sizing: border-box;
+  background-color: #efddbb;
 }
 </style>

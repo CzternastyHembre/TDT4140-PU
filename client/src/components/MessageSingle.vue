@@ -39,12 +39,12 @@ export default {
   color: #5a4035;
   position: relative;
   margin: 0.8em 0;
-  border-radius: 10px;
+  border-radius: 40px;
   .content {
     border-radius: 10px;
     padding: 5px;
     border-radius: 0 10px 10px 0;
-    background-color: #efddbb;
+    background-color: #f9f3e8;
   }
   .profileName {
     top: -1em;
@@ -57,7 +57,7 @@ export default {
   flex-direction: row-reverse;
   .content {
     border-radius: 10px 0 0 10px;
-    background-color: #dfcec8;
+    background-color: #d0afa0;
   }
 }
 </style>
