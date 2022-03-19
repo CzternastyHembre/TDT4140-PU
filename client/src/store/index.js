@@ -18,6 +18,7 @@ export default createStore({
       timeOutId: null,
     },
     activeUser: null,
+    viewProfileUser: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -32,6 +33,10 @@ export default createStore({
           ? `User was logged out`
           : `User ${user.userName} was logged in`
       );
+    },
+
+    setViewProfileUser(state, user) {
+      state.viewProfileUser = user;
     },
     updatePosts(state, payload) {
       state.posts = payload;
@@ -120,6 +125,15 @@ export default createStore({
       });
 
       context.commit("changeUserPost", res.updatedPost);
+    },
+    async getViewProfileUser(context, userId) {
+      const user = await getRequest(API_URL + "/users/" + userId).catch(
+        (err) => {
+          throw new Error(err.message);
+        }
+      );
+      console.log(user);
+      context.commit("setViewProfileUser", user);
     },
     setToast(context, { isActive, text, bgColor }) {
       context.commit("clearToast");
