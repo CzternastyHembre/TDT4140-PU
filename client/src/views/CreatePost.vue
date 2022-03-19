@@ -139,7 +139,7 @@ export default {
   margin: 0 1em;
   height: fit-content;
   padding: 0.2em 2em;
-  background: rgb(249 243 232);
+  background: white;
 
   border: 1px solid #5a4035;
   border-radius: 5px 5px 0 0;

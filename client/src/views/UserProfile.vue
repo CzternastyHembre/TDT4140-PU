@@ -87,9 +87,8 @@ export default {
 }
 
 .profilePost {
-  border: 1px solid #5a4035;
   background-color: var(--bgc-primary);
-  border-radius: 10px;
+  border-radius: 40px;
   text-align: left;
 
   .profileHeader {
