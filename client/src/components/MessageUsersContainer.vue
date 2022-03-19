@@ -22,6 +22,7 @@
             conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
           }}
         </div>
+        <div></div>
         <div class="lastMSG">
           {{ conv.messages[conv.messages.length - 1].content }}
         </div>
@@ -59,26 +60,10 @@ export default {
       return store.state.userConversations;
     });
 
-    /*    const userConversations = computed(() => {
-      const convos = [];
-      userConversationsRaw.value.forEach((conv) => {
-        convos.push({
-          userName:
-            conv.p1.userName == activeUser.value.userName
-              ? conv.p2.userName
-              : conv.p1.userName,
-          lastMessage: conv.messages[conv.messages.length - 1].content,
-        });
-      });
-
-      return convos;
-    });*/
     const openConversation = (conv) => {
       store.commit("setActiveConversation", conv);
-      console.log(store.state.activeConversation);
     };
     const activeConversationId = computed(() => {
-      console.log(store.state.activeConversation._id);
       return store.state.activeConversation._id;
     });
 
@@ -117,13 +102,16 @@ export default {
 
 .person {
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 20% 10% 70%;
+  height: 1em;
 
   /*margin: 0 auto 2em 0;*/
   padding: 5px;
   .lastMSG {
     opacity: 0.8;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   :hover {
     cursor: pointer;
@@ -131,6 +119,7 @@ export default {
   opacity: 0.5;
 }
 .person.active {
+  white-space: nowrap;
   opacity: 1;
   border: 1px solid black;
 }

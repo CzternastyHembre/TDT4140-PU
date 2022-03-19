@@ -9,8 +9,8 @@
     </div>
     <div class="write">
       <div class="input">
-        <input type="text" name="search" />
-        <div class="box"><i class="gg-arrow-up"></i></div>
+        <input v-model="inpText" type="text" name="search" />
+        <div @click="sendMessage" class="box"><i class="gg-arrow-up"></i></div>
       </div>
       <div class="box"><i class="gg-add"></i></div>
       <div class="box"><i class="gg-smile"></i></div>
@@ -22,18 +22,31 @@
 import MessageSingle from "@/components/MessageSingle.vue";
 import store from "../store";
 import { computed } from "@vue/runtime-core";
-
+import { ref } from "vue";
 export default {
   name: "ChatBox",
   components: {
     MessageSingle,
   },
+
   setup() {
+    const inpText = ref("");
     const messages = computed(() => {
-      console.log(store.state.activeConversation.messages);
       return store.state.activeConversation.messages;
     });
-    return { messages };
+    const sendMessage = () => {
+      try {
+        store.dispatch("editConversation", inpText.value);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    };
+
+    return { messages, inpText, sendMessage };
   },
 };
 </script>

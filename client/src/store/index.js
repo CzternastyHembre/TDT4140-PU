@@ -36,6 +36,7 @@ export default createStore({
       );
     },
     setActiveConversation(state, conversation) {
+      console.log(conversation._id);
       state.activeConversation = conversation;
     },
     updatePosts(state, payload) {
@@ -152,6 +153,29 @@ export default createStore({
         throw new Error(err.message);
       });
       context.commit("updateUserConversations", userConversations);
+    },
+    async editConversation(context, newMessage) {
+      console.log(
+        API_URL +
+          "/conversations/" +
+          this.state.activeConversation._id +
+          "/messages"
+      );
+      await putRequest(
+        API_URL +
+          "/conversations/" +
+          this.state.activeConversation._id +
+          "/messages",
+        {
+          content: newMessage,
+          senderId: this.state.activeUser._id,
+          messageDate: new Date(),
+        }
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      //   context.commit("setActiveConversation", editedUser.updatedUser);
     },
   },
   modules: {},
