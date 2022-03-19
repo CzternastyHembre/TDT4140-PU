@@ -37,6 +37,7 @@ export default {
     const sendMessage = () => {
       try {
         store.dispatch("editConversation", inpText.value);
+
         inpText.value = "";
       } catch (err) {
         store.dispatch("setToast", {

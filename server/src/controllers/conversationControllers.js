@@ -70,8 +70,8 @@ const newConversationMessageById = asyncHandler(async (req, res) => {
   const conversation = await ConversationsDB.findById(
     req.params.conversationId
   );
-
   conversation.messages.push(req.body);
+
   await ConversationsDB.findByIdAndUpdate(
     req.params.conversationId,
     conversation
