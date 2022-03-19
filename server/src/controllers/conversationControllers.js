@@ -17,10 +17,10 @@ const getConversations = asyncHandler(async (req, res) => {
 const getConversationById = asyncHandler(async (req, res) => {
   checkForValidObjectId(req.params.conversationId, res);
 
-  const conversation = await ConversationsDB.findById(
-    req.params.conversationId
-  );
-
+  const conversation = await ConversationsDB.findById(req.params.conversationId)
+    .populate("p1")
+    .populate("p2")
+    .populate("messages.senderId");
   if (!conversation) {
     res.status(404);
     throw new Error("Could not find conversation");

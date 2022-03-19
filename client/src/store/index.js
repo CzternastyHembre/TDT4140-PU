@@ -177,6 +177,13 @@ export default createStore({
 
       //   context.commit("setActiveConversation", editedUser.updatedUser);
     },
+    async setActiveConversation(context, conv_id) {
+      const conversation = await getRequest(
+        API_URL + "/conversations/" + conv_id
+      );
+      console.log(conversation);
+      context.commit("setActiveConversation", conversation);
+    },
   },
   modules: {},
 });

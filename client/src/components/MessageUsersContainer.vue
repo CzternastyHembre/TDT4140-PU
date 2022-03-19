@@ -14,7 +14,7 @@
         class="person"
         v-for="(conv, index) in userConversations"
         :key="index"
-        @click="openConversation(conv)"
+        @click="openConversation(conv._id)"
         :class="activeConversationId == conv._id ? 'active' : ''"
       >
         <div>
@@ -60,8 +60,8 @@ export default {
       return store.state.userConversations;
     });
 
-    const openConversation = (conv) => {
-      store.commit("setActiveConversation", conv);
+    const openConversation = (conv_id) => {
+      store.dispatch("setActiveConversation", conv_id);
     };
     const activeConversationId = computed(() => {
       return store.state.activeConversation._id;
