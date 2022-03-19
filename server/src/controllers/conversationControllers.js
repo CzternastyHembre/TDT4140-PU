@@ -89,7 +89,6 @@ const newConversationMessageById = asyncHandler(async (req, res) => {
 // @route POST /api/conversations
 // @access private
 const newConversation = asyncHandler(async (req, res) => {
-  console.log(req.body);
   if (!req.body) {
     res.status(400);
     throw new Error("No conversation in body");
@@ -135,7 +134,6 @@ const getAllConversationByUserId = asyncHandler(async (req, res) => {
     .populate("p1")
     .populate("p2")
     .populate("messages.senderId");
-  console.log(conversations);
   if (!conversations) {
     res.status(404);
     throw new Error("Could not find any conversations");

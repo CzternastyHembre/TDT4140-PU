@@ -36,7 +36,6 @@ export default createStore({
       );
     },
     setActiveConversation(state, conversation) {
-      console.log(conversation._id);
       state.activeConversation = conversation;
     },
     updatePosts(state, payload) {
@@ -109,8 +108,6 @@ export default createStore({
         }
       );
       return user;
-
-      //      context.commit("setFocusedUser", user.createdUser);
     },
     async editUser(context, editedUserFields) {
       const editedUser = await putRequest(
@@ -162,12 +159,6 @@ export default createStore({
     },
 
     async editConversation(context, newMessage) {
-      console.log(
-        API_URL +
-          "/conversations/" +
-          this.state.activeConversation._id +
-          "/messages"
-      );
       const response = await putRequest(
         API_URL +
           "/conversations/" +
