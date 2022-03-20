@@ -72,7 +72,9 @@ body {
     width: min(70%, 600px);
     color: #5a4035;
     text-align: center;
-    border-radius: 40px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 20% 80%;
   }
   a {
     text-decoration: none;
