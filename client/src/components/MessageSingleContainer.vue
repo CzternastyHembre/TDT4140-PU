@@ -12,8 +12,6 @@
         <input v-model="inpText" type="text" name="search" />
         <div @click="sendMessage" class="box"><i class="gg-arrow-up"></i></div>
       </div>
-      <div class="box"><i class="gg-add"></i></div>
-      <div class="box"><i class="gg-smile"></i></div>
     </div>
   </div>
 </template>
@@ -57,27 +55,23 @@ export default {
   color: #5a4035;
   display: grid;
   grid-template-rows: 90% 10%;
-
+  border-radius: 40px;
   height: 400px;
-  width: 400px;
-  background-color: #efddbb;
+  padding: 5px;
+  width: 750px;
+  background-color: white;
 }
 
 .chat {
-  padding-top: 10px;
+  padding: 10px;
   overflow-y: scroll;
 }
 
-.write {
+.input {
   text-align: center;
   display: grid;
-  grid-template-columns: 90% 5% 5%;
-  padding: 5px;
-}
-
-.input {
-  display: grid;
   grid-template-columns: 95% 5%;
+  padding: 5px;
 }
 
 .gg-arrow-up {
@@ -143,43 +137,14 @@ export default {
   left: 8px;
 }
 
-.gg-smile {
+input[type="text"],
+select {
+  width: 100%;
+  padding: 5px 5px;
+  display: inline-block;
+  border: 0px solid #5a4035;
+  border-radius: 40px;
   box-sizing: border-box;
-  position: relative;
-  display: block;
-  transform: scale(var(--ggs, 1));
-  width: 20px;
-  height: 20px;
-  border: 2px solid;
-  border-radius: 100px;
-}
-
-.gg-smile::after,
-.gg-smile::before {
-  content: "";
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  left: 4px;
-}
-
-.gg-smile::before {
-  background: currentColor;
-  box-shadow: 6px 0 0;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  top: 5px;
-}
-
-.gg-smile::after {
-  width: 8px;
-  height: 4px;
-  border-radius: 150px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border: 2px solid;
-  border-top-color: transparent;
-  top: 9px;
+  background-color: #efddbb;
 }
 </style>

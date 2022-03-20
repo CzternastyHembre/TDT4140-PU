@@ -36,14 +36,16 @@ export default {
   width: 100%;
   text-align: left;
   display: flex;
-  color: black;
+  color: #5a4035;
   position: relative;
   margin: 0.8em 0;
+  border-radius: 40px;
   .content {
+    max-width: 70%;
     border-radius: 10px;
     padding: 5px;
     border-radius: 0 10px 10px 0;
-    background-color: grey;
+    background-color: #f9f3e8;
   }
   .profileName {
     top: -1em;
@@ -56,7 +58,7 @@ export default {
   flex-direction: row-reverse;
   .content {
     border-radius: 10px 0 0 10px;
-    background-color: lightblue;
+    background-color: #d0afa0;
   }
 }
 </style>

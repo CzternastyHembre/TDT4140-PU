@@ -25,10 +25,9 @@ export default {
 <style lang="scss" scoped>
 .grid {
   display: flex;
-  margin: auto auto auto 20%;
-  /*background-color: beige;*/
+  margin: 0 0 5% 20%;
   > * {
-    margin: 0 10% 0 0;
+    margin: 0 1% 0 0;
   }
 }
 </style>
