@@ -41,6 +41,7 @@ export default {
   margin: 0.8em 0;
   border-radius: 40px;
   .content {
+    max-width: 70%;
     border-radius: 10px;
     padding: 5px;
     border-radius: 0 10px 10px 0;

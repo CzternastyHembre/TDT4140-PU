@@ -1,50 +1,40 @@
 <template>
-  <div>
-    <div class="OldChatsBox">
-      <div class="header"><h2>CHATS</h2></div>
-      <div class="search">
-        <i class="gg-search"></i>
-        <form action="">
-          <div>
-            <input type="text" name="search" placeholder="Search in chats" />
-          </div>
-        </form>
-      </div>
-      <div class="person">
-        <MessageUsers
-          v-for="(user, index) in userConversations"
-          :key="index"
-          @click="openConversation(conv._id)"
-          :currentUser="user"
-          :class="activeConversationId == conv._id ? 'active' : ''"
-        />
-      <div
-        class="person"
+  <div class="OldChatsBox">
+    <div class="header"><h2>CHATS</h2></div>
+    <div class="search">
+      <i class="gg-search"></i>
+      <form action="">
+        <div>
+          <input type="text" name="search" placeholder="Search in chats" />
+        </div>
+      </form>
+    </div>
+    <div class="person">
+      <MessageUsers
         v-for="(conv, index) in userConversations"
         :key="index"
-        @click="openConversation(conv._id)"
-        :class="activeConversationId == conv._id ? 'active' : ''"
-      >
-        <div>
-          {{
-            conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
-          }}
-        </div>
-        <div></div>
-        <div class="lastMSG">
-          {{ conv.messages[conv.messages.length - 1].content }}
-        </div>
-      </div>
+        @activeConversation="(id) => openConversation(id)"
+        :userName="
+          conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
+        "
+        :convId="conv._id"
+        :lastMessage="conv.messages[conv.messages.length - 1].content"
+        :activeConv="activeConversationId == conv._id"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import MessageUsers from "@/components/MessageUsers";
 import { useStore } from "vuex";
 import { computed, onBeforeMount } from "vue";
 
 export default {
   name: "MessageUsersContainer",
+  components: {
+    MessageUsers,
+  },
   setup() {
     const store = useStore();
 
@@ -72,6 +62,7 @@ export default {
       store.dispatch("setActiveConversation", conv_id);
     };
     const activeConversationId = computed(() => {
+      console.log("halla balla");
       return store.state.activeConversation._id;
     });
 
@@ -111,22 +102,10 @@ export default {
 }
 
 .person {
-  display: grid;
-  grid-template-columns: 20% 10% 70%;
-  height: 1em;
-
-  /*margin: 0 auto 2em 0;*/
-  padding: 5px;
-  .lastMSG {
-    opacity: 0.8;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  margin-top: 10px;
   :hover {
     cursor: pointer;
   }
-  opacity: 0.5;
 }
 .person.active {
   white-space: nowrap;

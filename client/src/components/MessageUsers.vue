@@ -1,37 +1,63 @@
 <template>
-  <div class="users">
+  <div
+    class="users"
+    :class="props.activeConv ? 'active' : ''"
+    @click="chooseConv"
+  >
     <div class="profileName">
-      {{ currentUser.Username }}
+      {{ props.userName }}
     </div>
     <div class="content">
-      {{ currentUser.LastMessage }}
+      {{ props.lastMessage }}
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
-
 export default {
   name: "MessageUsers",
   props: {
-    currentUser: Object,
+    userName: String,
+    convId: String,
+    lastMessage: String,
+    activeConv: Boolean,
   },
-  setup(props) {
-    const store = useStore();
-    const messageRef = ref(props.currentUser);
+  setup(props, { emit }) {
+    const chooseConv = () => {
+      emit("activeConversation", props.convId);
+    };
 
-    const activeUser = computed(() => store.state.activeUser);
-
-    return { messageRef, activeUser };
+    return { chooseConv, props };
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .users {
+  height: 3em;
   text-align: left;
+  border: solid 1px black;
+  display: grid;
+  grid-template-rows: 30% 70%;
+
+  /*margin: 0 auto 2em 0;*/
+  padding: 5px;
+  .content {
+    opacity: 0.8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :hover {
+    cursor: pointer;
+  }
+  opacity: 0.5;
+}
+
+.active {
+  white-space: nowrap;
+  opacity: 1;
+  border: 1px solid black;
 }
 
 .profileName {
