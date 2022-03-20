@@ -12,78 +12,80 @@
       </div>
       <div class="person">
         <MessageUsers
-          v-for="(user, index) in users"
+          v-for="(user, index) in userConversations"
           :key="index"
+          @click="openConversation(conv._id)"
           :currentUser="user"
+          :class="activeConversationId == conv._id ? 'active' : ''"
         />
+      <div
+        class="person"
+        v-for="(conv, index) in userConversations"
+        :key="index"
+        @click="openConversation(conv._id)"
+        :class="activeConversationId == conv._id ? 'active' : ''"
+      >
+        <div>
+          {{
+            conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
+          }}
+        </div>
+        <div></div>
+        <div class="lastMSG">
+          {{ conv.messages[conv.messages.length - 1].content }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import MessageUsers from "@/components/MessageUsers.vue";
-import { ref } from "vue";
+import { useStore } from "vuex";
+import { computed, onBeforeMount } from "vue";
 
 export default {
-  name: "RecentMessages",
-  components: {
-    MessageUsers,
-  },
+  name: "MessageUsersContainer",
   setup() {
-    const users = ref([
-      {
-        Username: "Sara",
-        LastMessage: "Takk for handelen",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-      {
-        Username: "Jakob",
-        LastMessage: "Bare hyggelig",
-      },
-    ]);
+    const store = useStore();
 
-    return { users };
+    onBeforeMount(async () => {
+      try {
+        await store.dispatch("getConversationsFromUser", activeUser.value._id);
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    });
+
+    const activeUser = computed(() => {
+      return store.state.activeUser;
+    });
+
+    const userConversations = computed(() => {
+      return store.state.userConversations;
+    });
+
+    const openConversation = (conv_id) => {
+      store.dispatch("setActiveConversation", conv_id);
+    };
+    const activeConversationId = computed(() => {
+      return store.state.activeConversation._id;
+    });
+
+    return {
+      activeUser,
+      userConversations,
+      openConversation,
+      activeConversationId,
+    };
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   text-align: left;
   font: bold;
@@ -109,7 +111,27 @@ export default {
 }
 
 .person {
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 20% 10% 70%;
+  height: 1em;
+
+  /*margin: 0 auto 2em 0;*/
+  padding: 5px;
+  .lastMSG {
+    opacity: 0.8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :hover {
+    cursor: pointer;
+  }
+  opacity: 0.5;
+}
+.person.active {
+  white-space: nowrap;
+  opacity: 1;
+  border: 1px solid black;
 }
 
 .gg-search {

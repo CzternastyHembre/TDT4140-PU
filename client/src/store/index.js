@@ -10,6 +10,9 @@ const API_URL = "http://localhost:5085/api";
 export default createStore({
   state: {
     posts: [],
+    userPosts: [],
+    userConversations: [],
+    activeConversation: [],
     toastProps: {
       isActive: false,
       text: "",
@@ -32,9 +35,20 @@ export default createStore({
           : `User ${user.userName} was logged in`
       );
     },
+    setActiveConversation(state, conversation) {
+      state.activeConversation = conversation;
+    },
     updatePosts(state, payload) {
-      console.log(payload);
       state.posts = payload;
+    },
+    updateUserPosts(state, payload) {
+      state.userPosts = payload;
+    },
+    changeUserPost(state, newPost) {
+      const index = state.userPosts.findIndex(
+        (oldPost) => oldPost._id === newPost._id
+      );
+      state.userPosts.splice(index, 1, newPost);
     },
     setToast(state, { isActive, text, bgColor, timeOutId }) {
       state.toastProps = { isActive, text, bgColor, timeOutId };
@@ -47,6 +61,9 @@ export default createStore({
         bgColor: "",
         timeOutId: null,
       };
+    },
+    updateUserConversations(state, payload) {
+      state.userConversations = payload;
     },
   },
   actions: {
@@ -84,6 +101,14 @@ export default createStore({
 
       context.commit("setActiveUser", user.createdUser);
     },
+    async getUser(context, userId) {
+      const user = await getRequest(API_URL + "/users/" + userId).catch(
+        (err) => {
+          throw new Error(err.message);
+        }
+      );
+      return user;
+    },
     async editUser(context, editedUserFields) {
       const editedUser = await putRequest(
         API_URL + "/users/" + this.state.activeUser._id,
@@ -94,10 +119,60 @@ export default createStore({
 
       context.commit("setActiveUser", editedUser.updatedUser);
     },
+    async getPostsFromUser(context, userId) {
+      const posts = await getRequest(
+        API_URL + "/posts/userPosts/" + userId
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("updateUserPosts", posts);
+    },
+    async markPostAsSold(context, { postId, isSold }) {
+      const res = await putRequest(API_URL + "/posts/sold/" + postId, {
+        isSold,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.commit("changeUserPost", res.updatedPost);
+    },
     setToast(context, { isActive, text, bgColor }) {
       context.commit("clearToast");
       let timeOutId = setTimeout(() => context.commit("clearToast"), 7000);
       context.commit("setToast", { isActive, text, bgColor, timeOutId });
+    },
+    //Conversations
+    async getConversationsFromUser(context, userId) {
+      const userConversations = await getRequest(
+        API_URL + "/conversations/users/all/" + userId
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.commit("updateUserConversations", userConversations);
+    },
+    async setActiveConversation(context, conv_id) {
+      const conversation = await getRequest(
+        API_URL + "/conversations/" + conv_id
+      );
+      context.commit("setActiveConversation", conversation);
+    },
+
+    async editConversation(context, newMessage) {
+      const response = await putRequest(
+        API_URL +
+          "/conversations/" +
+          this.state.activeConversation._id +
+          "/messages",
+        {
+          content: newMessage,
+          senderId: this.state.activeUser._id,
+          messageDate: new Date(),
+        }
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.dispatch("setActiveConversation", response.conversation._id);
     },
   },
   modules: {},

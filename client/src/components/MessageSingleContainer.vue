@@ -7,99 +7,45 @@
         :currentMessage="message"
       />
     </div>
-    <div class="input">
-      <input type="text" name="search" placeholder="Write a message" />
-      <i class="gg-arrow-up"></i>
+    <div class="write">
+      <div class="input">
+        <input v-model="inpText" type="text" name="search" />
+        <div @click="sendMessage" class="box"><i class="gg-arrow-up"></i></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import MessageSingle from "@/components/MessageSingle.vue";
+import store from "../store";
+import { computed } from "@vue/runtime-core";
 import { ref } from "vue";
-
 export default {
   name: "ChatBox",
   components: {
     MessageSingle,
   },
-  setup() {
-    const messages = ref([
-      {
-        content: "Hei Jakob!",
-        senderName: "Sara",
-      },
-      {
-        content: "Hei Sara!",
-        senderName: "Jakob",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-      {
-        content: "OK!",
-        senderName: "Sara",
-      },
-    ]);
 
-    return { messages };
+  setup() {
+    const inpText = ref("");
+    const messages = computed(() => {
+      return store.state.activeConversation.messages;
+    });
+    const sendMessage = () => {
+      try {
+        store.dispatch("editConversation", inpText.value);
+        inpText.value = "";
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    };
+
+    return { messages, inpText, sendMessage };
   },
 };
 </script>

@@ -5,6 +5,20 @@
     <p><b>DATE:</b> {{ dateString(post.eventDate) }}</p>
     <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
     <p><b>USERNAME:</b> {{ post.userName }}</p>
+    <span v-if="onUserProfile">
+      <span v-if="!isSoldProp">
+        <p>
+          <b>Mark as sold: </b>
+          <input @click="markAsSold" type="button" value="Sold" />
+        </p>
+      </span>
+      <span v-else>
+        <p>
+          <b>Open post: </b>
+          <input @click="markAsNotSold" type="button" value="Open post" />
+        </p>
+      </span>
+    </span>
   </div>
 </template>
 
@@ -14,7 +28,7 @@ import { computed } from "vue";
 
 export default {
   name: "SalesPostComp",
-  props: ["indexPost"],
+  props: ["indexPost", "isSoldProp", "onUserProfile"],
   setup(props) {
     const store = useStore();
 
@@ -28,10 +42,49 @@ export default {
     };
 
     const post = computed(() => {
-      return store.getters.getPostByIndex(props.indexPost);
+      return store.state.posts[props.indexPost];
     });
 
-    return { post, dateString };
+    const markAsSold = async () => {
+      try {
+        await store.dispatch("markPostAsSold", {
+          postId: post.value._id,
+          isSold: true,
+        });
+        store.dispatch("setToast", {
+          isActive: true,
+          text: "Post marked as sold",
+          bgColor: "lightgreen",
+        });
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    };
+    const markAsNotSold = async () => {
+      try {
+        await store.dispatch("markPostAsSold", {
+          postId: post.value._id,
+          isSold: false,
+        });
+        store.dispatch("setToast", {
+          isActive: true,
+          text: "Post marked as not sold",
+          bgColor: "lightgreen",
+        });
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    };
+
+    return { post, dateString, markAsSold, markAsNotSold };
   },
 };
 </script>
