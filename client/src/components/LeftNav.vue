@@ -1,13 +1,19 @@
 <template>
   <div class="navButtons leftNav">
     <div class="box" v-if="activeUser">
-      <router-link to="/createpost"> <h3>NEW POST</h3></router-link>
+      <router-link to="/createpost">
+        <h3><i class="gg-add"></i>NEW POST</h3>
+      </router-link>
     </div>
     <div class="box" v-if="activeUser">
-      <router-link to="/UserProfile"> <h3>PROFILE</h3></router-link>
+      <router-link to="/UserProfile">
+        <h3><i class="gg-profile"></i>PROFILE</h3>
+      </router-link>
     </div>
     <div class="box" v-if="activeUser">
-      <router-link to="/Messages"><h3>MESSAGES</h3></router-link>
+      <router-link to="/Messages">
+        <h3><i class="gg-mail"></i>MESSAGES</h3>
+      </router-link>
     </div>
   </div>
 </template>
@@ -37,4 +43,94 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.gg-add {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid;
+  transform: scale(var(--ggs, 1));
+  border-radius: 22px;
+  margin-top: 50%;
+  margin-bottom: 50%;
+}
+.gg-add::after,
+.gg-add::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 5px;
+  top: 8px;
+  left: 4px;
+}
+.gg-add::after {
+  width: 2px;
+  height: 10px;
+  top: 4px;
+  left: 8px;
+}
+
+.gg-profile,
+.gg-profile::after,
+.gg-profile::before {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid;
+  border-radius: 100px;
+}
+.gg-profile {
+  overflow: hidden;
+  transform: scale(var(--ggs, 1));
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+.gg-profile::after,
+.gg-profile::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 8px;
+  height: 8px;
+}
+.gg-profile::after {
+  border-radius: 200px;
+  top: 11px;
+  left: 0px;
+  width: 18px;
+  height: 18px;
+}
+
+.gg-mail,
+.gg-mail::after {
+  display: block;
+  box-sizing: border-box;
+  height: 14px;
+  border: 2px solid;
+}
+.gg-mail {
+  overflow: hidden;
+  transform: scale(var(--ggs, 1));
+  position: relative;
+  width: 18px;
+  border-radius: 2px;
+  margin-top: 20%;
+  margin-bottom: 20%;
+}
+.gg-mail::after {
+  content: "";
+  position: absolute;
+  border-radius: 3px;
+  width: 14px;
+  transform: rotate(-45deg);
+  bottom: 3px;
+  left: 0;
+}
+</style>

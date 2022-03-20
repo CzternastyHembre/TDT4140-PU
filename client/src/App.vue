@@ -41,12 +41,12 @@ export default {
 
 <style lang="scss">
 :root {
-  --bgc-primary: #c7dce7;
-  --col-primary: #cc3f3f;
+  --bgc-primary: white;
+  --col-primary: #5a4035;
 }
 body {
   min-height: 100vh;
-  background-color: white;
+  background-color: rgb(249 243 232);
   color: var(--col-primary);
 }
 
@@ -81,11 +81,13 @@ body {
   h3 {
     margin: 10px auto;
     padding: 20px;
-    background-color: var(--bgc-primary);
+    background-color: #efddbb /*var(--bgc-primary)*/;
     width: min(70%, 600px);
     color: #5a4035;
     text-align: center;
     border-radius: 5px;
+    display: grid;
+    grid-template-columns: 20% 80%;
   }
   a {
     text-decoration: none;
@@ -108,8 +110,8 @@ body {
   font-size: 1em;
   background-color: var(--bgc-primary);
 
-  border: 1px solid grey;
-  border-radius: 2%;
+  border: 0px solid grey;
+  border-radius: 40px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
 }
 
@@ -128,17 +130,19 @@ body {
 
 .submitButton {
   padding: 10px 20px;
-  width: 35%;
+  width: 150px;
   font-size: 17px;
-  border-radius: 20px;
+  border-radius: 40px;
   margin: auto;
-  border: 1px solid #6a706e;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: rgb(239, 221, 187);
+  border: 0px solid rgb(90, 64, 53);
+  box-shadow: 0 2px 2px 0 rgba(90, 64, 53, 0.568),
+    0 3px 1px -2px rgba(90, 64, 53, 0.315), 0 1px 5px 0 rgba(90, 64, 53, 0.37);
 }
 
 .submitButton:hover {
   box-shadow: 0 2px 6px black;
+  cursor: pointer;
 }
 
 .messagePage {
