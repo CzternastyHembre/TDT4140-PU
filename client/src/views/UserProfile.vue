@@ -6,7 +6,7 @@
       @user-updated="userUpdatedEvent"
     />
     <UserProfileView v-else :activeUser="activeUser" />
-    <button @click="isEditMode = !isEditMode">
+    <button class="submitButton" @click="isEditMode = !isEditMode">
       {{ isEditMode ? "Back" : "Edit profile" }}
     </button>
     <div class="userPosts" v-if="!isEditMode">
@@ -81,14 +81,14 @@ export default {
   margin: 6px auto;
   width: min(100%, 600px);
   button {
+    margin-top: 10px;
     margin-bottom: 20px;
   }
 }
 
 .profilePost {
-  border: solid black 1px;
   background-color: var(--bgc-primary);
-  border-radius: 3px;
+  border-radius: 40px;
   text-align: left;
 
   .profileHeader {
@@ -111,8 +111,8 @@ export default {
   .elementContainer {
     padding: 10px;
   }
-  .elementContainer:nth-child(2n -1) {
-    background: #acd3e6;
+  .elementContainer:nth-child(0) {
+    background: var(--bgc-primary);
   }
   .elementContainer > * {
     display: inline;

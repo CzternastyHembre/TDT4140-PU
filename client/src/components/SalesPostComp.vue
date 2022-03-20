@@ -110,7 +110,8 @@ export default {
   margin: 0 auto 2em 0;
   padding: 30px;
   text-align: left;
-  background-color: #c7dce7;
+  border-radius: 40px;
+  background-color: white;
   /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
     0 2px 4px -1px rgba(39, 6, 129, 0.75); */
 }
