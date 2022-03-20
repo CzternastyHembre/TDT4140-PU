@@ -53,7 +53,7 @@
         </textarea>
       </div>
       <div class="elementContainer saveBtnC">
-        <button @click="submitUser">Save</button>
+        <button class="submitButton" @click="submitUser">Save</button>
       </div>
     </div>
   </div>

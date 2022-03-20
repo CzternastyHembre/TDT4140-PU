@@ -5,6 +5,7 @@ import SignUp from "../views/SignUp.vue";
 import LogIn from "../views/LogIn.vue";
 import CreatePost from "../views/CreatePost.vue";
 import UserProfile from "../views/UserProfile.vue";
+import OtherProfileView from "../views/OtherProfileView.vue";
 
 const routes = [
   {
@@ -44,6 +45,14 @@ const routes = [
     path: "/UserProfile",
     name: "UserProfile",
     component: UserProfile,
+    meta: {
+      requireLogIn: true,
+    },
+  },
+  {
+    path: "/OtherProfileView",
+    name: "OtherProfileView",
+    component: OtherProfileView,
     meta: {
       requireLogIn: true,
     },

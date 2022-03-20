@@ -4,7 +4,14 @@
     <p><b>EVENT TYPE:</b> {{ post.eventType }}</p>
     <p><b>DATE:</b> {{ dateString(post.eventDate) }}</p>
     <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
-    <p><b>USERNAME:</b> {{ post.userName }}</p>
+    <div
+      @click="viewProfileUser"
+      @mouseover="upHere = true"
+      @mouseleave="upHere = false"
+    >
+      <b>USERNAME: </b>{{ post.userName }}
+      <OtherProfile v-show="upHere"></OtherProfile>
+    </div>
     <span v-if="onUserProfile">
       <span v-if="!isSoldProp">
         <p>
@@ -25,12 +32,14 @@
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "SalesPostComp",
   props: ["indexPost", "isSoldProp", "onUserProfile"],
   setup(props) {
     const store = useStore();
+    const router = useRouter();
 
     const dateString = (eventDate) => {
       let dateObj = new Date(eventDate);
@@ -83,9 +92,15 @@ export default {
         });
       }
     };
+    const viewProfileUser = async () => {
+      console.log("Hei");
+      await store.dispatch("getViewProfileUser", post.value.userId);
+      router.push("/OtherProfileView");
+    };
 
-    return { post, dateString, markAsSold, markAsNotSold };
+    return { post, dateString, markAsSold, markAsNotSold, viewProfileUser };
   },
+  data: () => ({ upHere: false }),
 };
 </script>
 
@@ -95,7 +110,8 @@ export default {
   margin: 0 auto 2em 0;
   padding: 30px;
   text-align: left;
-  background-color: #c7dce7;
+  border-radius: 40px;
+  background-color: white;
   /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
     0 2px 4px -1px rgba(39, 6, 129, 0.75); */
 }
