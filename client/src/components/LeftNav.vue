@@ -11,7 +11,9 @@
       </router-link>
     </div>
     <div class="box" v-if="activeUser">
-      <h3><i class="gg-mail"></i>MESSAGES</h3>
+      <router-link to="/Messages">
+        <h3><i class="gg-mail"></i>MESSAGES</h3>
+      </router-link>
     </div>
   </div>
 </template>

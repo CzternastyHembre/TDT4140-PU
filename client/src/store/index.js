@@ -11,6 +11,8 @@ export default createStore({
   state: {
     posts: [],
     userPosts: [],
+    userConversations: [],
+    activeConversation: [],
     toastProps: {
       isActive: false,
       text: "",
@@ -34,7 +36,9 @@ export default createStore({
           : `User ${user.userName} was logged in`
       );
     },
-
+    setActiveConversation(state, conversation) {
+      state.activeConversation = conversation;
+    },
     setViewProfileUser(state, user) {
       state.viewProfileUser = user;
     },
@@ -61,6 +65,9 @@ export default createStore({
         bgColor: "",
         timeOutId: null,
       };
+    },
+    updateUserConversations(state, payload) {
+      state.userConversations = payload;
     },
   },
   actions: {
@@ -97,6 +104,14 @@ export default createStore({
       console.log(user);
 
       context.commit("setActiveUser", user.createdUser);
+    },
+    async getUser(context, userId) {
+      const user = await getRequest(API_URL + "/users/" + userId).catch(
+        (err) => {
+          throw new Error(err.message);
+        }
+      );
+      return user;
     },
     async editUser(context, editedUserFields) {
       const editedUser = await putRequest(
@@ -139,6 +154,38 @@ export default createStore({
       context.commit("clearToast");
       let timeOutId = setTimeout(() => context.commit("clearToast"), 7000);
       context.commit("setToast", { isActive, text, bgColor, timeOutId });
+    },
+    //Conversations
+    async getConversationsFromUser(context, userId) {
+      const userConversations = await getRequest(
+        API_URL + "/conversations/users/all/" + userId
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.commit("updateUserConversations", userConversations);
+    },
+    async setActiveConversation(context, conv_id) {
+      const conversation = await getRequest(
+        API_URL + "/conversations/" + conv_id
+      );
+      context.commit("setActiveConversation", conversation);
+    },
+
+    async editConversation(context, newMessage) {
+      const response = await putRequest(
+        API_URL +
+          "/conversations/" +
+          this.state.activeConversation._id +
+          "/messages",
+        {
+          content: newMessage,
+          senderId: this.state.activeUser._id,
+          messageDate: new Date(),
+        }
+      ).catch((err) => {
+        throw new Error(err.message);
+      });
+      context.dispatch("setActiveConversation", response.conversation._id);
     },
   },
   modules: {},

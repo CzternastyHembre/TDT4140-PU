@@ -3,7 +3,7 @@
     <div class="profileHeader">
       <h2>{{ viewProfileUser.firstName }} {{ viewProfileUser.lastName }}</h2>
     </div>
-    <img class="pic" :src="StianSulebak" />
+    <img class="pic" src="@/assets/StianSulebak.png" />
 
     <div class="elementCC">
       <div class="elementContainer">
@@ -35,17 +35,10 @@
 </template>
 
 <script>
-import StianSulebak from "@/assets/StianSulebak.png";
-
 export default {
   name: "OtherProfile",
   props: {
     viewProfileUser: Object,
-  },
-  data: function () {
-    return {
-      StianSulebak,
-    };
   },
 };
 </script>
