@@ -2,17 +2,16 @@
   <div class="navButtons leftNav">
     <div class="box" v-if="activeUser">
       <router-link to="/createpost">
-        <h3><i class="gg-add"></i>NEW POST</h3></router-link
-      >
+        <h3><i class="gg-add"></i>NEW POST</h3>
+      </router-link>
     </div>
     <div class="box" v-if="activeUser">
       <router-link to="/UserProfile">
-        <h3><i class="gg-profile"></i>PROFILE</h3></router-link
-      >
+        <h3><i class="gg-profile"></i>PROFILE</h3>
+      </router-link>
     </div>
     <div class="box" v-if="activeUser">
-      <i class="gg-mail"></i>
-      <h3>MESSAGES</h3>
+      <h3><i class="gg-mail"></i>MESSAGES</h3>
     </div>
   </div>
 </template>
@@ -52,6 +51,8 @@ export default {
   border: 2px solid;
   transform: scale(var(--ggs, 1));
   border-radius: 22px;
+  margin-top: 50%;
+  margin-bottom: 50%;
 }
 .gg-add::after,
 .gg-add::before {
@@ -118,6 +119,8 @@ export default {
   position: relative;
   width: 18px;
   border-radius: 2px;
+  margin-top: 20%;
+  margin-bottom: 20%;
 }
 .gg-mail::after {
   content: "";

@@ -73,6 +73,8 @@ body {
     color: #5a4035;
     text-align: center;
     border-radius: 5px;
+    display: grid;
+    grid-template-columns: 20% 80%;
   }
   a {
     text-decoration: none;
