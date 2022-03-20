@@ -5,12 +5,13 @@
     <p><b>DATE:</b> {{ dateString(post.eventDate) }}</p>
     <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
     <div
+      class="user-name-field"
       @click="viewProfileUser"
       @mouseover="upHere = true"
       @mouseleave="upHere = false"
     >
       <b>USERNAME: </b>{{ post.userName }}
-      <OtherProfile v-show="upHere"></OtherProfile>
+      <OtherProfile v-show="false" :viewProfileUser="{}" />
     </div>
     <span v-if="onUserProfile">
       <span v-if="!isSoldProp">
@@ -31,15 +32,20 @@
 
 <script>
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import OtherProfile from "./OtherProfile.vue";
 
 export default {
   name: "SalesPostComp",
+  components: {
+    OtherProfile,
+  },
   props: ["indexPost", "isSoldProp", "onUserProfile"],
   setup(props) {
     const store = useStore();
     const router = useRouter();
+    const upHere = ref(false);
 
     const dateString = (eventDate) => {
       let dateObj = new Date(eventDate);
@@ -98,13 +104,19 @@ export default {
       router.push("/OtherProfileView");
     };
 
-    return { post, dateString, markAsSold, markAsNotSold, viewProfileUser };
+    return {
+      upHere,
+      post,
+      dateString,
+      markAsSold,
+      markAsNotSold,
+      viewProfileUser,
+    };
   },
-  data: () => ({ upHere: false }),
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .post {
   font-style: bold;
   margin: 0 auto 2em 0;
@@ -114,6 +126,12 @@ export default {
   background-color: white;
   /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
     0 2px 4px -1px rgba(39, 6, 129, 0.75); */
+  .user-name-field {
+    &:hover {
+      cursor: pointer;
+      color: black;
+    }
+  }
 }
 
 .expiredEvent {
