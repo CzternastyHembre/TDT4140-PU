@@ -54,12 +54,13 @@ export default {
   top: 0; /* top left corner should start at topmost spot */
   width: 100%; /* take up the full browser width */
   z-index: 200; /* high z index so other content scrolls underneath */
-  background-color: rgb(205, 169, 148);
+  background-color: var(--bgc-secondary);
+  height: 110px;
   .navButtonsNav {
     background-color: inherit;
     margin: 16px 16px 0 16px;
     font-weight: bold;
-    font-style: italic;
+    font-size: larger;
     color: #5a4035;
 
     > * {
@@ -81,7 +82,11 @@ export default {
     }
   }
   .header {
-    margin-bottom: 1em;
+    position: absolute;
+    top: 8px;
+    width: 144px;
+    margin-left: -72px;
+    left: 50%;
   }
 }
 </style>

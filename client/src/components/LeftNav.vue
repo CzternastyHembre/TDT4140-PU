@@ -53,8 +53,6 @@ export default {
   border: 2px solid;
   transform: scale(var(--ggs, 1));
   border-radius: 22px;
-  margin-top: 50%;
-  margin-bottom: 50%;
 }
 .gg-add::after,
 .gg-add::before {
