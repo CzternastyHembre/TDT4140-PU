@@ -87,10 +87,11 @@ export default {
 }
 
 .profilePost {
-  background-color: var(--bgc-primary);
-  border-radius: 40px;
+  background-color: var(--comp-primary);
   text-align: left;
-
+  border: 1px var(--font-color) solid;
+  border-radius: 20px;
+  padding: 10px;
   .profileHeader {
     display: flex;
     flex-direction: row;
@@ -112,7 +113,7 @@ export default {
     padding: 10px;
   }
   .elementContainer:nth-child(0) {
-    background: var(--bgc-primary);
+    background: var(--comp-primary);
   }
   .elementContainer > * {
     display: inline;

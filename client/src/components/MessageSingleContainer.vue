@@ -9,7 +9,7 @@
     </div>
     <div class="write">
       <div class="input">
-        <input v-model="inpText" type="text" name="search" />
+        <input v-model="inpText" placeholder="Aa" type="text" name="search" />
         <div @click="sendMessage" class="box"><i class="gg-arrow-up"></i></div>
       </div>
     </div>
@@ -30,7 +30,11 @@ export default {
   setup() {
     const inpText = ref("");
     const messages = computed(() => {
-      return store.state.activeConversation.messages;
+      let messTemp = store.state.activeConversation.messages;
+      if (!messTemp) {
+        return messTemp;
+      }
+      return messTemp.reverse(); //with flex-direction column reverse for auto scroll down. class: .chat
     });
     const sendMessage = () => {
       try {
@@ -50,21 +54,28 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .chatbox {
   color: #5a4035;
   display: grid;
   grid-template-rows: 90% 10%;
-  border-radius: 40px;
+  border-radius: 0 30px 30px 0;
   height: 400px;
-  padding: 5px;
+  padding: 15px;
   width: 750px;
   background-color: white;
+
+  .write {
+    margin-top: 10px;
+    border-top: 1px solid var(--bgc-primary);
+  }
 }
 
 .chat {
+  display: flex;
+  flex-direction: column-reverse;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .input {
@@ -142,9 +153,9 @@ select {
   width: 100%;
   padding: 5px 5px;
   display: inline-block;
-  border: 0px solid #5a4035;
-  border-radius: 40px;
+  border: 2px solid var(--font-color);
+  border-radius: 10px;
   box-sizing: border-box;
-  background-color: #efddbb;
+  background-color: var(--nav-button);
 }
 </style>

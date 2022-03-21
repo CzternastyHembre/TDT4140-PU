@@ -41,25 +41,38 @@ export default {
 
 <style lang="scss">
 :root {
-  --bgc-primary: white;
+  --bgc-primary: rgb(249 243 232);
+  --bgc-secondary: rgb(205, 169, 148);
+  --button-primary: rgb(239, 221, 187);
+  --nav-button: #efddbb;
+  --comp-primary: white;
   --col-primary: #5a4035;
+  --font-color: #5a4035;
 }
 body {
-  min-height: 100vh;
-  background-color: rgb(249 243 232);
-  color: var(--col-primary);
+  min-height: 70vh;
+  background-color: var(--bgc-primary);
+  color: var(--font-color);
 }
 
 #app {
   font-family: "Helvetica";
-  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(185, 185, 185);
+}
+
 .appContent {
-  margin: 200px auto 0 auto;
+  margin: 160px auto 0 auto;
   .leftNav,
   .rightNav {
     position: fixed;
@@ -73,7 +86,7 @@ body {
 .navButtons {
   //Not for the navigation buttons
   padding-bottom: 20px;
-  color: #5a4035;
+  // color: #5a4035;
 }
 
 .box {
@@ -81,11 +94,11 @@ body {
   h3 {
     margin: 10px auto;
     padding: 20px;
-    background-color: #efddbb /*var(--bgc-primary)*/;
-    width: min(70%, 600px);
-    color: #5a4035;
+    background-color: var(--nav-button);
+    width: min(80%, 600px);
+    color: var(--font-color);
     text-align: center;
-    border-radius: 5px;
+    border-radius: 40px;
     display: grid;
     grid-template-columns: 20% 80%;
   }
@@ -104,11 +117,10 @@ body {
 .basicForm {
   margin: auto;
   width: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--comp-primary);
   padding: 1em 2em;
   text-align: left;
   font-size: 1em;
-  background-color: var(--bgc-primary);
 
   border: 0px solid grey;
   border-radius: 40px;
@@ -134,7 +146,7 @@ body {
   font-size: 17px;
   border-radius: 40px;
   margin: auto;
-  background-color: rgb(239, 221, 187);
+  background-color: var(--button-primary);
   border: 0px solid rgb(90, 64, 53);
   box-shadow: 0 2px 2px 0 rgba(90, 64, 53, 0.568),
     0 3px 1px -2px rgba(90, 64, 53, 0.315), 0 1px 5px 0 rgba(90, 64, 53, 0.37);

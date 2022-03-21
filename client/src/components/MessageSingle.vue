@@ -38,17 +38,17 @@ export default {
   display: flex;
   color: #5a4035;
   position: relative;
-  margin: 0.8em 0;
+  margin: 0.5em 0;
   border-radius: 40px;
   .content {
     max-width: 70%;
     border-radius: 10px;
     padding: 5px;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 10px 10px 10px;
     background-color: #f9f3e8;
   }
   .profileName {
-    top: -1em;
+    top: -1.2em;
     position: absolute;
     font-size: 0.8em;
   }
@@ -57,8 +57,8 @@ export default {
   text-align: right;
   flex-direction: row-reverse;
   .content {
-    border-radius: 10px 0 0 10px;
-    background-color: #d0afa0;
+    border-radius: 10px 0 10px 10px;
+    background-color: #ecd9d0;
   }
 }
 </style>

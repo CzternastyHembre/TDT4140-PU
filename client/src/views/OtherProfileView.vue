@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .profileWrapper {
   margin: 6px auto;
   width: min(100%, 600px);
@@ -41,7 +41,7 @@ export default {
 
 .profilePost {
   border: solid black 1px;
-  background-color: var(--bgc-primary);
+  background-color: var(--comp-primary);
   border-radius: 3px;
   text-align: left;
 
@@ -66,7 +66,7 @@ export default {
     padding: 10px;
   }
   .elementContainer:nth-child(2n -1) {
-    background: #acd3e6;
+    background: var(--bgc-primary);
   }
   .elementContainer > * {
     display: inline;

@@ -80,19 +80,19 @@ export default {
 .header {
   text-align: left;
   font: bold;
-  font-style: italic;
   color: #5a4035;
 }
 
 .OldChatsBox {
   color: #5a4035;
   background-color: white;
-  border-radius: 40px;
+  border-radius: 30px 0 0 30px;
   width: 300px;
   height: 400px;
-  padding: 5px;
+  padding: 15px;
   margin: 0px auto;
-  overflow-y: scroll;
+  overflow-y: auto;
+  border-right: var(--bgc-primary) 6px solid;
 }
 
 .search {
