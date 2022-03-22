@@ -187,6 +187,20 @@ export default createStore({
       });
       context.dispatch("setActiveConversation", response.conversation._id);
     },
+    async startNewConversation(context, { p1, p2 }) {
+      await postRequest(API_URL + "/conversations", {
+        p1,
+        p2,
+        messages: [],
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.dispatch(
+        "getConversationsFromUser",
+        context.state.activeUser._id
+      );
+    },
   },
   modules: {},
 });

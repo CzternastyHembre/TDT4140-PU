@@ -60,6 +60,10 @@ export default {
       return store.state.posts[props.indexPost];
     });
 
+    const activeUser = computed(() => {
+      return store.state.activeUser;
+    });
+
     const markAsSold = async () => {
       try {
         await store.dispatch("markPostAsSold", {
@@ -99,7 +103,10 @@ export default {
       }
     };
     const viewProfileUser = async () => {
-      console.log("Hei");
+      if (activeUser.value && activeUser.value._id == post.value.userId) {
+        router.push("/UserProfile");
+        return;
+      }
       await store.dispatch("getViewProfileUser", post.value.userId);
       router.push("/OtherProfileView");
     };
