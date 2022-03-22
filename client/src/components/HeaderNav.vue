@@ -7,7 +7,9 @@
 
       <div class="logout" v-if="activeUser" @click="logOutUser">LOG OUT</div>
     </div>
-    <img class="header" :src="ReTicket1" />
+    <router-link to="/">
+      <img class="header" :src="ReTicket1" />
+    </router-link>
   </div>
 </template>
 
@@ -52,13 +54,14 @@ export default {
   top: 0; /* top left corner should start at topmost spot */
   width: 100%; /* take up the full browser width */
   z-index: 200; /* high z index so other content scrolls underneath */
-  background-color: #c7dce7;
+  background-color: var(--bgc-secondary);
+  height: 110px;
   .navButtonsNav {
     background-color: inherit;
     margin: 16px 16px 0 16px;
     font-weight: bold;
-    font-style: italic;
-    color: #cc3f3f;
+    font-size: larger;
+    color: #5a4035;
 
     > * {
       margin: 0 10px;
@@ -79,7 +82,11 @@ export default {
     }
   }
   .header {
-    margin-bottom: 1em;
+    position: absolute;
+    top: 8px;
+    width: 144px;
+    margin-left: -72px;
+    left: 50%;
   }
 }
 </style>

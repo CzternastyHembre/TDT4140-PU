@@ -3,7 +3,8 @@
     <div class="elementCC">
       <div class="elementContainer">
         <div>Profile image :</div>
-        <button>TODO</button>
+        <input type="file" @change="onFileSelected" />
+        <button @click="uploadFile">Upload</button>
       </div>
 
       <div class="elementContainer">
@@ -52,7 +53,7 @@
         </textarea>
       </div>
       <div class="elementContainer saveBtnC">
-        <button @click="submitUser">Save</button>
+        <button class="submitButton" @click="submitUser">Save</button>
       </div>
     </div>
   </div>
@@ -111,6 +112,16 @@ export default {
       }
     };
 
+    const eventFile = ref(new FormData());
+
+    const onFileSelected = (event) => {
+      eventFile.value.append("hei", event.target.files[0]);
+    };
+
+    const uploadFile = () => {
+      console.log(eventFile.value.get("hei"));
+    };
+
     return {
       newEmail,
       newUserName,
@@ -118,6 +129,8 @@ export default {
       newLastName,
       newDescription,
       submitUser,
+      onFileSelected,
+      uploadFile,
     };
   },
 };

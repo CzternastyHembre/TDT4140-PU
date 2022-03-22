@@ -1,31 +1,32 @@
 <template>
   <div class="profilePost">
     <div class="profileHeader">
-      <h2>{{ activeUser.firstName }} {{ activeUser.lastName }}</h2>
+      <h2>{{ viewProfileUser.firstName }} {{ viewProfileUser.lastName }}</h2>
     </div>
-    <img class="pic" :src="StianSulebak" />
+    <img class="pic" src="@/assets/StianSulebak.png" />
+
     <div class="elementCC">
       <div class="elementContainer">
         <div>Email</div>
         <div>
-          {{ activeUser.email }}
+          {{ viewProfileUser.email }}
         </div>
       </div>
       <div class="elementContainer">
         <div>Username</div>
         <div>
-          {{ activeUser.userName }}
+          {{ viewProfileUser.userName }}
         </div>
       </div>
       <div class="elementContainer">
         <div>Full name</div>
         <div>
-          {{ activeUser.firstName + " " + activeUser.lastName }}
+          {{ viewProfileUser.firstName + " " + viewProfileUser.lastName }}
         </div>
       </div>
       <div class="elementContainer descriptionContainer">
         <div>Description</div>
-        <div class="profileDescription">{{ activeUser.description }}</div>
+        <div class="profileDescription">{{ viewProfileUser.description }}</div>
       </div>
     </div>
 
@@ -34,23 +35,10 @@
 </template>
 
 <script>
-import StianSulebak from "@/assets/StianSulebak.png";
-
 export default {
-  name: "UserProfileView",
+  name: "OtherProfile",
   props: {
-    activeUser: Object,
-  },
-
-  methods: {
-    onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
-    },
-  },
-  data: function () {
-    return {
-      StianSulebak,
-    };
+    viewProfileUser: Object,
   },
 };
 </script>

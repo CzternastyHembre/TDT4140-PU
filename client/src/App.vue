@@ -3,8 +3,8 @@
     <header-nav />
     <div class="appContent">
       <left-nav />
-      <router-view />
       <right-nav />
+      <router-view />
     </div>
     <toast-comp />
   </div>
@@ -16,6 +16,9 @@ import LeftNav from "./components/LeftNav.vue";
 import RightNav from "./components/RightNav.vue";
 import ToastComp from "./components/ToastComp.vue";
 
+import { useRouter } from "vue-router";
+import { computed } from "vue";
+
 export default {
   components: {
     HeaderNav,
@@ -23,41 +26,67 @@ export default {
     RightNav,
     ToastComp,
   },
+
+  setup() {
+    const router = useRouter();
+
+    const isMessage = computed(() => {
+      return router.currentRoute.value.path === "/Messages";
+    });
+
+    return { isMessage };
+  },
 };
 </script>
 
 <style lang="scss">
 :root {
-  --bgc-primary: #c7dce7;
+  --bgc-primary: rgb(249 243 232);
+  --bgc-secondary: rgb(205, 169, 148);
+  --button-primary: rgb(239, 221, 187);
+  --nav-button: #efddbb;
+  --comp-primary: white;
+  --col-primary: #5a4035;
+  --font-color: #5a4035;
 }
 body {
-  min-height: 100vh;
-  background-color: white;
+  min-height: 70vh;
+  background-color: var(--bgc-primary);
+  color: var(--font-color);
 }
 
 #app {
   font-family: "Helvetica";
-  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(185, 185, 185);
 }
 
 .appContent {
-  width: 90%;
-  margin: auto;
-  padding-top: 200px;
-  display: grid;
-  grid-template-rows: 100%;
-  grid-template-columns: 1fr 3fr 1fr;
-  color: #cc3f3f;
+  margin: 160px auto 0 auto;
+  .leftNav,
+  .rightNav {
+    position: fixed;
+    margin: 0 2em;
+  }
+  .rightNav {
+    right: 0;
+  }
 }
 
 .navButtons {
   //Not for the navigation buttons
   padding-bottom: 20px;
-  color: #5a4035;
+  // color: #5a4035;
 }
 
 .box {
@@ -65,11 +94,13 @@ body {
   h3 {
     margin: 10px auto;
     padding: 20px;
-    background-color: var(--bgc-primary);
-    width: min(70%, 600px);
-    color: #5a4035;
+    background-color: var(--nav-button);
+    width: min(80%, 600px);
+    color: var(--font-color);
     text-align: center;
-    border-radius: 5px;
+    border-radius: 40px;
+    display: grid;
+    grid-template-columns: 20% 80%;
   }
   a {
     text-decoration: none;
@@ -86,14 +117,13 @@ body {
 .basicForm {
   margin: auto;
   width: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--comp-primary);
   padding: 1em 2em;
   text-align: left;
   font-size: 1em;
-  background-color: var(--bgc-primary);
 
-  border: 1px solid grey;
-  border-radius: 2%;
+  border: 0px solid grey;
+  border-radius: 40px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
 }
 
@@ -112,16 +142,23 @@ body {
 
 .submitButton {
   padding: 10px 20px;
-  width: 35%;
+  width: 150px;
   font-size: 17px;
-  border-radius: 20px;
+  border-radius: 40px;
   margin: auto;
-  border: 1px solid #6a706e;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--button-primary);
+  border: 0px solid rgb(90, 64, 53);
+  box-shadow: 0 2px 2px 0 rgba(90, 64, 53, 0.568),
+    0 3px 1px -2px rgba(90, 64, 53, 0.315), 0 1px 5px 0 rgba(90, 64, 53, 0.37);
 }
 
 .submitButton:hover {
   box-shadow: 0 2px 6px black;
+  cursor: pointer;
+}
+
+.messagePage {
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 </style>
