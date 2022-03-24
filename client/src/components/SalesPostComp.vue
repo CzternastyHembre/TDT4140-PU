@@ -1,17 +1,14 @@
 <template>
   <div class="post" :class="{ expiredEvent: Date.now() > post.dateAndTime }">
-    <p><b>EVENT NAME:</b> {{ post.eventName }}</p>
-    <p><b>EVENT TYPE:</b> {{ post.eventType }}</p>
-    <p><b>DATE:</b> {{ dateString(post.eventDate) }}</p>
-    <p v-if="post.price"><b>PRICE:</b> {{ post.price }}kr</p>
-    <div
-      class="user-name-field"
-      @click="viewProfileUser"
-      @mouseover="upHere = true"
-      @mouseleave="upHere = false"
-    >
-      <b>USERNAME: </b>{{ post.userName }}
-      <OtherProfile v-show="false" :viewProfileUser="{}" />
+    <p v-if="post.price"><b>Wish to sell:</b></p>
+    <p v-else><b>Wish to buy:</b></p>
+    <div class="eventName">{{ post.eventName }}</div>
+    <p class="eventType">{{ post.eventType }}</p>
+    <p v-if="post.price">{{ post.price }}kr</p>
+    <p>{{ dateString(post.eventDate) }}</p>
+    <div>
+      <p v-if="post.price">Name seller: {{ post.userName }}</p>
+      <p v-else>Name buyer: {{ post.userName }}</p>
     </div>
     <span v-if="onUserProfile">
       <span v-if="!isSoldProp">
@@ -27,6 +24,16 @@
         </p>
       </span>
     </span>
+    <div
+      class="user-name-field"
+      v-if="activeUser"
+      @click="viewProfileUser"
+      @mouseover="upHere = true"
+      @mouseleave="upHere = false"
+    >
+      <button class="submitButton postButton">Show user's profile</button>
+      <OtherProfile v-show="false" :viewProfileUser="{}" />
+    </div>
   </div>
 </template>
 
@@ -118,6 +125,7 @@ export default {
       markAsSold,
       markAsNotSold,
       viewProfileUser,
+      activeUser,
     };
   },
 };
@@ -128,11 +136,10 @@ export default {
   font-style: bold;
   margin: 0 auto 2em 0;
   padding: 30px;
-  text-align: left;
+  text-align: center;
   border-radius: 20px;
   background-color: white;
-  /* box-shadow: 0 4px 6px -1px rgba(39, 6, 129, 0.75),
-    0 2px 4px -1px rgba(39, 6, 129, 0.75); */
+  line-height: 13px;
   .user-name-field {
     &:hover {
       cursor: pointer;
@@ -143,5 +150,21 @@ export default {
 
 .expiredEvent {
   opacity: 0.6;
+}
+
+.eventName {
+  font-weight: 900;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.eventType {
+  font-weight: bold;
+  color: rgb(236, 177, 153);
+}
+
+.postButton {
+  padding: 5px;
+  font-size: 15px;
 }
 </style>
