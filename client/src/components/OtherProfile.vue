@@ -1,5 +1,9 @@
 <template>
   <div class="profilePost">
+    <div class="new-convo">
+      <button class="submitButton" @click="newConvo">Start conversation</button>
+    </div>
+
     <div class="profileHeader">
       <h2>{{ viewProfileUser.firstName }} {{ viewProfileUser.lastName }}</h2>
     </div>
@@ -30,13 +34,12 @@
       </div>
     </div>
 
-    <div class="new-convo">
-      <button @click="newConvo">Start conversation</button>
-    </div>
+    <UserRatingStarContainer />
   </div>
 </template>
 
 <script>
+import UserRatingStarContainer from "@/components/UserRatingStarContainer";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
@@ -44,6 +47,9 @@ export default {
   name: "OtherProfile",
   props: {
     viewProfileUser: Object,
+  },
+  components: {
+    UserRatingStarContainer,
   },
   setup(props) {
     const store = useStore();
@@ -85,24 +91,14 @@ export default {
 }
 
 .new-convo {
-  position: relative;
-  button {
-    position: absolute;
-    padding: 10px 20px;
-    width: 150px;
-    font-size: small;
-    border-radius: 40px;
-    right: 5px;
-    top: -50px;
-    background-color: var(--button-primary);
-    border: 0px solid #5a4035;
-    box-shadow: 0 2px 2px 0 rgb(90 64 53 / 57%),
-      0 3px 1px -2px rgb(90 64 53 / 32%), 0 1px 5px 0 rgb(90 64 53 / 37%);
-
-    &:hover {
-      box-shadow: 0 2px 6px black;
-      cursor: pointer;
-    }
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  .submitButton {
+    margin: 0;
+    width: fit-content;
+    height: fit-content;
+    font-size: 1em; /*littned*/
   }
 }
 </style>
