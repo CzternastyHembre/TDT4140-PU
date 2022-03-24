@@ -96,7 +96,7 @@ export default createStore({
     },
     async signUpUser(context, newUser) {
       const user = await postRequest(API_URL + "/users", {
-        user: newUser,
+        user: { ...newUser, userRatings: [] },
       }).catch((err) => {
         throw new Error(err.message);
       });
