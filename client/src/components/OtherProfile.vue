@@ -28,6 +28,7 @@
         <div>Description</div>
         <div class="profileDescription">{{ viewProfileUser.description }}</div>
       </div>
+      <div><vue-toggle-btn></vue-toggle-btn></div>
     </div>
 
     <div class=""></div>
@@ -35,7 +36,13 @@
 </template>
 
 <script>
+var VueToggleBtn = require("vue-toggle-btn");
+
 export default {
+  components: {
+    VueToggleBtn,
+  },
+
   name: "OtherProfile",
   props: {
     viewProfileUser: Object,
