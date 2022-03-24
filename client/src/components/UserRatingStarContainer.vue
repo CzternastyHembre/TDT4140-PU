@@ -26,7 +26,7 @@ export default {
   },
   setup() {
     const bitch = [0, 1, 2, 3, 4];
-    const currentRating = ref(4);
+    const currentRating = ref(-1);
     const hoverAmount = ref(-1);
     const rateUser = (newRating) => {
       hoverAmount.value = false;
