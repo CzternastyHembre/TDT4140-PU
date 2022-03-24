@@ -33,7 +33,7 @@ https://codepen.io/fxm90
   border-left: 0.3em solid transparent;
 
   /* Controlls the size of the stars. */
-  font-size: 24px;
+  font-size: 20px;
 
   &:before,
   &:after {

@@ -4,6 +4,11 @@
       <button class="submitButton" @click="newConvo">Start conversation</button>
     </div>
 
+    <div class="user-rating">
+      {{ userRating == -1 ? "No ratings" : "Rating: " + userRating.toFixed(1) }}
+      <UserRatingStar :isRated="true" />
+    </div>
+
     <div class="profileHeader">
       <h2>{{ viewProfileUser.firstName }} {{ viewProfileUser.lastName }}</h2>
     </div>
@@ -34,12 +39,13 @@
       </div>
     </div>
 
-    <UserRatingStarContainer />
+    <UserRatingStarContainer :profileId="viewProfileUser._id" />
   </div>
 </template>
 
 <script>
 import UserRatingStarContainer from "@/components/UserRatingStarContainer";
+import UserRatingStar from "@/components/UserRatingStar";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
@@ -50,10 +56,26 @@ export default {
   },
   components: {
     UserRatingStarContainer,
+    UserRatingStar,
   },
   setup(props) {
     const store = useStore();
     const router = useRouter();
+
+    const userRating = computed(() => {
+      if (props.viewProfileUser.userRatings === undefined) {
+        return -1;
+      }
+      let rating = 0;
+      if (props.viewProfileUser.userRatings.length == 0) {
+        return -1;
+      } else {
+        props.viewProfileUser.userRatings.forEach((ratingEntry) => {
+          rating += ratingEntry.rating;
+        });
+        return rating / props.viewProfileUser.userRatings.length;
+      }
+    });
 
     const currUser = computed(() => {
       return store.state.activeUser;
@@ -74,12 +96,15 @@ export default {
         });
       }
     };
-    return { newConvo };
+    return { newConvo, userRating, currUser };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.profilePost {
+  padding-top: 30px;
+}
 .pic {
   margin-bottom: 1em;
   width: 100px;
@@ -99,6 +124,18 @@ export default {
     width: fit-content;
     height: fit-content;
     font-size: 1em; /*littned*/
+  }
+}
+
+.user-rating {
+  position: absolute;
+  right: 3.4em;
+  top: 4.5em;
+  font-size: x-large;
+  i {
+    position: absolute;
+    right: -3em;
+    top: -0.4em;
   }
 }
 </style>

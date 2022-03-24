@@ -1,41 +1,76 @@
 <template>
   <div class="starContainer">
     <UserRatingStar
-      v-for="(shit, index) in bitch"
+      v-for="(shit, index) in starsAmount"
       :key="index"
       :isRated="index <= currentRating"
       :isHover="index <= hoverAmount"
-      @mouseover="ratUser(index)"
-      @mouseout="ratUser(-1)"
+      @mouseover="hoverUser(index)"
+      @mouseout="hoverUser(-1)"
       @click="rateUser(index)"
     />
-    <button class="submitButton">Rate!</button>
+    <button class="submitButton" @click="submitRateUser">Rate!</button>
   </div>
 </template>
 
 <script>
 import UserRatingStar from "@/components/UserRatingStar";
 import { ref } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "UserRatingStarContainer",
   props: {
-    isRated: Boolean,
+    profileId: String,
   },
   components: {
     UserRatingStar,
   },
-  setup() {
-    const bitch = [0, 1, 2, 3, 4];
+  setup(props) {
+    const store = useStore();
+
+    const starsAmount = [0, 1, 2, 3, 4];
     const currentRating = ref(-1);
     const hoverAmount = ref(-1);
+
     const rateUser = (newRating) => {
-      hoverAmount.value = false;
       currentRating.value = newRating;
     };
-    const ratUser = (newRating) => {
+
+    const hoverUser = (newRating) => {
       hoverAmount.value = newRating;
     };
-    return { bitch, currentRating, rateUser, ratUser, hoverAmount };
+
+    const submitRateUser = async () => {
+      try {
+        if (currentRating.value < 0) {
+          throw new Error("Please select a rating before submitting");
+        }
+        await store.dispatch("rateUser", {
+          userIdToRate: props.profileId,
+          rating: currentRating.value,
+        });
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `Rating was submitted`,
+          bgColor: "lightgreen",
+        });
+      } catch (err) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: err.message,
+          bgColor: "lightcoral",
+        });
+      }
+    };
+
+    return {
+      starsAmount,
+      hoverAmount,
+      currentRating,
+      rateUser,
+      hoverUser,
+      submitRateUser,
+    };
   },
 };
 </script>

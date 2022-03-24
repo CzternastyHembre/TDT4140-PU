@@ -90,8 +90,33 @@ const getUserByUnamePassw = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-// @desc get conversation
+// @desc get rating of user
 // @route GET /api/users/rating/:otherUserId
+// @access private
+const getRatingOfUser = asyncHandler(async (req, res) => {
+  checkForValidObjectId(req.params.otherUserId, res);
+  const user = UsersDB.findById(req.params.otherUserId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Could not find otherUser");
+  }
+
+  let rating = 0;
+  if (user.userRatings.length == 0) {
+    rating = -1;
+  } else {
+    user.userRatings.forEach((ratingEntry) => {
+      rating += ratingEntry.rating;
+    });
+    rating = rating / user.userRatings.length;
+  }
+  console.log(rating);
+  res.status(200).json({ rating });
+});
+
+// @desc rate user
+// @route PUT /api/users/rating/:otherUserId
 // @access private
 const newRatingOfId = asyncHandler(async (req, res) => {
   checkForValidObjectId(req.params.otherUserId, res);
@@ -130,5 +155,6 @@ module.exports = {
   editUser,
   deleteUser,
   getUserByUnamePassw,
+  getRatingOfUser,
   newRatingOfId,
 };
