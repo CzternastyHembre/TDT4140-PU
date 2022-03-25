@@ -4,6 +4,8 @@ import {
   postRequest,
   putRequest,
 } from "../apiUtils/apiRequests.js";
+import sortMethods from "../core/SortingPostMethods";
+//import filterMethods from "../core/FilterPostMethods";
 
 const API_URL = "http://localhost:5085/api";
 
@@ -21,6 +23,8 @@ export default createStore({
     },
     activeUser: null,
     viewProfileUser: null,
+    sortPostMethod: sortMethods.sortByTimeAsc.sortByTimeAsc,
+    filterPostMethod: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -68,6 +72,12 @@ export default createStore({
     },
     updateUserConversations(state, payload) {
       state.userConversations = payload;
+    },
+    setSortPostMethod(state, payload) {
+      state.sortPostMethod = payload;
+    },
+    setFilterPostMethod(state, payload) {
+      state.filterPostMethod = payload;
     },
   },
   actions: {

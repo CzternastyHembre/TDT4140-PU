@@ -34,7 +34,12 @@ export default {
     });
 
     const posts = computed(() => {
-      return store.state.posts;
+      let posts = store.state.posts;
+      if (store.state.sortPostMethod != null)
+        posts.sort(store.state.sortPostMethod);
+      if (store.state.filterPostMethod != null)
+        posts.filter(store.state.filterPostMethod);
+      return posts;
     });
 
     return { posts };
