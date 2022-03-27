@@ -11,14 +11,13 @@ const filterPriceMoreThan = (post, price) => {
 };
 
 const filterPriceLessThan = (post, price) => {
-  return post.price >= price;
+  return post.price <= price;
 };
 
 export default {
   filterBySalesPosts,
   filterByBuyPosts,
-  filterPrice: {
-    filterPriceLessThan,
-    filterPriceMoreThan,
-  },
+
+  filterPriceLessThan,
+  filterPriceMoreThan,
 };
