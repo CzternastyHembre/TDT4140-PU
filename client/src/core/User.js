@@ -18,7 +18,6 @@ export default class User {
     this.setFirstName(firstName);
     this.setLastName(lastName);
     this.setDescription(description);
-    this.reportCount = 0;
   }
 
   static validUserName(username) {
@@ -137,20 +136,6 @@ export default class User {
    */
   setDescription(_description) {
     this.description = _description;
-  }
-
-  /**
-   * @param {number} _reportCount
-   */
-  increaseReportCount() {
-    this.reportCount += 1;
-  }
-
-  /**
-   * @param {number} _reportCount
-   */
-  decreaseReportCount() {
-    this.reportCount -= 1;
   }
 
   updateUser(userInfo) {

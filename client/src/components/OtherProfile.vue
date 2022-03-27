@@ -12,7 +12,27 @@
     <div class="profileHeader">
       <h2>{{ viewProfileUser.firstName }} {{ viewProfileUser.lastName }}</h2>
     </div>
-    <img class="pic" src="@/assets/StianSulebak.png" />
+    <div v-if="viewProfileUser.firstName == 'Stian'">
+      <img class="pic" src="@/assets/StianSulebak.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Mattis'">
+      <img class="pic" src="@/assets/Mattis.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Jakob Severin Steffensen'">
+      <img class="pic" src="@/assets/Jakob.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Hans Gunleik'">
+      <img class="pic" src="@/assets/Hans.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Vetle'">
+      <img class="pic" src="@/assets/Vetle.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Ylva'">
+      <img class="pic" src="@/assets/Ylva.png" />
+    </div>
+    <div v-if="viewProfileUser.firstName == 'Sara'">
+      <img class="pic" src="@/assets/Sara.png" />
+    </div>
 
     <div class="elementCC">
       <div class="elementContainer">
@@ -33,11 +53,19 @@
           {{ viewProfileUser.firstName + " " + viewProfileUser.lastName }}
         </div>
       </div>
-      <div class="elementContainer descriptionContainer">
+      <div class="elementContainer">
         <div>Description</div>
         <div class="profileDescription">{{ viewProfileUser.description }}</div>
       </div>
-      <div><vue-toggle-btn></vue-toggle-btn></div>
+      <div class="elementContainer">
+        <div>Report user</div>
+      </div>
+      <div>
+        <label class="switch">
+          <input type="checkbox" @click="reportUser" v-model="checkboxValue" />
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
 
     <UserRatingStarContainer :profileId="viewProfileUser._id" />
@@ -49,16 +77,14 @@ import UserRatingStarContainer from "@/components/UserRatingStarContainer";
 import UserRatingStar from "@/components/UserRatingStar";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed } from "vue";
-export default {
-  components: {
-    VueToggleBtn,
-  },
+import { computed, ref } from "vue";
 
+export default {
   name: "OtherProfile",
   props: {
     viewProfileUser: Object,
   },
+
   components: {
     UserRatingStarContainer,
     UserRatingStar,
@@ -66,6 +92,8 @@ export default {
   setup(props) {
     const store = useStore();
     const router = useRouter();
+
+    const checkboxValue = ref(false);
 
     const userRating = computed(() => {
       if (props.viewProfileUser.userRatings === undefined) {
@@ -101,7 +129,24 @@ export default {
         });
       }
     };
-    return { newConvo, userRating, currUser };
+
+    const reportUser = () => {
+      if (!checkboxValue.value) {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `User was reported`,
+          bgColor: "lightgreen",
+        });
+      } else {
+        store.dispatch("setToast", {
+          isActive: true,
+          text: `Report of user was removed`,
+          bgColor: "lightgreen",
+        });
+      }
+    };
+
+    return { newConvo, userRating, currUser, checkboxValue, reportUser };
   },
 };
 </script>
@@ -142,5 +187,69 @@ export default {
     right: -3em;
     top: -0.4em;
   }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 8px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.elementcontainer_reportContainer {
 }
 </style>
