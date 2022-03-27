@@ -90,10 +90,71 @@ const getUserByUnamePassw = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+// @desc get rating of user
+// @route GET /api/users/rating/:otherUserId
+// @access private
+const getRatingOfUser = asyncHandler(async (req, res) => {
+  checkForValidObjectId(req.params.otherUserId, res);
+  const user = UsersDB.findById(req.params.otherUserId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Could not find otherUser");
+  }
+
+  let rating = 0;
+  if (user.userRatings.length == 0) {
+    rating = -1;
+  } else {
+    user.userRatings.forEach((ratingEntry) => {
+      rating += ratingEntry.rating;
+    });
+    rating = rating / user.userRatings.length;
+  }
+  console.log(rating);
+  res.status(200).json({ rating });
+});
+
+// @desc rate user
+// @route PUT /api/users/rating/:otherUserId
+// @access private
+const newRatingOfId = asyncHandler(async (req, res) => {
+  checkForValidObjectId(req.params.otherUserId, res);
+
+  const otherUser = await UsersDB.findById({
+    _id: req.params.otherUserId,
+  });
+  if (!otherUser) {
+    res.status(404);
+    throw new Error("Could not find otherUser");
+  }
+
+  let index = -1;
+  for (let i = 0; i < otherUser.userRatings.length; i++) {
+    if (otherUser.userRatings[i].userId == req.body.userId) {
+      index = i;
+    }
+  }
+  if (index == -1) {
+    otherUser.userRatings.push({
+      userId: req.body.userId,
+      rating: req.body.rating,
+    });
+  } else {
+    otherUser.userRatings[index] = req.body;
+  }
+
+  await UsersDB.findByIdAndUpdate(req.params.otherUserId, otherUser);
+
+  res.status(200).json({ message: "Userrating created!", user: otherUser });
+});
+
 module.exports = {
   getUser,
   addUser,
   editUser,
   deleteUser,
   getUserByUnamePassw,
+  getRatingOfUser,
+  newRatingOfId,
 };

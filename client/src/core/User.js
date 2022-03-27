@@ -9,6 +9,7 @@ export default class User {
    * @param {string} firstName
    * @param {string} lastName
    * @param {string} description
+   * @param {number} reportCount
    */
   constructor(userName, password, email, firstName, lastName, description) {
     this.setUserName(userName);
@@ -136,6 +137,7 @@ export default class User {
   setDescription(_description) {
     this.description = _description;
   }
+
   updateUser(userInfo) {
     this.userName = userInfo.userName;
     this.email = userInfo.email;

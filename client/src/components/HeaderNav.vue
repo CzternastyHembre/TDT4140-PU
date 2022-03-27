@@ -29,9 +29,9 @@ export default {
       return store.state.activeUser;
     });
 
-    const logOutUser = () => {
+    const logOutUser = async () => {
+      await router.push("/");
       store.commit("setActiveUser", null);
-      router.push("/");
     };
 
     return { activeUser, logOutUser };
