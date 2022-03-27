@@ -37,6 +37,7 @@
         <div>Description</div>
         <div class="profileDescription">{{ viewProfileUser.description }}</div>
       </div>
+      <div><vue-toggle-btn></vue-toggle-btn></div>
     </div>
 
     <UserRatingStarContainer :profileId="viewProfileUser._id" />
@@ -50,6 +51,10 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 export default {
+  components: {
+    VueToggleBtn,
+  },
+
   name: "OtherProfile",
   props: {
     viewProfileUser: Object,
