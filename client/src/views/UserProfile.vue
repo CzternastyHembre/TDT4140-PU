@@ -87,6 +87,7 @@ export default {
 }
 
 .profilePost {
+  position: relative;
   background-color: var(--comp-primary);
   text-align: left;
   border: 1px var(--font-color) solid;

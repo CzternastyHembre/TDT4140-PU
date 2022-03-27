@@ -96,7 +96,7 @@ export default createStore({
     },
     async signUpUser(context, newUser) {
       const user = await postRequest(API_URL + "/users", {
-        user: newUser,
+        user: { ...newUser, userRatings: [] },
       }).catch((err) => {
         throw new Error(err.message);
       });
@@ -200,6 +200,17 @@ export default createStore({
         "getConversationsFromUser",
         context.state.activeUser._id
       );
+    },
+    async getRatingOfUser(context, userId) {
+      return await getRequest(API_URL + "/users/rating/" + userId);
+    },
+    async rateUser(context, { userIdToRate, rating }) {
+      await putRequest(API_URL + "/users/rating/" + userIdToRate, {
+        userId: context.state.activeUser._id,
+        rating: rating,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
     },
   },
   modules: {},
