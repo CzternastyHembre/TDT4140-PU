@@ -13,7 +13,7 @@
       <sales-post-comp
         v-for="(post, index) in userPosts"
         :key="index"
-        :indexPost="index"
+        :postObject="post"
         :onUserProfile="true"
         :isSoldProp="post.isSold"
       />
