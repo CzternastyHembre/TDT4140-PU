@@ -24,7 +24,7 @@ const sortByEventTypeAsc = (a, b) => {
   return 0;
 };
 
-const sortByEventTypeDesc = (a, b) => {
+/* const sortByEventTypeDesc = (a, b) => {
   const typeA = a.eventType.toUpperCase(); // ignore upper and lowercase
   const typeB = b.eventType.toUpperCase(); // ignore upper and lowercase
   if (typeA < typeB) {
@@ -34,7 +34,7 @@ const sortByEventTypeDesc = (a, b) => {
     return -1;
   }
   return 0;
-};
+}; */
 
 const sortByPriceAsc = (a, b) => {
   return a.price - b.price;
@@ -46,27 +46,27 @@ const sortByPriceDesc = (a, b) => {
 
 export default {
   sortByTimeDesc: {
-    name: "Time Desc",
+    name: "Time ⮙",
     method: sortByTimeDesc,
   },
   sortByTimeAsc: {
-    name: "Time Asc",
+    name: "Time ⮛",
     method: sortByTimeAsc,
   },
   sortByEventTypeAsc: {
-    name: "Event Asc",
+    name: "Event Type",
     method: sortByEventTypeAsc,
   },
-  sortByEventTypeDesc: {
+  /* sortByEventTypeDesc: {
     name: "Event Desc",
     method: sortByEventTypeDesc,
-  },
+  }, */
   sortByPriceAsc: {
-    name: "Price Asc",
+    name: "Price ⮛",
     method: sortByPriceAsc,
   },
   sortByPriceDesc: {
-    name: "Price Desc",
+    name: "Price ⮙",
     method: sortByPriceDesc,
   },
 };

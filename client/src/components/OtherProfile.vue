@@ -106,7 +106,7 @@ export default {
         props.viewProfileUser.userRatings.forEach((ratingEntry) => {
           rating += ratingEntry.rating;
         });
-        return rating / props.viewProfileUser.userRatings.length;
+        return rating / props.viewProfileUser.userRatings.length + 1;
       }
     });
 
@@ -248,8 +248,5 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-}
-
-.elementcontainer_reportContainer {
 }
 </style>

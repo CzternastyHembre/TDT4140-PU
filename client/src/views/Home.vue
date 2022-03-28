@@ -64,7 +64,6 @@ export default {
     };
 
     const posts = computed(() => {
-      console.log("Test1", filterIsSalesPost.value);
       let posts = store.state.posts;
       posts.sort(sortMethodsList.value[currSortMethod.value].method);
       if (filterMinPrice.value != null)
@@ -79,12 +78,10 @@ export default {
         });
       }
       if (filterIsSalesPost.value != null) {
-        console.log("Hallo");
         posts = posts.filter((post) =>
           filterIsSalesPost.value ? post.isSalesPost : !post.isSalesPost
         );
       }
-      console.log(posts);
       return posts;
     });
 

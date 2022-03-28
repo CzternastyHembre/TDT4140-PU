@@ -1,9 +1,9 @@
 <template>
   <div class="navButtons rightNav">
-    <h3>Sort By:</h3>
+    <!-- <h3>Sort By:</h3> -->
     <div class="button-div" @click="toggleSort">
-      <h3>TOGGLE SORT</h3>
-      <h5>{{ sortMethodsList[currSortMethod].name }}</h5>
+      <h3>SORT BY</h3>
+      <h4>{{ sortMethodsList[currSortMethod].name }}</h4>
     </div>
     <h3>Filter:</h3>
     <div class="button-div">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="button-div" @click="emitIsSalesPost">
-      <h3>TOGGLE SORT</h3>
+      <h3>TICKET TYPE</h3>
       <h5>{{ displayFilterIsSalesPost[currFilterIsSalesPost] }}</h5>
     </div>
   </div>
@@ -116,6 +116,9 @@ export default {
     text-align: center;
     margin: 0 0 0 0;
   }
+  h4 {
+    margin: 5px auto 0 auto;
+  }
   h5 {
     margin: 5px auto 0 auto;
   }
@@ -128,8 +131,8 @@ export default {
   .x-button {
     position: absolute;
     height: 20px;
-    right: 15px;
-    top: 10px;
+    right: 12px;
+    top: 24px;
     &:hover {
       font-size: 1.1em;
     }
