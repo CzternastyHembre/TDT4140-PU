@@ -3,7 +3,27 @@
     <div class="profileHeader">
       <h2>{{ activeUser.firstName }} {{ activeUser.lastName }}</h2>
     </div>
-    <img class="pic" :src="StianSulebak" />
+    <div v-if="activeUser.firstName == 'Stian'">
+      <img class="pic" src="@/assets/StianSulebak.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Mattis'">
+      <img class="pic" src="@/assets/Mattis.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Jakob Severin Steffensen'">
+      <img class="pic" src="@/assets/Jakob.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Hans Gunleik'">
+      <img class="pic" src="@/assets/Hans.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Vetle'">
+      <img class="pic" src="@/assets/Vetle.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Ylva'">
+      <img class="pic" src="@/assets/Ylva.png" />
+    </div>
+    <div v-if="activeUser.firstName == 'Sara'">
+      <img class="pic" src="@/assets/Sara.png" />
+    </div>
     <div class="elementCC">
       <div class="elementContainer">
         <div>Email</div>

@@ -26,7 +26,7 @@
     </span>
     <div
       class="user-name-field"
-      v-if="activeUser"
+      v-if="activeUser && !onUserProfile"
       @click="viewProfileUser"
       @mouseover="upHere = true"
       @mouseleave="upHere = false"
