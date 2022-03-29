@@ -111,8 +111,6 @@ export default createStore({
         throw new Error(err.message);
       });
 
-      console.log(user);
-
       context.commit("setActiveUser", user.createdUser);
     },
     async getUser(context, userId) {
@@ -157,7 +155,6 @@ export default createStore({
           throw new Error(err.message);
         }
       );
-      console.log(user);
       context.commit("setViewProfileUser", user);
     },
     setToast(context, { isActive, text, bgColor }) {

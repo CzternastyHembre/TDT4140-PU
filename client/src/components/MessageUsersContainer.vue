@@ -66,7 +66,6 @@ export default {
       store.dispatch("setActiveConversation", conv_id);
     };
     const activeConversationId = computed(() => {
-      console.log("halla balla");
       return store.state.activeConversation._id;
     });
 
