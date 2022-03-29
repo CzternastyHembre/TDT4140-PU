@@ -1,5 +1,13 @@
 # BillettMester
 
+## Running the app
+
+To start the application, open a terminal in the root folder. Then write the following:
+
+```bash
+npm run start_full_app
+```
+
 ## Realase 1
 
 Release 1 gives Billettmester functionality for locally creating a user, login and simple posting for sale and buy-requests of tickets. Run the app in dev mode by navigating to client and running command "npm install" and then "npm run serve" in your console/terminal.

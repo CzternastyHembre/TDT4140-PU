@@ -111,7 +111,6 @@ const getRatingOfUser = asyncHandler(async (req, res) => {
     });
     rating = rating / user.userRatings.length;
   }
-  console.log(rating);
   res.status(200).json({ rating });
 });
 

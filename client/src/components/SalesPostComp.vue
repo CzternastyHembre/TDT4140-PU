@@ -26,7 +26,7 @@
     </span>
     <div
       class="user-name-field"
-      v-if="activeUser"
+      v-if="activeUser && !onUserProfile"
       @click="viewProfileUser"
       @mouseover="upHere = true"
       @mouseleave="upHere = false"
@@ -48,7 +48,7 @@ export default {
   components: {
     OtherProfile,
   },
-  props: ["indexPost", "isSoldProp", "onUserProfile"],
+  props: ["postObject", "isSoldProp", "onUserProfile"],
   setup(props) {
     const store = useStore();
     const router = useRouter();
@@ -64,7 +64,7 @@ export default {
     };
 
     const post = computed(() => {
-      return store.state.posts[props.indexPost];
+      return props.postObject;
     });
 
     const activeUser = computed(() => {
@@ -74,7 +74,7 @@ export default {
     const markAsSold = async () => {
       try {
         await store.dispatch("markPostAsSold", {
-          postId: post.value._id,
+          postId: props.postObject._id,
           isSold: true,
         });
         store.dispatch("setToast", {
@@ -93,7 +93,7 @@ export default {
     const markAsNotSold = async () => {
       try {
         await store.dispatch("markPostAsSold", {
-          postId: post.value._id,
+          postId: props.postObject._id,
           isSold: false,
         });
         store.dispatch("setToast", {
@@ -110,11 +110,11 @@ export default {
       }
     };
     const viewProfileUser = async () => {
-      if (activeUser.value && activeUser.value._id == post.value.userId) {
+      if (activeUser.value && activeUser.value._id == props.postObject.userId) {
         router.push("/UserProfile");
         return;
       }
-      await store.dispatch("getViewProfileUser", post.value.userId);
+      await store.dispatch("getViewProfileUser", props.postObject.userId);
       router.push("/OtherProfileView");
     };
 

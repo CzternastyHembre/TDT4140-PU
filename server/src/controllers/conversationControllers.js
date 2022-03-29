@@ -105,7 +105,6 @@ const newConversation = asyncHandler(async (req, res) => {
     },
   ]);
 
-  console.log("prev conv length", prevConv.length);
   if (prevConv.length > 0) {
     res.status(404);
     throw new Error("Conversation with this user already exists");
