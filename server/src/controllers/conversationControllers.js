@@ -85,13 +85,29 @@ const newConversationMessageById = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Message created!", conversation });
 });
 
-// @desc get conversations
+// @desc POST conversations
 // @route POST /api/conversations
 // @access private
 const newConversation = asyncHandler(async (req, res) => {
   if (!req.body) {
     res.status(400);
     throw new Error("No conversation in body");
+  }
+
+  const prevConv = await ConversationsDB.find().or([
+    {
+      p1: req.body.p1,
+      p2: req.body.p2,
+    },
+    {
+      p1: req.body.p2,
+      p2: req.body.p1,
+    },
+  ]);
+
+  if (prevConv.length > 0) {
+    res.status(404);
+    throw new Error("Conversation with this user already exists");
   }
 
   const conversation = await ConversationsDB.create(req.body);

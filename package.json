@@ -28,6 +28,7 @@
         "pre-commit": "^1.2.2"
     },
     "dependencies": {
-        "concurrently": "^7.0.0"
+        "concurrently": "^7.0.0",
+        "vue-toggle-btn": "^0.1.2"
     }
 }

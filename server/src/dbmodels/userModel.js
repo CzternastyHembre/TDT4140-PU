@@ -35,6 +35,19 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    userRatings: [
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Users",
+          required: [true, "No senderId set"],
+        },
+        rating: {
+          type: Number,
+          required: [true, "No rating is set"],
+        },
+      },
+    ],
   },
   {
     timestamps: true,

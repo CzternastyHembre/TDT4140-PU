@@ -13,7 +13,7 @@
       <sales-post-comp
         v-for="(post, index) in userPosts"
         :key="index"
-        :indexPost="index"
+        :postObject="post"
         :onUserProfile="true"
         :isSoldProp="post.isSold"
       />
@@ -87,6 +87,7 @@ export default {
 }
 
 .profilePost {
+  position: relative;
   background-color: var(--comp-primary);
   text-align: left;
   border: 1px var(--font-color) solid;

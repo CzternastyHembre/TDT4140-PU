@@ -18,7 +18,11 @@
           conv.p1._id == activeUser._id ? conv.p2.userName : conv.p1.userName
         "
         :convId="conv._id"
-        :lastMessage="conv.messages[conv.messages.length - 1].content"
+        :lastMessage="
+          conv.messages.length > 0
+            ? conv.messages[conv.messages.length - 1].content
+            : ''
+        "
         :activeConv="activeConversationId == conv._id"
       />
     </div>
@@ -62,7 +66,6 @@ export default {
       store.dispatch("setActiveConversation", conv_id);
     };
     const activeConversationId = computed(() => {
-      console.log("halla balla");
       return store.state.activeConversation._id;
     });
 

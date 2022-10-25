@@ -4,6 +4,8 @@ import {
   postRequest,
   putRequest,
 } from "../apiUtils/apiRequests.js";
+import sortMethods from "../core/SortingPostMethods";
+//import filterMethods from "../core/FilterPostMethods";
 
 const API_URL = "http://localhost:5085/api";
 
@@ -21,6 +23,8 @@ export default createStore({
     },
     activeUser: null,
     viewProfileUser: null,
+    sortPostMethod: sortMethods.sortByTimeAsc.sortByTimeAsc,
+    filterPostMethod: null,
   },
   getters: {
     getPostByIndex: (state) => (index) => {
@@ -69,6 +73,12 @@ export default createStore({
     updateUserConversations(state, payload) {
       state.userConversations = payload;
     },
+    setSortPostMethod(state, payload) {
+      state.sortPostMethod = payload;
+    },
+    setFilterPostMethod(state, payload) {
+      state.filterPostMethod = payload;
+    },
   },
   actions: {
     async getPosts(context) {
@@ -96,12 +106,10 @@ export default createStore({
     },
     async signUpUser(context, newUser) {
       const user = await postRequest(API_URL + "/users", {
-        user: newUser,
+        user: { ...newUser, userRatings: [] },
       }).catch((err) => {
         throw new Error(err.message);
       });
-
-      console.log(user);
 
       context.commit("setActiveUser", user.createdUser);
     },
@@ -147,7 +155,6 @@ export default createStore({
           throw new Error(err.message);
         }
       );
-      console.log(user);
       context.commit("setViewProfileUser", user);
     },
     setToast(context, { isActive, text, bgColor }) {
@@ -186,6 +193,31 @@ export default createStore({
         throw new Error(err.message);
       });
       context.dispatch("setActiveConversation", response.conversation._id);
+    },
+    async startNewConversation(context, { p1, p2 }) {
+      await postRequest(API_URL + "/conversations", {
+        p1,
+        p2,
+        messages: [],
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+
+      context.dispatch(
+        "getConversationsFromUser",
+        context.state.activeUser._id
+      );
+    },
+    async getRatingOfUser(context, userId) {
+      return await getRequest(API_URL + "/users/rating/" + userId);
+    },
+    async rateUser(context, { userIdToRate, rating }) {
+      await putRequest(API_URL + "/users/rating/" + userIdToRate, {
+        userId: context.state.activeUser._id,
+        rating: rating,
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
     },
   },
   modules: {},

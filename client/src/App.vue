@@ -3,7 +3,7 @@
     <header-nav />
     <div class="appContent">
       <left-nav />
-      <right-nav />
+      <!-- <right-nav /> -->
       <router-view />
     </div>
     <toast-comp />
@@ -13,7 +13,7 @@
 <script>
 import HeaderNav from "../src/components/HeaderNav.vue";
 import LeftNav from "./components/LeftNav.vue";
-import RightNav from "./components/RightNav.vue";
+/* import RightNav from "./components/RightNav.vue"; */
 import ToastComp from "./components/ToastComp.vue";
 
 import { useRouter } from "vue-router";
@@ -23,7 +23,7 @@ export default {
   components: {
     HeaderNav,
     LeftNav,
-    RightNav,
+    /* RightNav, */
     ToastComp,
   },
 
@@ -73,13 +73,9 @@ body {
 
 .appContent {
   margin: 160px auto 0 auto;
-  .leftNav,
-  .rightNav {
+  .leftNav {
     position: fixed;
     margin: 0 2em;
-  }
-  .rightNav {
-    right: 0;
   }
 }
 
